@@ -1,0 +1,48 @@
+# dsh-draw bundle patch: mount the unified image-generation router.
+#
+# Every key below is a Config field (Schemastery schema); invalid values fail
+# the profile load loudly. See README.md "Configuration" for the full table.
+- insert:
+    - id: dsh-draw
+      name: dsh-draw
+      config:
+        # Ordered engine chain; the router walks it top-down and falls back on
+        # failure. apiKeyRef names an environment variable (credential
+        # reference) — never put a literal key here.
+        engines:
+          - id: openai
+            baseUrl: https://api.openai.com/v1
+            model: gpt-image-1
+            apiKeyRef: OPENAI_API_KEY
+            enabled: true
+            sizeMap: { square: 1024x1024, landscape: 1536x1024, portrait: 1024x1536, auto: auto }
+            qualitySupported: true
+            styleSupported: true
+            responseFormat: b64_json
+            imageMediaType: image/png
+          - id: cogview
+            baseUrl: https://open.bigmodel.cn/api/paas/v4
+            model: cogview-3-flash
+            apiKeyRef: ZHIPU_API_KEY
+            enabled: true
+            sizeMap: { square: 1024x1024, landscape: 1344x768, portrait: 768x1344, auto: 1024x1024 }
+            qualitySupported: false
+            styleSupported: false
+            responseFormat: url
+            imageMediaType: image/png
+        # Engine id the router prefers; must name a configured engine.
+        defaultEngine: openai
+        # Per-generation HTTP timeout in milliseconds (1000..600000).
+        requestTimeoutMs: 120000
+        # Cap on images one call may produce (1..10).
+        maxImagesPerCall: 4
+        # Prompt length cap in characters (1..32000).
+        maxPromptLength: 4000
+        # Per-session generation-call cap (1..100000).
+        maxGenerationsPerSession: 200
+        # Per-session generated-image byte cap (1048576..4294967296).
+        maxBytesPerSession: 209715200
+        # Consecutive failures before an engine enters cooldown (1..10).
+        failureThreshold: 2
+        # Engine cooldown in milliseconds after the threshold trips (1000..3600000).
+        cooldownMs: 60000
