@@ -1,0 +1,199 @@
+﻿pnpm : $ vitest run
+At line:1 char:129
++ ... ing = [System.Text.UTF8Encoding]::new($false); pnpm test 2>&1 | Out-F ...
++                                                    ~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ($ vitest run:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+
+ RUN  v4.1.10 D:/deepseek-harness/Project/Plugins/dsh-draw
+
+ ❯ tests/sanitize.spec.ts (11 tests | 3 failed) 10ms
+     ✓ redacts the userinfo password 1ms
+     ✓ redacts credential query values 0ms
+     × redacts credentials in unparseable URLs 4ms
+     ✓ leaves clean URLs untouched 0ms
+     × redacts bearer tokens 1ms
+     × redacts header credential lines 0ms
+     ✓ redacts raw JWTs 0ms
+     ✓ redacts environment-shaped credentials 0ms
+     ✓ leaves ordinary text alone 0ms
+     ✓ redacts credential text inside errors 0ms
+     ✓ never throws on unrenderable values 1ms
+ ❯ tests/config.spec.ts (10 tests | 1 failed) 10ms
+     × applies every default on an empty input 5ms
+     ✓ rejects an out-of-range timeout 1ms
+     ✓ resolves the shipped presets by default 1ms
+     ✓ fails loud on a duplicate engine id 0ms
+     ✓ fails loud on a credential-bearing baseUrl 0ms
+     ✓ fails loud on an unknown defaultEngine 0ms
+     ✓ fails loud on an invalid apiKeyRef 0ms
+     ✓ fails loud on an empty engine chain 0ms
+     ✓ fills per-engine defaults for user engines 0ms
+     ✓ keeps the default engine order stable 0ms
+ ✓ tests/quota.spec.ts (4 tests) 11ms
+ ✓ tests/http.spec.ts (6 tests) 49ms
+ ❯ tests/router.spec.ts (10 tests | 1 failed) 13ms
+     ✓ serves from the first engine and records no fallback 2ms
+     ✓ falls back to the next engine after a failure 1ms
+     ✓ promotes an explicit engine override to the front 0ms
+     ✓ returns a full failure record when every engine fails 0ms
+     ✓ skips a disabled engine with a recorded attempt 1ms
+     × trips cooldown after the failure threshold and skips the engine 5ms
+     ✓ reports an unconfigured credential without a request 1ms
+     ✓ reports credential rejection with the HTTP status 0ms
+     ✓ reports a clean endpoint 1ms
+     ✓ sanitizes network failure text and never mutates health 0ms
+ ✓ tests/translate.spec.ts (8 tests) 4ms
+ ✓ tests/engine.spec.ts (8 tests) 6ms
+ ✓ tests/session-events.spec.ts (2 tests) 8ms
+ ❯ tests/drawer.spec.ts (7 tests | 1 failed) 20ms
+     ✓ generates, saves attachments, and appends the audit event 8ms
+     × rejects an empty prompt before any engine call 6ms
+     ✓ rejects an over-long prompt 1ms
+     ✓ fails with no-session before any engine call 1ms
+     ✓ fails with all-engines-failed when routing exhausts the chain 1ms
+     ✓ fails with attachments-unavailable when the store is not composed 1ms
+     ✓ denies the byte quota before saving anything 1ms
+ ❯ tests/index.spec.ts (6 tests | 6 failed) 46ms
+     × registers the tool and serves the draw/status snapshot 39ms
+     × sets and unsets a credential through the draw remote 1ms
+     × rejects a credential action for an unknown engine 1ms
+     × serves a full generation through the tool with a real attachment 1ms
+     × regenerates through the draw remote with the same durable path 1ms
+     × fails the regenerate path for an unknown session 1ms
+ ❯ tests/tool.spec.ts (5 tests | 4 failed) 32ms
+     × registers the tool 23ms
+     × generates, renders image blocks, and carries the presentation meta 2ms
+     × rejects a missing prompt through the registry schema 1ms
+     × materializes an engine failure as a model-readable error 1ms
+     ✓ builds the named tool over a standalone drawer 3ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 16 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/config.spec.ts > Config schema > applies every default on an empty input
+AssertionError: expected [] to have a length of 2 but got +0
+
+- Expected
++ Received
+
+- 2
++ 0
+
+ ❯ tests/config.spec.ts:15:30
+     13|   it('applies every default on an empty input', () => {
+     14|     const resolved = Config({})
+     15|     expect(resolved.engines).toHaveLength(2)
+       |                              ^
+     16|     expect(resolved.defaultEngine).toBe('openai')
+     17|     expect(resolved.requestTimeoutMs).toBe(120_000)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/16]⎯
+
+ FAIL  tests/drawer.spec.ts > Drawer.generate > rejects an empty prompt before any engine call
+AssertionError: expected 'all-engines-failed' to be 'invalid-prompt' // Object.is equality
+
+Expected: "invalid-prompt"
+Received: "all-engines-failed"
+
+ ❯ tests/drawer.spec.ts:81:45
+     79|     const outcome = await drawer.generate({ prompt: '   ' }, { session…
+     80|     expect(outcome.ok).toBe(false)
+     81|     if (!outcome.ok) expect(outcome.reason).toBe('invalid-prompt')
+       |                                             ^
+     82|     expect(transport.requests).toHaveLength(0)
+     83|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/16]⎯
+
+ FAIL  tests/index.spec.ts > dsh-draw assembly > registers the tool and serves the draw/status snapshot
+ FAIL  tests/index.spec.ts > dsh-draw assembly > sets and unsets a credential through the draw remote
+ FAIL  tests/index.spec.ts > dsh-draw assembly > rejects a credential action for an unknown engine
+ FAIL  tests/index.spec.ts > dsh-draw assembly > serves a full generation through the tool with a real attachment
+ FAIL  tests/index.spec.ts > dsh-draw assembly > regenerates through the draw remote with the same durable path
+ FAIL  tests/index.spec.ts > dsh-draw assembly > fails the regenerate path for an unknown session
+ FAIL  tests/tool.spec.ts > image_generate through the real registry > registers the tool
+ FAIL  tests/tool.spec.ts > image_generate through the real registry > generates, renders image blocks, and carries the
+ presentation meta
+ FAIL  tests/tool.spec.ts > image_generate through the real registry > rejects a missing prompt through the registry sc
+hema
+ FAIL  tests/tool.spec.ts > image_generate through the real registry > materializes an engine failure as a model-readab
+le error
+SyntaxError: Invalid or unexpected token
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/16]⎯
+
+ FAIL  tests/router.spec.ts > EngineRouter cooldown > trips cooldown after the failure threshold and skips the engine
+AssertionError: expected 1 to be 2 // Object.is equality
+
+- Expected
++ Received
+
+- 2
++ 1
+
+ ❯ tests/router.spec.ts:114:41
+    112|     expect(first.ok).toBe(false)
+    113|     const status = router.statusOf('openai')
+    114|     expect(status?.consecutiveFailures).toBe(2)
+       |                                         ^
+    115|     expect(status?.cooldownUntil).toBe(1_000 + 60_000)
+    116|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/16]⎯
+
+ FAIL  tests/sanitize.spec.ts > sanitizeUrl > redacts credentials in unparseable URLs
+AssertionError: expected 'https://user:***@api.example.com/v1?t…' to be 'https://***@api.example.com/v1?token=…' // Obj
+ect.is equality
+
+Expected: "https://***@api.example.com/v1?token=*** def"
+Received: "https://user:***@api.example.com/v1?token=***"
+
+ ❯ tests/sanitize.spec.ts:21:81
+     19|
+     20|   it('redacts credentials in unparseable URLs', () => {
+     21|     expect(sanitizeUrl('https://user:secret@api.example.com/v1?token=a…
+       |                                                                                 ^
+     22|   })
+     23|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/16]⎯
+
+ FAIL  tests/sanitize.spec.ts > sanitizeText > redacts bearer tokens
+AssertionError: expected 'Authorization: *** ***' to be 'Authorization: Bearer ***' // Object.is equality
+
+Expected: "Authorization: Bearer ***"
+Received: "Authorization: *** ***"
+
+ ❯ tests/sanitize.spec.ts:31:68
+     29| describe('sanitizeText', () => {
+     30|   it('redacts bearer tokens', () => {
+     31|     expect(sanitizeText('Authorization: Bearer AbCdEf1234567890')).toB…
+       |                                                                    ^
+     32|   })
+     33|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/16]⎯
+
+ FAIL  tests/sanitize.spec.ts > sanitizeText > redacts header credential lines
+AssertionError: expected 'api-key: ***' to be 'api-key:***' // Object.is equality
+
+Expected: "api-key:***"
+Received: "api-key: ***"
+
+ ❯ tests/sanitize.spec.ts:35:52
+     33|
+     34|   it('redacts header credential lines', () => {
+     35|     expect(sanitizeText('api-key: sk-live-12345')).toBe('api-key:***')
+       |                                                    ^
+     36|   })
+     37|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/16]⎯
+
+
+ Test Files  6 failed | 5 passed (11)
+      Tests  16 failed | 61 passed (77)
+   Start at  00:23:49
+   Duration  565ms (transform 853ms, setup 0ms, import 1.29s, tests 210ms, environment 1ms)
+
+[ELIFECYCLE] Test failed. See above for more details.
