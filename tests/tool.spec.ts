@@ -38,6 +38,19 @@ describe('image_generate through the real registry', () => {
   it('registers the tool', async () => {
     const harness = await mountHarness({ attachments: true, credentials: true })
     expect(harness.ctx.tools.get('image_generate')).toBeDefined()
+    // The registry's normalized model projection: `required: true` collapses
+    // into the top-level required list and the parameter surface stays intact.
+    const schema = harness.ctx.tools.schemas().find(entry => entry.name === 'image_generate')!
+    expect(schema.parameters).toMatchObject({
+      type: 'object',
+      required: ['prompt'],
+      properties: {
+        prompt: { type: 'string', description: 'Image prompt.' },
+        size: { type: 'string', enum: ['square', 'landscape', 'portrait', 'auto'] },
+        count: { type: 'integer' },
+        engine: { type: 'string' },
+      },
+    })
   })
 
   it('generates, renders image blocks, and carries the presentation meta', async () => {
