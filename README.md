@@ -116,8 +116,8 @@ Example override in your profile patch:
 ## Permissions & data
 
 - **Permissions**: the plugin makes outbound HTTPS calls to the configured engine endpoints only; every other surface is read-only. The settings tab's only writes are credential set/remove calls on the official `ctx.credentials` seam.
-- **Data**: generated images are saved through the official attachment store under the harness's own attachment policy. Quota usage is folded from the `draw/generated` session events — nothing else is stored.
-- **Session log**: the `draw/generated` event records engine, model, standardized request, byte totals, and attachment ids — the audit facts, never the API keys.
+- **Data**: generated images are saved through the official attachment store under the harness's own attachment policy. Quota usage is folded from the `draw/generated` session events, plus the in-memory fallback ledger on hosts that cannot log those events — nothing else is stored.
+- **Session log**: the `draw/generated` event records engine, model, standardized request, byte totals, and attachment ids — the audit facts, never the API keys. The event is appended only when the host knows the type or honors the `ignorable` envelope (probed at mount); on rc.6/rc.7 hosts the payload goes to the in-memory fallback ledger instead, so generating images can no longer make a session refuse to reopen.
 
 ## Security boundaries
 
@@ -131,6 +131,7 @@ Example override in your profile patch:
 - **Image models only.** No video, audio, or edit endpoints; no vision understanding.
 - **Engine compatibility.** Engines must speak the OpenAI `POST /images/generations` shape (base64 or URL delivery); provider-specific extras are out of scope.
 - **Cost awareness is structural.** The plugin counts calls and bytes but does not know engine pricing — pair with `dsh-budget` for cost governance.
+- **Quota durability on rc.6/rc.7.** On hosts whose session log cannot carry `draw/generated` (static event whitelist, no `ignorable` envelope), quota stays exact for the live session from the in-memory fallback ledger but resets on restart; durable accounting resumes on hosts with a plugin event surface.
 
 ## Development
 

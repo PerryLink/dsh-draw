@@ -8,6 +8,7 @@
 
 import { CallId } from '@deepseek-ai/dsh-llm'
 import { describe, expect, it } from 'vitest'
+import { quotaState } from '../src/quota.ts'
 import type { DrawService } from '../src/service.ts'
 import { mountHarness } from './harness.ts'
 
@@ -72,7 +73,11 @@ describe('dsh-draw assembly', () => {
     const result = await service.regenerate(String(harness.session.id), { prompt: 'a dog' })
     expect(result.engine).toBe('openai')
     expect(result.images).toHaveLength(2)
-    expect(harness.session.events.filter(event => event.type === 'draw/generated')).toHaveLength(1)
+    // The pinned rc.6 peers cannot carry draw/generated safely (static event
+    // whitelist, no ignorable envelope): the accounting payload rides the
+    // in-memory fallback ledger — the log stays reloadable and quota folds it.
+    expect(harness.session.events.filter(event => event.type === 'draw/generated')).toHaveLength(0)
+    expect(quotaState(harness.session)).toEqual({ generations: 1, bytes: result.images.reduce((sum, image) => sum + image.bytes, 0) })
   })
 
   it('fails the regenerate path for an unknown session', async () => {

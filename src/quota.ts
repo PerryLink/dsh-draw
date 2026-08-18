@@ -1,14 +1,18 @@
 /**
  * Per-session quota accounting. The durable source of truth is the session
- * log: every completed generation appends one `draw/generated` event, and
- * quota is computed by folding those events, so usage survives restart and
- * fork and cannot drift from what the log records.
+ * log: every completed generation commits one `draw/generated` event, and
+ * quota folds those events, so usage survives restart and fork and cannot
+ * drift from what the log records. On hosts that cannot carry the event
+ * safely (rc.6/rc.7 static whitelist without the ignorable envelope), commits
+ * land in the in-memory fallback ledger instead and quota folds both sources —
+ * live-session accounting stays exact; cross-restart durability resumes when
+ * the host gains a plugin event surface.
  *
  * @module dsh-draw/quota
  */
 
 import type { Session } from '@deepseek-ai/dsh-session'
-import { drawGeneratedEvents } from './session-events.ts'
+import { drawGeneratedEvents, fallbackDrawGeneratedEvents } from './session-events.ts'
 
 /** The two quota axes. */
 export interface QuotaLimits {
@@ -48,9 +52,11 @@ export interface QuotaAllowance {
 export type QuotaCheck = QuotaAllowance | QuotaDenial
 
 /**
- * Fold one session's `draw/generated` events into current usage.
+ * Fold one session's `draw/generated` events into current usage: logged events
+ * first, then the in-memory fallback ledger (disjoint — a commit lands in
+ * exactly one of them).
  *
- * @param session - session whose log is folded.
+ * @param session - session whose log and ledger are folded.
  * @returns generation and byte totals.
  */
 export function quotaState(session: Session): QuotaState {
@@ -59,6 +65,10 @@ export function quotaState(session: Session): QuotaState {
   for (const event of drawGeneratedEvents(session)) {
     generations += 1
     bytes += event.data.bytes
+  }
+  for (const event of fallbackDrawGeneratedEvents(session)) {
+    generations += 1
+    bytes += event.bytes
   }
   return { generations, bytes }
 }

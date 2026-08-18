@@ -116,8 +116,8 @@ Ejemplo de sobrescritura en el parche de tu perfil:
 ## Permisos y datos
 
 - **Permisos**: el plugin solo hace llamadas HTTPS salientes a los endpoints de motor configurados; el resto es de solo lectura. Las únicas escrituras de la pestaña de ajustes son las llamadas de establecer/eliminar credenciales en el seam oficial `ctx.credentials`.
-- **Datos**: las imágenes generadas se guardan a través del almacén de adjuntos oficial bajo la política de adjuntos del harness. El uso de cuota se pliega desde los eventos de sesión `draw/generated` — nada más se almacena.
-- **Registro de sesión**: el evento `draw/generated` registra motor, modelo, solicitud estandarizada, totales de bytes e ids de adjunto — los hechos de auditoría, nunca las claves API.
+- **Datos**: las imágenes generadas se guardan a través del almacén de adjuntos oficial bajo la política de adjuntos del harness. El uso de cuota se pliega desde los eventos de sesión `draw/generated`, más el libro auxiliar en memoria en hosts que no pueden registrar esos eventos — nada más se almacena.
+- **Registro de sesión**: el evento `draw/generated` registra motor, modelo, solicitud estandarizada, totales de bytes e ids de adjunto — los hechos de auditoría, nunca las claves API. El evento solo se añade cuando el host conoce el tipo o admite el sobre `ignorable` (sondeado al montar); en hosts rc.6/rc.7 la carga va al libro auxiliar en memoria, de modo que generar imágenes ya no hace que la sesión se niegue a reabrirse.
 
 ## Límites de seguridad
 
@@ -131,6 +131,7 @@ Ejemplo de sobrescritura en el parche de tu perfil:
 - **Solo modelos de imagen.** Sin endpoints de vídeo, audio o edición; sin comprensión visual.
 - **Compatibilidad de motores.** Los motores deben hablar la forma `POST /images/generations` de OpenAI (entrega base64 o URL); los extras específicos de cada proveedor quedan fuera.
 - **La conciencia de coste es estructural.** El plugin cuenta llamadas y bytes pero no conoce el precio de los motores — combínalo con `dsh-budget` para la gobernanza de coste.
+- **Durabilidad de cuota en rc.6/rc.7.** En hosts cuyo registro de sesión no puede llevar `draw/generated` (lista blanca estática de eventos, sin sobre `ignorable`), la cuota sigue exacta en la sesión viva desde el libro auxiliar en memoria pero se reinicia al reiniciar; la contabilidad duradera vuelve en hosts con una superficie de eventos para plugins.
 
 ## Desarrollo
 

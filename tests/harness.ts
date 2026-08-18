@@ -17,6 +17,13 @@ import { credentialRef } from '@deepseek-ai/dsh-credentials'
 import SessionStore, { SessionId, type Session } from '@deepseek-ai/dsh-session'
 import ToolRuntime from '@deepseek-ai/dsh-tools'
 import { HttpError, type HttpRequest, type HttpResponse, type HttpTransport } from '../src/http.ts'
+import type { DrawerEventSink } from '../src/drawer.ts'
+
+/** A Drawer event sink that always appends plainly (test default). */
+export const testEventSink: DrawerEventSink = {
+  gate: () => ({ append: true, ignorable: false }),
+  warn: () => {},
+}
 
 /** A transport whose every response is scripted. */
 export class ScriptedTransport implements HttpTransport {

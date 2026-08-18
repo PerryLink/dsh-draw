@@ -14,7 +14,7 @@ import { resolveConfig } from '../src/config.ts'
 import { imageGenerateTool } from '../src/tool.ts'
 import { Drawer } from '../src/drawer.ts'
 import { EngineRouter } from '../src/router.ts'
-import { FakeAttachmentStore, mountHarness, ScriptedTransport, type Harness } from './harness.ts'
+import { FakeAttachmentStore, mountHarness, ScriptedTransport, testEventSink, type Harness } from './harness.ts'
 
 function okImages(count = 1) {
   const items = Array.from({ length: count }, () => ({ b64_json: btoa(`img-${Math.random()}`) }))
@@ -102,7 +102,7 @@ describe('imageGenerateTool construction', () => {
       engine: { transport, resolveCredential: async () => 'k' },
       attachments: () => attachments,
       sessions: () => ctx.sessions,
-    })
+    }, testEventSink)
     const tool = imageGenerateTool(drawer, config)
     expect(tool.name).toBe('image_generate')
   })

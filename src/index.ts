@@ -22,6 +22,7 @@ import type { SessionStore } from '@deepseek-ai/dsh-session'
 import type {} from '@deepseek-ai/dsh-tools'
 import { Config, resolveConfig } from './config.ts'
 import { Drawer } from './drawer.ts'
+import { makeHostEventGate } from './event-gate.ts'
 import { defaultHttpTransport, type HttpTransport } from './http.ts'
 import { EngineRouter } from './router.ts'
 import { DrawService } from './service.ts'
@@ -42,7 +43,8 @@ export { callEngine, EngineCallError, type EngineDeps, type ProducedImage } from
 export { translateRequest, normalizeRequest, type StandardImageRequest } from './translate.ts'
 export { quotaState, checkQuotaGenerations, checkQuotaBytes, type QuotaLimits, type QuotaState } from './quota.ts'
 export { sanitizeUrl, sanitizeText, sanitizeError, REDACTED } from './sanitize.ts'
-export { appendDrawGenerated, drawGeneratedEvents, type DrawGeneratedEvent } from './session-events.ts'
+export { appendDrawGenerated, commitDrawGenerated, drawGeneratedEvents, fallbackDrawGeneratedEvents, type DrawGeneratedEvent } from './session-events.ts'
+export { makeEventGate, makeHostEventGate, probeIgnorableAppend, type EventGate, type EventGateDecision } from './event-gate.ts'
 export { PLUGIN_VERSION } from './version.ts'
 export { DRAW_INVOCATIONS, imageToWire, statusToView, probeToWire, type DrawStatusSnapshot } from './wire.ts'
 
@@ -72,6 +74,9 @@ export async function apply(ctx: Context, config: Config): Promise<void> {
 
   const credentials = () => ctx.get('credentials') as CredentialProvider | undefined
 
+  // The draw/generated event type is declared only by this package: append it
+  // only when the host knows the type or honors the ignorable envelope;
+  // otherwise the accounting payload rides the in-memory fallback ledger.
   const drawer = new Drawer(resolved, router, {
     engine: {
       transport,
@@ -84,7 +89,7 @@ export async function apply(ctx: Context, config: Config): Promise<void> {
     },
     attachments: () => ctx.get('attachments') as AttachmentStore | undefined,
     sessions: () => ctx.get('sessions') as SessionStore | undefined,
-  })
+  }, { gate: makeHostEventGate(), warn: (message) => logger.warn(message) })
 
   ctx.effect(() => ctx.tools.register(imageGenerateTool(drawer, resolved)), 'dsh-draw: image_generate tool')
 

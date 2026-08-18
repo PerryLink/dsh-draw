@@ -116,8 +116,8 @@ Exemplo de sobrescrita no patch do seu perfil:
 ## Permissões e dados
 
 - **Permissões**: o plugin só faz chamadas HTTPS de saída para os endpoints de motor configurados; todo o resto é somente leitura. As únicas escritas da aba de ajustes são as chamadas de definir/remover credenciais no seam oficial `ctx.credentials`.
-- **Dados**: as imagens geradas são salvas através do armazenamento de anexos oficial sob a política de anexos do harness. O uso de cota é dobrado dos eventos de sessão `draw/generated` — nada mais é armazenado.
-- **Registro de sessão**: o evento `draw/generated` registra motor, modelo, solicitação padronizada, totais de bytes e ids de anexo — os fatos de auditoria, nunca as chaves de API.
+- **Dados**: as imagens geradas são salvas através do armazenamento de anexos oficial sob a política de anexos do harness. O uso de cota é dobrado dos eventos de sessão `draw/generated`, mais o livro auxiliar em memória em hosts que não podem registrar esses eventos — nada mais é armazenado.
+- **Registro de sessão**: o evento `draw/generated` registra motor, modelo, solicitação padronizada, totais de bytes e ids de anexo — os fatos de auditoria, nunca as chaves API. O evento só é anexado quando o host conhece o tipo ou honra o envelope `ignorable` (sondado na montagem); em hosts rc.6/rc.7 a carga vai para o livro auxiliar em memória, então gerar imagens não faz mais a sessão recusar reabrir.
 
 ## Limites de segurança
 
@@ -131,6 +131,7 @@ Exemplo de sobrescrita no patch do seu perfil:
 - **Somente modelos de imagem.** Sem endpoints de vídeo, áudio ou edição; sem compreensão visual.
 - **Compatibilidade de motores.** Os motores devem falar a forma `POST /images/generations` da OpenAI (entrega base64 ou URL); extras específicos de cada provedor ficam de fora.
 - **Consciência de custo é estrutural.** O plugin conta chamadas e bytes, mas não conhece o preço dos motores — combine com `dsh-budget` para a governança de custo.
+- **Durabilidade de cota em rc.6/rc.7.** Em hosts cujo registro de sessão não pode carregar `draw/generated` (lista estática de eventos, sem envelope `ignorable`), a cota continua exata na sessão viva a partir do livro auxiliar em memória, mas zera ao reiniciar; a contabilidade durável retorna em hosts com uma superfície de eventos para plugins.
 
 ## Desenvolvimento
 

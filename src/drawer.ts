@@ -13,7 +13,8 @@ import type { ResolvedConfig } from './config.ts'
 import type { EngineDeps, ProducedImage } from './engine.ts'
 import { checkQuotaBytes, checkQuotaGenerations, type QuotaLimits, type QuotaState } from './quota.ts'
 import { EngineRouter, type AttemptView } from './router.ts'
-import { appendDrawGenerated } from './session-events.ts'
+import { commitDrawGenerated } from './session-events.ts'
+import type { EventGate } from './event-gate.ts'
 import { normalizeRequest } from './translate.ts'
 
 /** One durable result image as the canonical value and wire carry it. */
@@ -102,6 +103,14 @@ export interface DrawerDeps {
   sessions?: () => SessionStore | undefined
 }
 
+/** How the drawer commits the `draw/generated` accounting event. */
+export interface DrawerEventSink {
+  /** The adaptive session-event gate, probed at mount. */
+  gate: EventGate
+  /** Log warning sink for append failures. */
+  warn: (message: string) => void
+}
+
 /**
  * The shared generation path.
  */
@@ -110,11 +119,13 @@ export class Drawer {
    * @param config - resolved plugin configuration.
    * @param router - the engine router.
    * @param deps - per-call dependencies (public: the remote service reads them for probes).
+   * @param events - the gated session-event sink (log when safe, in-memory ledger otherwise).
    */
   constructor(
     private readonly config: ResolvedConfig,
     private readonly router: EngineRouter,
     readonly deps: DrawerDeps,
+    private readonly events: DrawerEventSink,
   ) {}
 
   /**
@@ -182,7 +193,7 @@ export class Drawer {
       ...(ref.name !== undefined ? { name: ref.name } : {}),
     }))
     const elapsedMs = Date.now() - startedAt
-    appendDrawGenerated(session, {
+    commitDrawGenerated(session, {
       engine: routed.engine,
       model: routed.model,
       source: options.source,
@@ -193,7 +204,7 @@ export class Drawer {
       bytes: totalBytes,
       attachmentIds: images.map(image => image.attachmentId),
       elapsedMs,
-    })
+    }, this.events.gate, this.events.warn)
     const after = checkQuotaGenerations(session, limits)
     return {
       ok: true,

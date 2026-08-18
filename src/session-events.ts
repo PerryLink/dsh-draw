@@ -6,10 +6,18 @@
  * output of the call ride the loop-owned `tool/call` and `tool/result`
  * events; this event carries the accounting facts those events do not.
  *
+ * The event type is declared only here, so plugin paths append it through
+ * {@link commitDrawGenerated}: the adaptive gate (event-gate.ts) appends only
+ * when the host knows the type or honors the `ignorable` envelope, and
+ * otherwise records the payload in the in-memory fallback ledger (live-session
+ * quota keeps working; the durable trail resumes once the host gains a plugin
+ * event surface).
+ *
  * @module dsh-draw/session-events
  */
 
 import type { Session } from '@deepseek-ai/dsh-session'
+import type { EventGate } from './event-gate.ts'
 
 declare module '@deepseek-ai/dsh-session/types' {
   interface SessionEventMap {
@@ -46,16 +54,68 @@ export interface DrawGeneratedEvent {
 }
 
 /**
- * Append one `draw/generated` event to a session.
+ * Append one `draw/generated` event to a session, ungated. Plugin paths use
+ * {@link commitDrawGenerated} instead; this raw form remains for tests and
+ * hosts that know the type.
  *
  * @param session - owning session.
  * @param event - accounting payload.
  * @returns the logged event.
  */
 export function appendDrawGenerated(session: Session, event: DrawGeneratedEvent) {
-  // Two-argument append: the pinned 0.1.0-rc.6 peers have no append-envelope
-  // option; the two-argument form typechecks against rc.6 and newer builds.
   return session.append('draw/generated', event)
+}
+
+/** The append face with the envelope option; rc.6 types declare none. */
+type EnvelopeAppend = (type: string, data: unknown, opts: { ignorable: boolean }) => unknown
+
+/**
+ * In-memory accounting ledger for hosts whose session log cannot carry
+ * `draw/generated` safely (rc.6/rc.7 static whitelist, no ignorable envelope).
+ * Keyed by Session identity: the entries live exactly as long as the session.
+ */
+const fallbackLedger = new WeakMap<Session, DrawGeneratedEvent[]>()
+
+/**
+ * Commit one completed generation: append the `draw/generated` event when the
+ * gate allows (with the ignorable envelope when required), otherwise record
+ * the payload in the in-memory fallback ledger. A failed append degrades to
+ * the same ledger and never breaks the draw.
+ *
+ * @param session - owning session.
+ * @param event - accounting payload.
+ * @param gate - the adaptive gate (event-gate.ts).
+ * @param warn - log warning sink for append failures.
+ */
+export function commitDrawGenerated(session: Session, event: DrawGeneratedEvent, gate: EventGate, warn: (message: string) => void): void {
+  const decision = gate('draw/generated')
+  if (decision.append) {
+    try {
+      if (decision.ignorable) {
+        ;(session.append as unknown as EnvelopeAppend)('draw/generated', event, { ignorable: true })
+      } else {
+        session.append('draw/generated', event)
+      }
+      return
+    } catch (error) {
+      warn(`draw session event append failed: ${error instanceof Error ? error.message : String(error)}`)
+    }
+  }
+  const list = fallbackLedger.get(session) ?? []
+  list.push(event)
+  fallbackLedger.set(session, list)
+}
+
+/**
+ * The in-memory fallback records of a session, in commit order. Populated
+ * only while the host cannot carry `draw/generated` in the log; quota folds
+ * these on top of the logged events.
+ *
+ * @param session - session whose ledger is read.
+ * @returns the fallback payloads.
+ */
+export function fallbackDrawGeneratedEvents(session: Session): readonly DrawGeneratedEvent[] {
+  return fallbackLedger.get(session) ?? []
 }
 
 /**

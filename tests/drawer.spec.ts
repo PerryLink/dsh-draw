@@ -13,7 +13,7 @@ import { resolveConfig } from '../src/config.ts'
 import { Drawer } from '../src/drawer.ts'
 import type { HttpRequest, HttpResponse, HttpTransport } from '../src/http.ts'
 import { EngineRouter } from '../src/router.ts'
-import { FakeAttachmentStore } from './harness.ts'
+import { FakeAttachmentStore, testEventSink } from './harness.ts'
 
 const config = resolveConfig(undefined)
 
@@ -51,7 +51,7 @@ async function assemble(options: { session?: boolean; attachments?: boolean } = 
     engine: { transport, resolveCredential: async () => 'k' },
     attachments: () => attachments,
     sessions: () => ctx.sessions,
-  })
+  }, testEventSink)
   return { drawer, transport, session, attachments }
 }
 
@@ -125,7 +125,7 @@ describe('Drawer.generate', () => {
       engine: { transport, resolveCredential: async () => 'k' },
       attachments: () => attachments,
       sessions: () => (session === undefined ? undefined : ({} as never)),
-    })
+    }, testEventSink)
     session!.append('draw/generated', {
       engine: 'openai', model: 'm', source: 'tool', prompt: 'p', size: 'square', quality: 'auto',
       count: 1, bytes: 1024 * 1024, attachmentIds: ['pre'], elapsedMs: 1,
