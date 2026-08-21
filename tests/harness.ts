@@ -72,6 +72,7 @@ export class FakeAttachmentStore extends AttachmentStore {
     maxImagesPerMessage: 10,
     maxMessageImageBytes: 100 * 1024 * 1024,
     maxImagePixels: 100_000_000,
+    maxImageDimension: 2000,
     mediaTypes: ['image/png', 'image/jpeg', 'image/webp', 'image/gif'] as const,
   }
 
