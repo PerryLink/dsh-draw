@@ -1,6 +1,6 @@
 {
   "name": "dsh-draw",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Unified static-image generation router for DeepSeek Harness: one image_generate tool with standard parameters, config-driven OpenAI-compatible engine routing (OpenAI Images, Zhipu CogView, and any compatible endpoint) with health-aware fallback, durable workspace attachment results, per-session quota accounting, an in-conversation result card, and a Plugins settings panel that stores API keys as credential references.",
   "repository": {
     "type": "git",
@@ -89,9 +89,7 @@
       "attachments:write"
     ],
     "compatibility": {
-      "dshVersions": [
-        "0.1.0-rc.6"
-      ]
+      "dshVersions": ["0.1.0-rc.8"]
     },
     "capability": {
       "id": "image-generate-tool",
@@ -124,13 +122,13 @@
   "packageManager": "pnpm@11.7.0",
   "peerDependencies": {
     "@deepseek-ai/cordis": "^4.0.1",
-    "@deepseek-ai/dsh-attachment": "0.1.0-rc.6",
-    "@deepseek-ai/dsh-brand": "0.1.0-rc.6",
-    "@deepseek-ai/dsh-credentials": "0.1.0-rc.6",
-    "@deepseek-ai/dsh-llm": "0.1.0-rc.6",
-    "@deepseek-ai/dsh-session": "0.1.0-rc.6",
-    "@deepseek-ai/dsh-tools": "0.1.0-rc.6",
-    "@deepseek-ai/dsh-typert-protocol": "0.1.0-rc.6",
+    "@deepseek-ai/dsh-attachment": ">=0.1.0-rc.8 <0.2.0",
+    "@deepseek-ai/dsh-brand": ">=0.1.0-rc.8 <0.2.0",
+    "@deepseek-ai/dsh-credentials": ">=0.1.0-rc.8 <0.2.0",
+    "@deepseek-ai/dsh-llm": ">=0.1.0-rc.8 <0.2.0",
+    "@deepseek-ai/dsh-session": ">=0.1.0-rc.8 <0.2.0",
+    "@deepseek-ai/dsh-tools": ">=0.1.0-rc.8 <0.2.0",
+    "@deepseek-ai/dsh-typert-protocol": ">=0.1.0-rc.8 <0.2.0",
     "@deepseek-ai/schemastery": "^3.18.0"
   },
   "dependencies": {
@@ -142,23 +140,23 @@
     "@deepseek-ai/cordis": "^4.0.1",
     "@deepseek-ai/cordis-plugin-include": "1.0.6",
     "@deepseek-ai/cordis-plugin-loader": "1.0.2",
-    "@deepseek-ai/dsh-agent": "0.1.0-rc.6",
-    "@deepseek-ai/dsh-api-remotes": "0.1.0-rc.6",
-    "@deepseek-ai/dsh-attachment": "0.1.0-rc.6",
-    "@deepseek-ai/dsh-attachment-local": "0.1.0-rc.6",
-    "@deepseek-ai/dsh-brand": "0.1.0-rc.6",
-    "@deepseek-ai/dsh-client-connection": "0.1.0-rc.6",
-    "@deepseek-ai/dsh-client-locale": "0.1.0-rc.6",
-    "@deepseek-ai/dsh-client-runtime": "0.1.0-rc.6",
-    "@deepseek-ai/dsh-client-ui-settings": "0.1.0-rc.6",
-    "@deepseek-ai/dsh-client-ui-slots": "0.1.0-rc.6",
-    "@deepseek-ai/dsh-client-ui-tool": "0.1.0-rc.6",
-    "@deepseek-ai/dsh-credentials": "0.1.0-rc.6",
-    "@deepseek-ai/dsh-credentials-local": "0.1.0-rc.6",
-    "@deepseek-ai/dsh-llm": "0.1.0-rc.6",
-    "@deepseek-ai/dsh-session": "0.1.0-rc.6",
-    "@deepseek-ai/dsh-tools": "0.1.0-rc.6",
-    "@deepseek-ai/dsh-typert-protocol": "0.1.0-rc.6",
+    "@deepseek-ai/dsh-agent": "0.1.0-rc.8",
+    "@deepseek-ai/dsh-api-remotes": "0.1.0-rc.8",
+    "@deepseek-ai/dsh-attachment": "0.1.0-rc.8",
+    "@deepseek-ai/dsh-attachment-local": "0.1.0-rc.8",
+    "@deepseek-ai/dsh-brand": "0.1.0-rc.8",
+    "@deepseek-ai/dsh-client-connection": "0.1.0-rc.8",
+    "@deepseek-ai/dsh-client-locale": "0.1.0-rc.8",
+    "@deepseek-ai/dsh-client-runtime": "0.1.0-rc.8",
+    "@deepseek-ai/dsh-client-ui-settings": "0.1.0-rc.8",
+    "@deepseek-ai/dsh-client-ui-slots": "0.1.0-rc.8",
+    "@deepseek-ai/dsh-client-ui-tool": "0.1.0-rc.8",
+    "@deepseek-ai/dsh-credentials": "0.1.0-rc.8",
+    "@deepseek-ai/dsh-credentials-local": "0.1.0-rc.8",
+    "@deepseek-ai/dsh-llm": "0.1.0-rc.8",
+    "@deepseek-ai/dsh-session": "0.1.0-rc.8",
+    "@deepseek-ai/dsh-tools": "0.1.0-rc.8",
+    "@deepseek-ai/dsh-typert-protocol": "0.1.0-rc.8",
     "@deepseek-ai/schemastery": "^3.18.0",
     "@types/node": "^22.19.0",
     "@types/react": "18.3.31",
