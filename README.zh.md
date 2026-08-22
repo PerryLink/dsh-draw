@@ -24,7 +24,7 @@
 
 | 方面 | 状态 |
 |---|---|
-| Harness | DeepSeek Harness `0.1.0-rc.8`（声明兼容 `0.1.0-rc.8`） |
+| Harness | DeepSeek Harness `0.1.1-rc.2`（声明兼容 `0.1.1-rc.2`） |
 | Node | `^22.19.0 \|\| >=24.0.0` |
 | 引擎 | 任意 OpenAI 兼容图像端点；内置 OpenAI Images（`gpt-image-1`）与智谱 CogView（`cogview-3-flash`）预设 |
 | 界面 | Host `image_generate` 工具 + Web 结果卡片 + Plugins 设置页签 |
@@ -138,7 +138,7 @@ profile patch 中的覆盖示例：
 ```sh
 pnpm install        # node ^22.19 || >=24
 pnpm run typecheck  # tsc：src + tests，对照本地 harness checkout
-pnpm run typecheck:ci  # tsc：对照已发布的 0.1.0-rc.8 类型（无 paths）
+pnpm run typecheck:ci  # tsc：对照已发布的 0.1.1-rc.2 类型（无 paths）
 pnpm test           # vitest：77 个测试、11 个套件（scripted 传输、真实 Context/Session/ToolRuntime）
 pnpm run build      # tsc 声明 + tsdown 打包（lib/）
 pnpm run verify:self-contained  # 依赖声明全部来自 registry

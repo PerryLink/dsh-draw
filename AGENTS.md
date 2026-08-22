@@ -18,7 +18,7 @@ Standalone DeepSeek Harness plugin repository (`dsh-draw`). Development follows 
 - `src/service.ts` — `DrawService` (`TypertRemoteService`, namespace `draw`): status snapshot, probe, credential set/unset through the official `ctx.credentials` seam, and regenerate (full drawer path). **No `@Remote` method decorators**: the rc.6 typert loader binds the `./typert` manifest invocations to same-named public methods (the dsh-mcp-panel precedent), and decorator syntax breaks the vitest transform pipeline.
 - `src/wire.ts` — the wire vocabulary, its zod v4 schemas, and the single invocation-descriptor list shared verbatim by the host `./typert` manifest (`src/typert.host.ts`) and the client Remote contribution (`src/client/remote.ts`).
 - `src/client/` — browser half: `$mount` the Remote contribution, register the keyed `tool.call.toolview` result card (key `image_generate`) and the `settings.plugins.tab` entry id `draw`, pure presenters in `present.ts`, inline scoped stylesheet in `styles.ts`, en/zh dictionaries. The `tool.call.toolview` SlotMap member is declared locally because the harness ui-tool package index does not re-export its contract declaration (identical shapes merge when both land).
-- `tests/` — vitest; REAL `Context` + `SessionStore`/`Session`/`ToolRuntime` from the `0.1.0-rc.8` peers, scripted transport (injected through the `dsh-draw/transport` seam), a real `AttachmentStore` subclass keeping images in memory, and a fake credential provider.
+- `tests/` — vitest; REAL `Context` + `SessionStore`/`Session`/`ToolRuntime` from the `0.1.1-rc.2` peers, scripted transport (injected through the `dsh-draw/transport` seam), a real `AttachmentStore` subclass keeping images in memory, and a fake credential provider.
 
 ## Hard rules applied here
 
@@ -34,7 +34,7 @@ Standalone DeepSeek Harness plugin repository (`dsh-draw`). Development follows 
 
 `typescript` + `tsdown` are regular `dependencies` (git-channel `prepare` builds with production dependencies alone); `zod` is the only bundled dependency (the wire codecs ride the host and client bundles). `scripts/prepare.mjs` wipes `lib/`, emits `lib/types` (tsc), then bundles `lib/index.js` + `lib/typert.host.js` + `lib/client.js` (tsdown; the browser bundle carries the shell's `window.__ModuleLoader__.load` handshake).
 
-`pnpm run typecheck && pnpm run typecheck:ci && pnpm test && pnpm run build && pnpm run verify:self-contained && pnpm run verify:artifacts && pnpm pack`. The plain `typecheck` resolves the local harness checkout's fresh type faces through tsconfig `paths`; `typecheck:ci` resolves the npm-published `0.1.0-rc.8` faces (no paths) and is what CI runs — keep both green.
+`pnpm run typecheck && pnpm run typecheck:ci && pnpm test && pnpm run build && pnpm run verify:self-contained && pnpm run verify:artifacts && pnpm pack`. The plain `typecheck` resolves the local harness checkout's fresh type faces through tsconfig `paths`; `typecheck:ci` resolves the npm-published `0.1.1-rc.2` faces (no paths) and is what CI runs — keep both green.
 
 ## Docs
 

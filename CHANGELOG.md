@@ -5,6 +5,14 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.2] - 2026-08-22
+
+### Changed
+
+- Upgraded every `@deepseek-ai/dsh-*` devDependency to `0.1.1-rc.2` and the `dshWorkshop.compatibility.dshVersions` declaration to `0.1.1-rc.2` (rc.2 compatibility release); peers stay `>=0.1.0-rc.8 <0.2.0` and `@deepseek-ai/cordis` stays `^4.0.1`.
+- Re-verified the rc.2 credential read/write surface (`resolve`/`describe`/`set`/`unset`) and the attachment `saveImage`/`ImageAttachmentRef`/`ImageAttachmentLimits` face; both remain source-compatible, so no plugin code changes were required.
+- The monthly compat workflow now installs and smokes against DeepSeek Harness `0.1.1-rc.2`.
+
 ## [0.1.1] - 2026-08-21
 
 ### Changed

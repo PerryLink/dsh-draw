@@ -24,7 +24,7 @@
 
 | Superfície | Status |
 |---|---|
-| Harness | DeepSeek Harness `0.1.0-rc.8` (compatibilidade declarada para `0.1.0-rc.8`) |
+| Harness | DeepSeek Harness `0.1.1-rc.2` (compatibilidade declarada para `0.1.1-rc.2`) |
 | Node | `^22.19.0 \|\| >=24.0.0` |
 | Motores | Qualquer endpoint de imagens compatível com OpenAI; presets para OpenAI Images (`gpt-image-1`) e Zhipu CogView (`cogview-3-flash`) |
 | Superfícies | Ferramenta host `image_generate` + cartão de resultado web + aba de ajustes de Plugins |
@@ -138,7 +138,7 @@ Exemplo de sobrescrita no patch do seu perfil:
 ```sh
 pnpm install        # node ^22.19 || >=24
 pnpm run typecheck  # tsc: src + tests contra o checkout local do harness
-pnpm run typecheck:ci  # tsc contra as faces publicadas 0.1.0-rc.8 (sem paths)
+pnpm run typecheck:ci  # tsc contra as faces publicadas 0.1.1-rc.2 (sem paths)
 pnpm test           # vitest: 77 testes, 11 suítes (transporte roteirizado, Context/Session/ToolRuntime reais)
 pnpm run build      # declarações tsc + bundles tsdown (lib/)
 pnpm run verify:self-contained  # as especificações de dependências resolvem pelo registry
