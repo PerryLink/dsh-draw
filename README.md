@@ -1,6 +1,7 @@
 <div align="center">
 
 # 🎨 dsh-draw
+[![Gitee](https://img.shields.io/badge/Gitee-mirror-c71d23?logo=gitee)](https://gitee.com/perrylink/dsh-draw)
 
 **Unified static-image generation routing for DeepSeek Harness.**
 
