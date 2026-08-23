@@ -111,9 +111,11 @@ export interface PresentedDrawPanel {
  * Project the panel snapshot onto the settings row model.
  *
  * @param snapshot - the `draw/status` wire snapshot.
+ * @param now - clock override for the cooldown flag (default {@link Date.now});
+ *   injected so the presenter stays a pure function of its inputs.
  * @returns the presented panel model.
  */
-export function presentDrawPanel(snapshot: DrawStatusSnapshot): PresentedDrawPanel {
+export function presentDrawPanel(snapshot: DrawStatusSnapshot, now: () => number = Date.now): PresentedDrawPanel {
   return {
     pluginVersion: snapshot.pluginVersion,
     engines: snapshot.engines.map(engine => ({
@@ -127,7 +129,7 @@ export function presentDrawPanel(snapshot: DrawStatusSnapshot): PresentedDrawPan
       ...(engine.credential.source !== undefined ? { credentialSource: engine.credential.source } : {}),
       credentialWritable: engine.credential.writable,
       consecutiveFailures: engine.health.consecutiveFailures,
-      coolingDown: engine.health.cooldownUntil !== null && engine.health.cooldownUntil > Date.now(),
+      coolingDown: engine.health.cooldownUntil !== null && engine.health.cooldownUntil > now(),
       lastError: engine.health.lastError,
     })),
     quota: { maxGenerationsPerSession: snapshot.quota.maxGenerationsPerSession, maxBytesPerSession: snapshot.quota.maxBytesPerSession },
