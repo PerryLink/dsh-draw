@@ -153,6 +153,7 @@ pnpm pack           # o tarball publicado
 ## Contributors
 
 - [@PerryLink](https://github.com/PerryLink) — criador e mantenedor: roteador de motores, drawer, contabilidade de cota, vocabulário wire do Typert, metade de navegador e a documentação em cinco idiomas.
+- [@Mohei-Muun](https://github.com/Mohei-Muun) — relatou a falha de carregamento do log de sessão `draw/generated` em hosts rc.7 ([#2](https://github.com/PerryLink/dsh-draw/issues/2)), que levou ao gate de eventos adaptativo.
 
 ## PerryLink DSH Plugin Family
 

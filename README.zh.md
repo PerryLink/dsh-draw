@@ -153,6 +153,7 @@ pnpm pack           # 发布用 tarball
 ## Contributors
 
 - [@PerryLink](https://github.com/PerryLink) —— 创建者与维护者：引擎路由、drawer、配额记账、Typert wire 词汇、浏览器半与五语文档。
+- [@Mohei-Muun](https://github.com/Mohei-Muun) —— 报告了 rc.7 主机上 `draw/generated` 会话日志导致会话无法重载的缺陷（[#2](https://github.com/PerryLink/dsh-draw/issues/2)），推动了自适应事件门控的实现。
 
 ## PerryLink DSH Plugin Family
 

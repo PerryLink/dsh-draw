@@ -153,6 +153,7 @@ pnpm pack           # प्रकाशित tarball
 ## Contributors
 
 - [@PerryLink](https://github.com/PerryLink) — निर्माता और मेंटेनर: इंजन रूटर, drawer, कोटा लेखा, Typert wire शब्दावली, ब्राउज़र आधा और पाँच-भाषा दस्तावेज़।
+- [@Mohei-Muun](https://github.com/Mohei-Muun) — rc.7 होस्ट पर `draw/generated` सत्र-लॉग लोड विफलता की सूचना दी ([#2](https://github.com/PerryLink/dsh-draw/issues/2)), जिससे अनुकूली इवेंट गेट बना।
 
 ## PerryLink DSH Plugin Family
 

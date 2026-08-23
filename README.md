@@ -154,6 +154,7 @@ pnpm pack           # the published tarball
 ## Contributors
 
 - [@PerryLink](https://github.com/PerryLink) — creator and maintainer: engine router, drawer, quota accounting, Typert wire vocabulary, browser half, and the five-language docs.
+- [@Mohei-Muun](https://github.com/Mohei-Muun) — reported the `draw/generated` session-log unload bug on rc.7 hosts ([#2](https://github.com/PerryLink/dsh-draw/issues/2)), which led to the adaptive event gate.
 
 ## PerryLink DSH Plugin Family
 
