@@ -23,7 +23,7 @@ describe('dsh-draw assembly', () => {
     expect(harness.ctx.tools.get('image_generate')).toBeDefined()
     const service = harness.ctx.get('draw') as DrawService
     const status = await service.status()
-    expect(status.pluginVersion).toBe('0.1.2')
+    expect(status.pluginVersion).toBe('0.1.3')
     expect(status.engines.map(engine => engine.id)).toEqual(['openai', 'cogview'])
     expect(status.engines[0]).toMatchObject({ preferred: true, credential: { configured: false } })
   })
