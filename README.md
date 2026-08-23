@@ -140,7 +140,7 @@ Example override in your profile patch:
 pnpm install        # node ^22.19 || >=24
 pnpm run typecheck  # tsc: src + tests against the local harness checkout
 pnpm run typecheck:ci  # tsc against the published 0.1.1-rc.2 faces (no paths)
-pnpm test           # vitest: 77 tests, 11 suites (scripted transport, real Context/Session/ToolRuntime)
+pnpm test           # vitest: 107 tests, 16 test files (scripted transport, real Context/Session/ToolRuntime)
 pnpm run build      # tsc declarations + tsdown bundles (lib/)
 pnpm run verify:self-contained  # dependency specs resolve from the registry
 pnpm run verify:artifacts       # host ESM face + typert manifest + browser bundle + config files

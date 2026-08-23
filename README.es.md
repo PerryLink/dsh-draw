@@ -139,7 +139,7 @@ Ejemplo de sobrescritura en el parche de tu perfil:
 pnpm install        # node ^22.19 || >=24
 pnpm run typecheck  # tsc: src + tests contra el checkout local del harness
 pnpm run typecheck:ci  # tsc contra las caras publicadas 0.1.1-rc.2 (sin paths)
-pnpm test           # vitest: 77 tests, 11 suites (transporte guionado, Context/Session/ToolRuntime reales)
+pnpm test           # vitest: 107 tests, 16 archivos de prueba (transporte guionado, Context/Session/ToolRuntime reales)
 pnpm run build      # declaraciones tsc + bundles tsdown (lib/)
 pnpm run verify:self-contained  # las especificaciones de dependencias resuelven desde el registry
 pnpm run verify:artifacts       # cara ESM host + manifiesto typert + bundle de navegador + archivos de configuración

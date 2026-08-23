@@ -1,7 +1,8 @@
 /**
  * The plugin version, hardcoded beside `package.json` so the release script
- * bumps both and `tests/version.spec.ts` trips when they drift. Served in the
- * `draw/status` snapshot so the settings panel shows which plugin build runs.
+ * bumps both and the version tripwire in `tests/session-events.spec.ts` trips
+ * when they drift. Served in the `draw/status` snapshot so the settings panel
+ * shows which plugin build runs.
  *
  * @module dsh-draw/version
  */

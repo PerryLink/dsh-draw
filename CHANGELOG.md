@@ -5,6 +5,21 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+
+- Presenter pure-function suite (`tests/present.spec.ts`, 11 tests): `presentDrawResult` and `presentDrawPanel` are pinned directly on their arguments — settled/error/foreign/null-call-head blocks, meta fallbacks, regenerate-args parsing, engine-row projection, and the cooldown flag.
+
+### Changed
+
+- `presentDrawPanel` now takes an optional `now` clock (default `Date.now`) so the cooldown flag is a pure function of its inputs and testable without fake timers; the `image_generate` tool surface and the settings tab are unchanged.
+
+### Fixed
+
+- The five-language README "Development" section reported a stale `77 tests, 11 suites`; it now matches the actual `107 tests, 16 test files`.
+- `src/version.ts` referenced a non-existent `tests/version.spec.ts`; the comment now names the real tripwire (`tests/session-events.spec.ts`).
+
 ## [0.1.2] - 2026-08-22
 
 ### Changed

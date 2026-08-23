@@ -139,7 +139,7 @@ dsh --profile web --dump-config | grep -A2 'id: dsh-draw'
 pnpm install        # node ^22.19 || >=24
 pnpm run typecheck  # tsc: src + tests स्थानीय हार्नेस चेकआउट के विरुद्ध
 pnpm run typecheck:ci  # tsc प्रकाशित 0.1.1-rc.2 फ़ेस के विरुद्ध (बिना paths)
-pnpm test           # vitest: 77 टेस्ट, 11 सुइट (स्क्रिप्टेड ट्रांसपोर्ट, वास्तविक Context/Session/ToolRuntime)
+pnpm test           # vitest: 107 टेस्ट, 16 टेस्ट फ़ाइलें (स्क्रिप्टेड ट्रांसपोर्ट, वास्तविक Context/Session/ToolRuntime)
 pnpm run build      # tsc घोषणाएँ + tsdown बंडल (lib/)
 pnpm run verify:self-contained  # निर्भरता स्पेक registry से हल होती हैं
 pnpm run verify:artifacts       # host ESM फ़ेस + typert मैनिफ़ेस्ट + ब्राउज़र बंडल + कॉन्फ़िग फ़ाइलें
