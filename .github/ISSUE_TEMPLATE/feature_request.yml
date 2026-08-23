@@ -1,0 +1,38 @@
+name: Feature request
+description: Suggest an improvement for dsh-draw
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the idea. A good feature request starts with the problem, not just the solution.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem to solve
+      description: What problem are you trying to solve? Why does the current behavior fall short?
+      placeholder: e.g. I want to generate images with engine X, but the chain only supports ...
+    validations:
+      required: true
+  - type: textarea
+    id: desired
+    attributes:
+      label: Desired behavior
+      description: What should happen once this is implemented?
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered (optional)
+      description: Workarounds or alternative approaches you have already tried or considered.
+    validations:
+      required: false
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context (optional)
+      description: Any other context, links, or examples that would help.
+    validations:
+      required: false
