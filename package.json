@@ -1,6 +1,6 @@
 {
   "name": "dsh-draw",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "description": "Unified static-image generation router for DeepSeek Harness: one image_generate tool with standard parameters, config-driven OpenAI-compatible engine routing (OpenAI Images, Zhipu CogView, and any compatible endpoint) with health-aware fallback, durable workspace attachment results, per-session quota accounting, an in-conversation result card, and a Plugins settings panel that stores API keys as credential references.",
   "repository": {
     "type": "git",
