@@ -8,12 +8,15 @@
       config:
         # Ordered engine chain; the router walks it top-down and falls back on
         # failure. apiKeyRef names an environment variable (credential
-        # reference) — never put a literal key here.
+        # reference) — never put a literal key here. `provider` selects the
+        # request/response vocabulary: openai (OpenAI-compatible images API),
+        # replicate (prediction polling), or fal (fal.run queue).
         engines:
           - id: openai
             baseUrl: https://api.openai.com/v1
             model: gpt-image-1
             apiKeyRef: OPENAI_API_KEY
+            provider: openai
             enabled: true
             sizeMap: { square: 1024x1024, landscape: 1536x1024, portrait: 1024x1536, auto: auto }
             qualitySupported: true
@@ -24,6 +27,7 @@
             baseUrl: https://open.bigmodel.cn/api/paas/v4
             model: cogview-3-flash
             apiKeyRef: ZHIPU_API_KEY
+            provider: openai
             enabled: true
             sizeMap: { square: 1024x1024, landscape: 1344x768, portrait: 768x1344, auto: 1024x1024 }
             qualitySupported: false

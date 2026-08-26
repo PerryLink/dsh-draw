@@ -85,7 +85,7 @@ All tunables are Schemastery `Config` fields (changeable from cordis.yml). An id
 
 | Key | Default | Meaning |
 |---|---|---|
-| `engines` | OpenAI + CogView presets | Ordered engine chain, walked top-down with fallback; each entry: `id`, `baseUrl` (no credentials), `model`, `apiKeyRef` (env-var name), `enabled`, `sizeMap`, `qualitySupported`, `styleSupported`, `responseFormat` (`b64_json`/`url`), `imageMediaType` |
+| `engines` | OpenAI + CogView presets | Ordered engine chain, walked top-down with fallback; each entry: `id`, `baseUrl` (no credentials), `model`, `apiKeyRef` (env-var name), `provider` (`openai`/`replicate`/`fal`, default `openai`), `enabled`, `sizeMap`, `qualitySupported`, `styleSupported`, `responseFormat` (`b64_json`/`url`), `imageMediaType` |
 | `defaultEngine` | `openai` | Engine id the router prefers; must name a configured engine |
 | `requestTimeoutMs` | `120000` | Per-generation HTTP timeout (1000..600000) |
 | `maxImagesPerCall` | `4` | Cap on images one call may produce (1..10) |
@@ -130,7 +130,7 @@ Example override in your profile patch:
 ## Known limitations
 
 - **Image models only.** No video, audio, or edit endpoints; no vision understanding.
-- **Engine compatibility.** Engines must speak the OpenAI `POST /images/generations` shape (base64 or URL delivery); provider-specific extras are out of scope.
+- **Engine compatibility.** Three vocabularies are supported through the provider seam: `openai` (the `POST /images/generations` shape), `replicate` (prediction create + poll), and `fal` (the `fal.run` queue). Provider-specific extras beyond `prompt`/size/count (e.g. seed, scheduler) are out of scope.
 - **Cost awareness is structural.** The plugin counts calls and bytes but does not know engine pricing — pair with `dsh-budget` for cost governance.
 - **Quota durability on rc.6/rc.7.** On hosts whose session log cannot carry `draw/generated` (static event whitelist, no `ignorable` envelope), quota stays exact for the live session from the in-memory fallback ledger but resets on restart; durable accounting resumes on hosts with a plugin event surface.
 

@@ -70,6 +70,9 @@ export interface EngineSizeMap {
 /** Whether generated images arrive as base64 payloads or downloadable URLs. */
 export type EngineResponseFormat = 'b64_json' | 'url'
 
+/** The image-generation vocabularies a configured engine may declare (provider seam). */
+export type EngineVocabulary = 'openai' | 'replicate' | 'fal'
+
 /** One OpenAI-compatible image-generation endpoint the router may use. */
 export interface EngineConfig {
   /** Stable engine id used in tool args, results, and the settings panel. */
@@ -80,6 +83,8 @@ export interface EngineConfig {
   model: string
   /** Credential reference (environment-variable name) the API key resolves from; never a literal key. */
   apiKeyRef: string
+  /** Which request/response vocabulary this engine speaks (default `openai`). */
+  provider?: EngineVocabulary
   /** Whether the router may use this engine (default true). */
   enabled?: boolean
   /** Standard-size → concrete-size translation (default: the OpenAI sizes). */
@@ -123,6 +128,7 @@ export const DEFAULT_ENGINES: ReadonlyArray<Required<EngineConfig>> = Object.fre
     baseUrl: 'https://api.openai.com/v1',
     model: 'gpt-image-1',
     apiKeyRef: 'OPENAI_API_KEY',
+    provider: 'openai',
     enabled: true,
     sizeMap: Object.freeze({ square: '1024x1024', landscape: '1536x1024', portrait: '1024x1536', auto: 'auto' }),
     qualitySupported: true,
@@ -135,6 +141,7 @@ export const DEFAULT_ENGINES: ReadonlyArray<Required<EngineConfig>> = Object.fre
     baseUrl: 'https://open.bigmodel.cn/api/paas/v4',
     model: 'cogview-3-flash',
     apiKeyRef: 'ZHIPU_API_KEY',
+    provider: 'openai',
     enabled: true,
     sizeMap: Object.freeze({ square: '1024x1024', landscape: '1344x768', portrait: '768x1344', auto: '1024x1024' }),
     qualitySupported: false,
@@ -162,6 +169,8 @@ export interface ResolvedEngineConfig {
   model: string
   /** Credential reference the API key resolves from. */
   apiKeyRef: string
+  /** Request/response vocabulary this engine speaks. */
+  provider: EngineVocabulary
   /** Whether the router may use this engine. */
   enabled: boolean
   /** Standard-size → concrete-size translation. */
@@ -205,6 +214,7 @@ export const Config: z<Config> = z.object({
     baseUrl: z.string().min(1).max(2048),
     model: z.string().min(1).max(128),
     apiKeyRef: z.string().min(1).max(128),
+    provider: z.union(['openai', 'replicate', 'fal'] as const),
     enabled: z.boolean(),
     sizeMap: z.object({
       square: z.string().min(1).max(64),
@@ -269,6 +279,10 @@ export function resolveConfig(config: Config | undefined): ResolvedConfig {
     if (model === '') throw new Error(`dsh-draw: engine "${id}" model must be a non-empty string of at most 128 characters`)
     const apiKeyRef = typeof engine.apiKeyRef === 'string' && API_KEY_REF_PATTERN.test(engine.apiKeyRef) ? engine.apiKeyRef : ''
     if (apiKeyRef === '') throw new Error(`dsh-draw: engine "${id}" apiKeyRef ${JSON.stringify(engine.apiKeyRef)} must be an environment-variable name`)
+    const provider = engine.provider ?? 'openai'
+    if (provider !== 'openai' && provider !== 'replicate' && provider !== 'fal') {
+      throw new Error(`dsh-draw: engine "${id}" provider must be one of "openai", "replicate", "fal", got ${JSON.stringify(provider)}`)
+    }
     const sizeMap = engine.sizeMap === undefined ? DEFAULT_SIZE_MAP : engine.sizeMap
     for (const key of ['square', 'landscape', 'portrait', 'auto'] as const) {
       const value = sizeMap[key]
@@ -295,6 +309,7 @@ export function resolveConfig(config: Config | undefined): ResolvedConfig {
       baseUrl: baseUrl.replace(/\/+$/u, ''),
       model,
       apiKeyRef,
+      provider,
       enabled,
       sizeMap: Object.freeze({ ...sizeMap }),
       qualitySupported,

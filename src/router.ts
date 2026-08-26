@@ -9,9 +9,10 @@
  */
 
 import type { ResolvedConfig, ResolvedEngineConfig } from './config.ts'
-import { callEngine, EngineCallError, type EngineDeps, type ProducedImage } from './engine.ts'
+import { EngineCallError, type EngineDeps, type ProducedImage } from './engine.ts'
+import { providerFor } from './provider.ts'
 import { sanitizeError, sanitizeText, sanitizeUrl } from './sanitize.ts'
-import { translateRequest, type StandardImageRequest } from './translate.ts'
+import type { StandardImageRequest } from './translate.ts'
 
 /** One recorded attempt against one engine, success or failure. */
 export interface AttemptView {
@@ -156,7 +157,7 @@ export class EngineRouter {
       }
       tried += 1
       try {
-        const images = await callEngine(engine, this.translate(engine, request), deps, signal)
+        const images = await providerFor(engine.provider).generate(engine, request, deps, signal)
         this.recordSuccess(engine.id)
         attempts.push({ engine: engine.id, code: 'ok' })
         return {
@@ -271,11 +272,6 @@ export class EngineRouter {
       return { code: 'cooldown', message: `engine "${engine.id}" is cooling down after repeated failures` }
     }
     return undefined
-  }
-
-  /** Translate the standard request against one engine (the pure translate step). */
-  private translate(engine: ResolvedEngineConfig, request: StandardImageRequest) {
-    return translateRequest(engine, request)
   }
 
   /** Record a success: reset consecutive failures and cooldown. */
