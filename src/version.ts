@@ -8,4 +8,4 @@
  */
 
 /** Plugin version; must equal the `version` field in `package.json`. */
-export const PLUGIN_VERSION = '0.2.0'
+export const PLUGIN_VERSION = '0.2.1'
