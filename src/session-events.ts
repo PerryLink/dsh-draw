@@ -1,17 +1,19 @@
 /**
  * The dsh-draw session event: one durable record per completed generation
  * (tool call or panel regenerate), appended to the owning session log. It is
- * log-only (`ignorable`) and exists so quota accounting and the durable audit
- * trail are reconstructable from the log alone. The model-visible input and
- * output of the call ride the loop-owned `tool/call` and `tool/result`
- * events; this event carries the accounting facts those events do not.
+ * log-only and exists so quota accounting and the durable audit trail are
+ * reconstructable from the log alone. The model-visible input and output of
+ * the call ride the loop-owned `tool/call` and `tool/result` events; this
+ * event carries the accounting facts those events do not.
  *
  * The event type is declared only here, so plugin paths append it through
  * {@link commitDrawGenerated}: the adaptive gate (event-gate.ts) appends only
- * when the host knows the type or honors the `ignorable` envelope, and
- * otherwise records the payload in the in-memory fallback ledger (live-session
- * quota keeps working; the durable trail resumes once the host gains a plugin
- * event surface).
+ * when the host knows the type or honors the `ignorable` envelope (pre-0.1.2
+ * host lines), and otherwise records the payload in the in-memory fallback
+ * ledger (live-session quota keeps working; the durable trail resumes once
+ * the host gains a plugin event surface). `0.1.2-alpha.1` removed the
+ * envelope and fails closed on unknown event types at read, so the probe
+ * reports no support there and every commit degrades to the ledger.
  *
  * @module dsh-draw/session-events
  */
@@ -66,12 +68,13 @@ export function appendDrawGenerated(session: Session, event: DrawGeneratedEvent)
   return session.append('draw/generated', event)
 }
 
-/** The append face with the envelope option; rc.6 types declare none. */
+/** The append face with the envelope option; only pre-0.1.2 host lines honor it. */
 type EnvelopeAppend = (type: string, data: unknown, opts: { ignorable: boolean }) => unknown
 
 /**
  * In-memory accounting ledger for hosts whose session log cannot carry
- * `draw/generated` safely (rc.6/rc.7 static whitelist, no ignorable envelope).
+ * `draw/generated` safely (rc.6/rc.7 static whitelist and the envelope-less
+ * `0.1.2-alpha.1`, which fails closed on unknown types at read).
  * Keyed by Session identity: the entries live exactly as long as the session.
  */
 const fallbackLedger = new WeakMap<Session, DrawGeneratedEvent[]>()

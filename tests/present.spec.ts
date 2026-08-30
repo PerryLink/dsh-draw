@@ -10,9 +10,8 @@
  */
 
 import { describe, expect, it } from 'vitest'
-import type { ToolCallBlock, ToolResultNode } from '@deepseek-ai/dsh-client-runtime/client'
 import type { DrawStatusSnapshot } from '../src/wire.ts'
-import { presentDrawPanel, presentDrawResult } from '../src/client/present.ts'
+import { presentDrawPanel, presentDrawResult, type ToolCallBlock, type ToolResultNode } from '../src/client/present.ts'
 
 /** A settled `image_generate` tool-result block with the fields the card reads. */
 function resultBlock(over: Partial<ToolResultNode> = {}): ToolCallBlock {

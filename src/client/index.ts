@@ -8,7 +8,9 @@
  * @module dsh-draw/client
  */
 
-import type { ClientContext } from '@deepseek-ai/dsh-client-runtime/client'
+import type { Context as ClientContext } from '@deepseek-ai/cordis'
+// Type-only: activates the ctx.remote Context merge (TypertClientRemote).
+import type {} from '@deepseek-ai/dsh-api-remotes/client'
 import type {} from '@deepseek-ai/dsh-client-locale/client'
 // Type-only: pulls the 'settings.plugins.tab' SlotMap declaration into this
 // program so the tab registration typechecks against the real declaration.
@@ -45,6 +47,18 @@ export const name = 'dsh-draw'
 export const inject = ['slots', 'locale', 'remote', 'sessions']
 
 /**
+ * Structural face of the slots service. Declared locally because the owning
+ * merge publishes differently across host lines (the removed
+ * `dsh-client-runtime` on 0.1.1-rc.2, the unpublished ui-renderer domain on
+ * 0.1.2-alpha.1); the runtime contract is structural and read through
+ * `ctx.get` without a dependency edge.
+ */
+interface SlotsFace {
+  inject(slot: string, callback: () => unknown): void
+  register(options: unknown, component: unknown): unknown
+}
+
+/**
  * Browser plugin body: dictionaries, the scoped stylesheet, the Remote
  * contribution mount, the result card, and the settings tab registration.
  *
@@ -60,6 +74,7 @@ export async function apply(ctx: ClientContext): Promise<void> {
 
   ctx.inject(['remote.draw'], (scope) => {
     const t = scope.locale.bind(NS)
+    const slots = scope.get('slots') as SlotsFace
     const unwrap = <T>(result: RemoteResult<T>, method: string): T => {
       if (!result.ok) {
         throw new Error(`draw.${method} failed: ${result.error.code}: ${result.error.message}`)
@@ -67,7 +82,7 @@ export async function apply(ctx: ClientContext): Promise<void> {
       return result.value
     }
 
-    scope.slots.inject('tool.call.toolview', () => scope.slots.register({
+    slots.inject('tool.call.toolview', () => slots.register({
       name: 'tool.call.toolview',
       key: 'image_generate',
       locale: NS,
@@ -80,7 +95,7 @@ export async function apply(ctx: ClientContext): Promise<void> {
       }),
     }, DrawResultCard))
 
-    scope.slots.inject('settings.plugins.tab', () => scope.slots.register({
+    slots.inject('settings.plugins.tab', () => slots.register({
       name: 'settings.plugins.tab',
       id: 'draw',
       order: 40,

@@ -3,9 +3,11 @@
  * package's types, so it sits outside every host's `KNOWN_SESSION_EVENT_TYPES`:
  * hosts whose session reader validates a static whitelist (rc.6/rc.7) refuse to
  * reopen a session containing the event unless it carries the `ignorable`
- * envelope — and those hosts' `Session.append` cannot stamp it. The gate
- * therefore appends only when the type is host-known or a mount-time probe
- * proves envelope support; otherwise the accounting payload goes to the
+ * envelope — and those hosts' `Session.append` cannot stamp it. The
+ * `0.1.2-alpha.1` host removed the envelope entirely and fails closed on
+ * unknown event types at read, so the probe never reports support there. The
+ * gate therefore appends only when the type is host-known or a mount-time
+ * probe proves envelope support; otherwise the accounting payload goes to the
  * in-memory fallback ledger (see session-events.ts) so quota keeps working for
  * the live session without poisoning the log.
  *
@@ -44,15 +46,16 @@ export function makeEventGate(knownTypes: ReadonlySet<string>, ignorableAppend =
   }
 }
 
-/** The append face the probe needs; rc.6 types declare no envelope parameter. */
+/** The append face the probe needs; envelope-less hosts declare no options parameter. */
 type EnvelopeAppend = (type: string, data: unknown, opts: { ignorable: boolean }) => { ignorable?: boolean } | undefined
 
 /**
  * Probe whether the host `Session.append` stamps the ignorable envelope. Runs
  * on a fully detached SessionStore — never host persistence — appending one
  * probe event with `{ ignorable: true }` and reading the marker back. rc.6's
- * append silently drops the unknown options key (probe false); every failure
- * is contained as "unsupported".
+ * append silently drops the unknown options key (probe false), and the
+ * envelope-less `0.1.2-alpha.1` append takes no options at all (probe false);
+ * every failure is contained as "unsupported".
  *
  * @returns whether the envelope is honored.
  */

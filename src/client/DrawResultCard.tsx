@@ -13,8 +13,7 @@
 
 import { createElement as h, useState, type ReactElement } from 'react'
 import type { InjectFace, PropsLocale, PropsRuntime } from '@deepseek-ai/dsh-client-ui-slots'
-import type { ToolCallBlock } from '@deepseek-ai/dsh-client-runtime/client'
-import { presentDrawResult } from './present.ts'
+import { presentDrawResult, type ToolCallBlock } from './present.ts'
 
 /**
  * Standard owner currency for one keyed tool view (mirror of the harness

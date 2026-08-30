@@ -5,6 +5,28 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Changed
+
+- **Client dependency-surface migration.** The browser half no longer
+  type-imports the removed `@deepseek-ai/dsh-client-runtime` package: it
+  rides the cordis `Context` plus the published client packages, and the
+  frozen tool-call block is read through a local structural contract (the
+  published `0.1.1-rc.2` line keeps the block union in the removed runtime
+  package, and the unreleased `0.1.2-alpha.1` host owns it in the
+  unpublished `dsh-client-ui-chat`). The tsdown external list and the
+  tsconfig paths drop the runtime entries; peers, devDeps, and the client
+  inject manifest drop `dsh-client-runtime`.
+- **Envelope-less host calibration.** The session-event gate docs now cover
+  `0.1.2-alpha.1`, which removed the `ignorable` envelope and fails closed
+  on unknown event types at read: the probe reports no support there and
+  every `draw/generated` commit degrades to the in-memory fallback ledger
+  (already the fail-safe behavior).
+- Tests derive the call-id brand from the `dsh-tools` execution contract
+  (`tests/call-id.ts`) instead of importing `CallId` from `dsh-llm`, which
+  host master renamed to `ToolCallId`.
+
 ## [0.2.1] - 2026-08-27
 
 ### Fixed

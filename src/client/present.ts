@@ -7,8 +7,49 @@
  * @module dsh-draw/client/present
  */
 
-import type { ToolCallBlock } from '@deepseek-ai/dsh-client-runtime/client'
 import type { DrawStatusSnapshot } from '../wire.ts'
+
+/**
+ * Local structural contract for the frozen tool-call block the card reads.
+ * Declared locally because the owning packages publish the block union
+ * differently across host lines: the published `0.1.1-rc.2` line keeps it in
+ * the removed `dsh-client-runtime` package, and the unreleased
+ * `0.1.2-alpha.1` host owns it in the unpublished `dsh-client-ui-chat`. The
+ * runtime contract is structural — the presenter only discriminates on
+ * `kind` and reads the call head, error flag, and meta.
+ */
+
+/** One frozen running tool call (no `kind`; the presenter's first guard drops it). */
+export interface RunningToolCallBlock {
+  /** Tool call identity, stable across running and settled forms. */
+  callId: string
+  /** Wire tool name. */
+  name: string
+  /** Verbatim serialized arguments. */
+  argsRaw: string
+  /** Owning turn. */
+  turn: number
+  /** Owning step. */
+  step: number
+  /** Unix epoch ms when the call was logged. */
+  time: number
+}
+
+/** One settled tool result (fields the presenter reads). */
+export interface SettledToolResultBlock {
+  kind: 'tool-result'
+  isError: boolean
+  /** Call head; null when window truncation left the call outside. */
+  call: { name: string; argsRaw: string } | null
+  /** Tool-owned presentation metadata (the card's engine/quota/limits facts). */
+  meta?: unknown
+}
+
+/** Frozen running-or-settled tool block. */
+export type ToolCallBlock = RunningToolCallBlock | SettledToolResultBlock
+
+/** Settled tool-result node only. */
+export type ToolResultNode = SettledToolResultBlock
 
 /** One image of the presented result card. */
 export interface PresentedImage {

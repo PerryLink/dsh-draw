@@ -6,7 +6,6 @@
  * @module dsh-draw/test/tool.spec
  */
 
-import { CallId } from '@deepseek-ai/dsh-llm'
 import type { ContentBlock } from '@deepseek-ai/dsh-llm'
 import type { ToolExecutionResult } from '@deepseek-ai/dsh-tools'
 import { describe, expect, it } from 'vitest'
@@ -14,6 +13,7 @@ import { resolveConfig } from '../src/config.ts'
 import { imageGenerateTool } from '../src/tool.ts'
 import { Drawer } from '../src/drawer.ts'
 import { EngineRouter } from '../src/router.ts'
+import { CallId } from './call-id.ts'
 import { FakeAttachmentStore, mountHarness, ScriptedTransport, testEventSink, type Harness } from './harness.ts'
 
 function okImages(count = 1) {

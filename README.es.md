@@ -30,6 +30,8 @@
 | Motores | Cualquier endpoint de imágenes compatible con OpenAI; presets para OpenAI Images (`gpt-image-1`) y Zhipu CogView (`cogview-3-flash`) |
 | Superficies | Herramienta host `image_generate` + tarjeta de resultado web + pestaña de ajustes de Plugins |
 
+La mitad de navegador se apoya en el `Context` de cordis y en los paquetes de cliente publicados (`dsh-client-ui-slots`, `dsh-client-ui-settings`, `dsh-client-ui-tool`, `dsh-client-locale`, `dsh-client-connection`); ya no depende del paquete eliminado `dsh-client-runtime` (el bloque de llamada de herramienta se lee mediante un contrato estructural local), por lo que la superficie de cliente también encaja con hosts `0.1.2-alpha.1`.
+
 ## Qué obtienes
 
 `dsh-draw` le da al harness una herramienta unificada `image_generate` con parámetros estándar (`prompt`/`size`/`count`/`quality`/`style`/`engine`) traducidos por motor:
@@ -118,7 +120,7 @@ Ejemplo de sobrescritura en el parche de tu perfil:
 
 - **Permisos**: el plugin solo hace llamadas HTTPS salientes a los endpoints de motor configurados; el resto es de solo lectura. Las únicas escrituras de la pestaña de ajustes son las llamadas de establecer/eliminar credenciales en el seam oficial `ctx.credentials`.
 - **Datos**: las imágenes generadas se guardan a través del almacén de adjuntos oficial bajo la política de adjuntos del harness. El uso de cuota se pliega desde los eventos de sesión `draw/generated`, más el libro auxiliar en memoria en hosts que no pueden registrar esos eventos — nada más se almacena.
-- **Registro de sesión**: el evento `draw/generated` registra motor, modelo, solicitud estandarizada, totales de bytes e ids de adjunto — los hechos de auditoría, nunca las claves API. El evento solo se añade cuando el host conoce el tipo o admite el sobre `ignorable` (sondeado al montar); en hosts rc.6/rc.7 la carga va al libro auxiliar en memoria, de modo que generar imágenes ya no hace que la sesión se niegue a reabrirse.
+- **Registro de sesión**: el evento `draw/generated` registra motor, modelo, solicitud estandarizada, totales de bytes e ids de adjunto — los hechos de auditoría, nunca las claves API. El evento solo se añade cuando el host conoce el tipo o admite el sobre `ignorable` (sondeado al montar); en hosts rc.6/rc.7 y en el host sin sobre `0.1.2-alpha.1` (que eliminó el sobre y falla cerrado en tipos desconocidos al leer) la carga va al libro auxiliar en memoria, de modo que generar imágenes ya no hace que la sesión se niegue a reabrirse.
 
 ## Límites de seguridad
 
@@ -132,7 +134,7 @@ Ejemplo de sobrescritura en el parche de tu perfil:
 - **Solo modelos de imagen.** Sin endpoints de vídeo, audio o edición; sin comprensión visual.
 - **Compatibilidad de motores.** Los motores deben hablar la forma `POST /images/generations` de OpenAI (entrega base64 o URL); los extras específicos de cada proveedor quedan fuera.
 - **La conciencia de coste es estructural.** El plugin cuenta llamadas y bytes pero no conoce el precio de los motores — combínalo con `dsh-budget` para la gobernanza de coste.
-- **Durabilidad de cuota en rc.6/rc.7.** En hosts cuyo registro de sesión no puede llevar `draw/generated` (lista blanca estática de eventos, sin sobre `ignorable`), la cuota sigue exacta en la sesión viva desde el libro auxiliar en memoria pero se reinicia al reiniciar; la contabilidad duradera vuelve en hosts con una superficie de eventos para plugins.
+- **Durabilidad de cuota en rc.6/rc.7 y 0.1.2-alpha.1.** En hosts cuyo registro de sesión no puede llevar `draw/generated` (lista blanca estática de eventos, sin sobre `ignorable`; `0.1.2-alpha.1` eliminó el sobre y falla cerrado en tipos de evento desconocidos al leer), la cuota sigue exacta en la sesión viva desde el libro auxiliar en memoria pero se reinicia al reiniciar; la contabilidad duradera vuelve en hosts con una superficie de eventos para plugins.
 
 ## Desarrollo
 

@@ -6,10 +6,10 @@
  * @module dsh-draw/test/index.spec
  */
 
-import { CallId } from '@deepseek-ai/dsh-llm'
 import { describe, expect, it } from 'vitest'
 import { quotaState } from '../src/quota.ts'
 import type { DrawService } from '../src/service.ts'
+import { CallId } from './call-id.ts'
 import { mountHarness } from './harness.ts'
 
 function okImages(count = 1) {
