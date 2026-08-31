@@ -13,7 +13,7 @@
  * ledger (live-session quota keeps working; the durable trail resumes once
  * the host gains a plugin event surface). `0.1.2-alpha.1` removed the
  * envelope and fails closed on unknown event types at read, so the probe
- * reports no support there and every commit degrades to the ledger.
+ * reports no support there and every commit degrades to the ledger. On 0.1.2-alpha.2 the envelope field is restored for stored-log read compatibility only - its Session.append still cannot stamp the marker, so the gate behavior is unchanged.
  *
  * @module dsh-draw/session-events
  */
