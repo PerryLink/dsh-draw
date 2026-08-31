@@ -53,7 +53,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Presenter pure-function suite (`tests/present.spec.ts`, 11 tests): `presentDrawResult` and `presentDrawPanel` are pinned directly on their arguments 鈥?settled/error/foreign/null-call-head blocks, meta fallbacks, regenerate-args parsing, engine-row projection, and the cooldown flag.
+- Presenter pure-function suite (`tests/present.spec.ts`, 11 tests): `presentDrawResult` and `presentDrawPanel` are pinned directly on their arguments — settled/error/foreign/null-call-head blocks, meta fallbacks, regenerate-args parsing, engine-row projection, and the cooldown flag.
 
 ### Changed
 
@@ -81,7 +81,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Sessions that used image generation no longer refuse to reopen on rc.6/rc.7 hosts (issue #2). `draw/generated` is declared only by this package, so it sits outside the host's static `KNOWN_SESSION_EVENT_TYPES` whitelist, and those hosts' `Session.append` cannot stamp the `ignorable` envelope 鈥?every generated image left the log unloadable after restart with `SessionFormatUnsupportedError`. The append now goes through an adaptive gate (`src/event-gate.ts`): the event is logged only when the host knows the type or a mount-time probe on a detached `SessionStore` proves envelope support. On gated hosts the accounting payload rides a new in-memory fallback ledger (WeakMap-keyed by session), so quota stays exact for the live session and the log stays reloadable; durable, log-folded accounting resumes on hosts with a plugin event surface.
+- Sessions that used image generation no longer refuse to reopen on rc.6/rc.7 hosts (issue #2). `draw/generated` is declared only by this package, so it sits outside the host's static `KNOWN_SESSION_EVENT_TYPES` whitelist, and those hosts' `Session.append` cannot stamp the `ignorable` envelope — every generated image left the log unloadable after restart with `SessionFormatUnsupportedError`. The append now goes through an adaptive gate (`src/event-gate.ts`): the event is logged only when the host knows the type or a mount-time probe on a detached `SessionStore` proves envelope support. On gated hosts the accounting payload rides a new in-memory fallback ledger (WeakMap-keyed by session), so quota stays exact for the live session and the log stays reloadable; durable, log-folded accounting resumes on hosts with a plugin event surface.
 - Regression coverage: `tests/event-gate.spec.ts` pins the gate decisions, the rc.6 probe reading, fallback-ledger quota accounting, and the append-failure degradation; the assembly regenerate test now asserts the rc.6-safe behavior (clean log, exact quota).
 
 ## [0.1.0] - 2026-08-16
@@ -96,7 +96,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Per-session quota accounting folded from the durable `draw/generated` session event (generation calls + image bytes), enforced before engine spend and before attachment storage.
 - `draw` Typert Remote service (`draw/status`, `draw/probe`, `draw/setCredential`, `draw/unsetCredential`, `draw/regenerate`) with a hand-written host `./typert` manifest shared with the client Remote contribution.
 - Browser half: keyed `tool.call.toolview` result card (engine/quota facts + regenerate action) and a Plugins settings tab (engine chain, credential references, probes, quota limits).
-- API keys stay credential references (environment-variable names) resolved per call through the official `ctx.credentials` seam 鈥?values are never logged or snapshotted.
+- API keys stay credential references (environment-variable names) resolved per call through the official `ctx.credentials` seam — values are never logged or snapshotted.
 
 ### Changed
 
