@@ -73,3 +73,4 @@ minimumReleaseAgeExclude:
   - '@deepseek-ai/dsh-typert-protocol@0.1.2-alpha.3'
   - '@deepseek-ai/dsh-util-crypto@0.1.2-alpha.3'
   - '@deepseek-ai/dsh-util-values@0.1.2-alpha.3'
+verifyDepsBeforeRun: false
