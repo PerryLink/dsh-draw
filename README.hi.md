@@ -25,7 +25,7 @@
 
 | सतह | स्थिति |
 |---|---|
-| Harness | DeepSeek Harness `0.1.1-rc.2` (`0.1.1-rc.2` के लिए घोषित संगतता) |
+| Harness | DeepSeek Harness `0.1.2-alpha.5` (`0.1.2-alpha.5` के लिए घोषित संगतता) |
 | Node | `^22.19.0 \|\| >=24.0.0` |
 | इंजन | कोई भी OpenAI-संगत images एंडपॉइंट; OpenAI Images (`gpt-image-1`) और Zhipu CogView (`cogview-3-flash`) प्रीसेट |
 | सतहें | Host `image_generate` टूल + वेब परिणाम कार्ड + Plugins सेटिंग टैब |
@@ -142,7 +142,7 @@ dsh --profile web --dump-config | grep -A2 'id: dsh-draw'
 ```sh
 pnpm install        # node ^22.19 || >=24
 pnpm run typecheck  # tsc: src + tests स्थानीय हार्नेस चेकआउट के विरुद्ध
-pnpm run typecheck:ci  # tsc प्रकाशित 0.1.1-rc.2 फ़ेस के विरुद्ध (बिना paths)
+pnpm run typecheck:ci  # tsc प्रकाशित 0.1.2-alpha.5 फ़ेस के विरुद्ध (बिना paths)
 pnpm test           # vitest: 107 टेस्ट, 16 टेस्ट फ़ाइलें (स्क्रिप्टेड ट्रांसपोर्ट, वास्तविक Context/Session/ToolRuntime)
 pnpm run build      # tsc घोषणाएँ + tsdown बंडल (lib/)
 pnpm run verify:self-contained  # निर्भरता स्पेक registry से हल होती हैं

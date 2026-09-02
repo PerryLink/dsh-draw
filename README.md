@@ -26,7 +26,7 @@
 
 | Surface | Status |
 |---|---|
-| Harness | DeepSeek Harness `0.1.1-rc.2` (compat declared for `0.1.1-rc.2`) |
+| Harness | DeepSeek Harness `0.1.2-alpha.5` (compat declared for `0.1.2-alpha.5`) |
 | Node | `^22.19.0 \|\| >=24.0.0` |
 | Engines | Any OpenAI-compatible images endpoint; presets for OpenAI Images (`gpt-image-1`) and Zhipu CogView (`cogview-3-flash`) |
 | Surfaces | Host `image_generate` tool + web result card + Plugins settings tab |
@@ -143,7 +143,7 @@ Example override in your profile patch:
 ```sh
 pnpm install        # node ^22.19 || >=24
 pnpm run typecheck  # tsc: src + tests against the local harness checkout
-pnpm run typecheck:ci  # tsc against the published 0.1.1-rc.2 faces (no paths)
+pnpm run typecheck:ci  # tsc against the published 0.1.2-alpha.5 faces (no paths)
 pnpm test           # vitest: 107 tests, 16 test files (scripted transport, real Context/Session/ToolRuntime)
 pnpm run build      # tsc declarations + tsdown bundles (lib/)
 pnpm run verify:self-contained  # dependency specs resolve from the registry
