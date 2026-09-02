@@ -129,5 +129,10 @@ export function fallbackDrawGeneratedEvents(session: Session): readonly DrawGene
  * @returns the accounting events.
  */
 export function drawGeneratedEvents(session: Session): readonly import('@deepseek-ai/dsh-session').SessionEvent<'draw/generated'>[] {
-  return session.events.filter(event => event.type === 'draw/generated')
+  // alpha.5 renamed the Session.events getter to snapshotEvents(); the peer
+  // floor (>=0.1.0-rc.8) still exposes .events, so detect at runtime.
+  const snapshot: readonly import('@deepseek-ai/dsh-session').SessionEvent[] = typeof session.snapshotEvents === 'function'
+    ? session.snapshotEvents()
+    : (session as unknown as { events: readonly import('@deepseek-ai/dsh-session').SessionEvent[] }).events
+  return snapshot.filter(event => event.type === 'draw/generated')
 }

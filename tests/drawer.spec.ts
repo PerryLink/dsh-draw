@@ -69,7 +69,7 @@ describe('Drawer.generate', () => {
       expect(outcome.fallbackUsed).toBe(false)
     }
     expect(attachments?.saved).toHaveLength(2)
-    const events = session!.events.filter(event => event.type === 'draw/generated')
+    const events = session!.snapshotEvents().filter(event => event.type === 'draw/generated')
     expect(events).toHaveLength(1)
     expect(events[0]?.data).toMatchObject({ engine: 'openai', source: 'tool', size: 'landscape', count: 2 })
   })

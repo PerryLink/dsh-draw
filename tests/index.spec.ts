@@ -76,7 +76,7 @@ describe('dsh-draw assembly', () => {
     // The pinned rc.6 peers cannot carry draw/generated safely (static event
     // whitelist, no ignorable envelope): the accounting payload rides the
     // in-memory fallback ledger — the log stays reloadable and quota folds it.
-    expect(harness.session.events.filter(event => event.type === 'draw/generated')).toHaveLength(0)
+    expect(harness.session.snapshotEvents().filter(event => event.type === 'draw/generated')).toHaveLength(0)
     expect(quotaState(harness.session)).toEqual({ generations: 1, bytes: result.images.reduce((sum, image) => sum + image.bytes, 0) })
   })
 
