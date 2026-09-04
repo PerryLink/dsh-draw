@@ -25,13 +25,13 @@
 
 | 方面 | 状态 |
 |---|---|
-| Harness | DeepSeek Harness `0.1.2-alpha.5`（声明兼容 `0.1.2-alpha.5`） |
+| Harness | DeepSeek Harness `0.1.2-rc.1`（声明兼容 `0.1.2-rc.1`） |
 | Node | `^22.19.0 \|\| >=24.0.0` |
 | 引擎 | 任意 OpenAI 兼容图像端点；内置 OpenAI Images（`gpt-image-1`）与智谱 CogView（`cogview-3-flash`）预设 |
 | 界面 | Host `image_generate` 工具 + Web 结果卡片 + Plugins 设置页签 |
 
-浏览器半边基于 cordis `Context` 与已发布的客户端包（`dsh-client-ui-slots`、`dsh-client-ui-settings`、`dsh-client-ui-tool`、`dsh-client-locale`、`dsh-client-connection`）；它不再依赖已移除的 `dsh-client-runtime` 包（工具调用块经本地结构契约读取），因此客户端接口面同样对齐 `0.1.2-alpha.5` 宿主。
-0.1.2-alpha.5（2026-09-02 已适配）：会话信封保留 ignorable 字段但仅用于存量日志读取兼容——Session.append 仍无法盖章，门控行为不变。
+浏览器半边基于 cordis `Context` 与已发布的客户端包（`dsh-client-ui-slots`、`dsh-client-ui-settings`、`dsh-client-ui-tool`、`dsh-client-locale`、`dsh-client-connection`）；它不再依赖已移除的 `dsh-client-runtime` 包（工具调用块经本地结构契约读取），因此客户端接口面同样对齐 `0.1.2-rc.1` 宿主。
+0.1.2-rc.1（2026-09-02 已适配）：会话信封保留 ignorable 字段但仅用于存量日志读取兼容——Session.append 仍无法盖章，门控行为不变。
 
 ## 你能得到什么
 
@@ -121,7 +121,7 @@ profile patch 中的覆盖示例：
 
 - **权限**：插件仅对配置的引擎端点发起 HTTPS 出站请求；其余界面全部只读。设置页签唯一的写入是对官方 `ctx.credentials` 接缝的凭据设置/移除。
 - **数据**：生成的图片经官方附件存储落盘，受 harness 附件策略约束。配额用量从 `draw/generated` 会话事件折叠；在无法安全落盘该事件的宿主上另加内存兜底账簿 —— 除此之外不存储任何东西。
-- **会话日志**：`draw/generated` 事件记录引擎、模型、标准化请求、字节总量与附件 id —— 审计事实，绝不包含 API 密钥。仅当宿主收录该类型或支持 `ignorable` 信封时才落盘（挂载期探测）；在 rc.6/rc.7 宿主与移除信封的 `0.1.2-alpha.5` 宿主（读取时对未知类型失败关闭）上，载荷改记内存兜底账簿，生成图片不再导致会话重启后无法打开。
+- **会话日志**：`draw/generated` 事件记录引擎、模型、标准化请求、字节总量与附件 id —— 审计事实，绝不包含 API 密钥。仅当宿主收录该类型或支持 `ignorable` 信封时才落盘（挂载期探测）；在 rc.6/rc.7 宿主与 `0.1.2-rc.1` 线（append 无法盖章、读取时对未知类型失败关闭）上，载荷改记内存兜底账簿，生成图片不再导致会话重启后无法打开。
 
 ## 安全边界
 
@@ -135,14 +135,14 @@ profile patch 中的覆盖示例：
 - **仅图像模型。** 无视频、音频或编辑端点；无视觉理解。
 - **引擎兼容性。** 引擎需支持 OpenAI `POST /images/generations` 形状（base64 或 URL 交付）；厂商专属扩展不在范围内。
 - **成本感知是结构性的。** 插件统计调用次数与字节，但不了解引擎定价 —— 与 `dsh-budget` 配合做成本治理。
-- **rc.6/rc.7 与 0.1.2-alpha.5 上的配额持久性。** 会话日志无法安全携带 `draw/generated` 的宿主（静态事件白名单、无 `ignorable` 信封；`0.1.2-alpha.5` 已移除信封并在读取时对未知事件类型失败关闭）上，配额经内存兜底账簿在活会话内保持精确，但重启后重置；宿主具备插件事件面后恢复持久记账。
+- **rc.6/rc.7 与 0.1.2-rc.1 上的配额持久性。** 会话日志无法安全携带 `draw/generated` 的宿主（静态事件白名单、无 `ignorable` 信封；`0.1.2-rc.1` 无法盖章并在读取时对未知事件类型失败关闭）上，配额经内存兜底账簿在活会话内保持精确，但重启后重置；宿主具备插件事件面后恢复持久记账。
 
 ## 开发
 
 ```sh
 pnpm install        # node ^22.19 || >=24
 pnpm run typecheck  # tsc：src + tests，对照本地 harness checkout
-pnpm run typecheck:ci  # tsc：对照已发布的 0.1.2-alpha.5 类型（无 paths）
+pnpm run typecheck:ci  # tsc：对照已发布的 0.1.2-rc.1 类型（无 paths）
 pnpm test           # vitest：107 个测试、16 个测试文件（scripted 传输、真实 Context/Session/ToolRuntime）
 pnpm run build      # tsc 声明 + tsdown 打包（lib/）
 pnpm run verify:self-contained  # 依赖声明全部来自 registry

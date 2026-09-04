@@ -26,13 +26,13 @@
 
 | Surface | Status |
 |---|---|
-| Harness | DeepSeek Harness `0.1.2-alpha.5` (compat declared for `0.1.2-alpha.5`) |
+| Harness | DeepSeek Harness `0.1.2-rc.1` (compat declared for `0.1.2-rc.1`) |
 | Node | `^22.19.0 \|\| >=24.0.0` |
 | Engines | Any OpenAI-compatible images endpoint; presets for OpenAI Images (`gpt-image-1`) and Zhipu CogView (`cogview-3-flash`) |
 | Surfaces | Host `image_generate` tool + web result card + Plugins settings tab |
 
-The browser half rides the cordis `Context` and the published client packages (`dsh-client-ui-slots`, `dsh-client-ui-settings`, `dsh-client-ui-tool`, `dsh-client-locale`, `dsh-client-connection`); it no longer depends on the removed `dsh-client-runtime` package (the tool-call block is read through a local structural contract), so the client surface also lines up with `0.1.2-alpha.5` hosts.
-0.1.2-alpha.5 (adapted 2026-09-02): the session envelope keeps its ignorable field for stored-log read compatibility only - Session.append still cannot stamp it, so audit-gate behavior is unchanged.
+The browser half rides the cordis `Context` and the published client packages (`dsh-client-ui-slots`, `dsh-client-ui-settings`, `dsh-client-ui-tool`, `dsh-client-locale`, `dsh-client-connection`); it no longer depends on the removed `dsh-client-runtime` package (the tool-call block is read through a local structural contract), so the client surface also lines up with `0.1.2-rc.1` hosts.
+0.1.2-rc.1 (adapted 2026-09-02): the session envelope keeps its ignorable field for stored-log read compatibility only - Session.append still cannot stamp it, so audit-gate behavior is unchanged.
 
 ## What you get
 
@@ -122,7 +122,7 @@ Example override in your profile patch:
 
 - **Permissions**: the plugin makes outbound HTTPS calls to the configured engine endpoints only; every other surface is read-only. The settings tab's only writes are credential set/remove calls on the official `ctx.credentials` seam.
 - **Data**: generated images are saved through the official attachment store under the harness's own attachment policy. Quota usage is folded from the `draw/generated` session events, plus the in-memory fallback ledger on hosts that cannot log those events — nothing else is stored.
-- **Session log**: the `draw/generated` event records engine, model, standardized request, byte totals, and attachment ids — the audit facts, never the API keys. The event is appended only when the host knows the type or honors the `ignorable` envelope (probed at mount); on rc.6/rc.7 hosts and the envelope-less `0.1.2-alpha.5` host (which removed the envelope and fails closed on unknown types at read) the payload goes to the in-memory fallback ledger instead, so generating images can no longer make a session refuse to reopen.
+- **Session log**: the `draw/generated` event records engine, model, standardized request, byte totals, and attachment ids — the audit facts, never the API keys. The event is appended only when the host knows the type or honors the `ignorable` envelope (probed at mount); on rc.6/rc.7 hosts and the `0.1.2-rc.1` line (whose `Session.append` cannot stamp the marker and which fails closed on unknown types at read) the payload goes to the in-memory fallback ledger instead, so generating images can no longer make a session refuse to reopen.
 
 ## Security boundaries
 
@@ -136,14 +136,14 @@ Example override in your profile patch:
 - **Image models only.** No video, audio, or edit endpoints; no vision understanding.
 - **Engine compatibility.** Three vocabularies are supported through the provider seam: `openai` (the `POST /images/generations` shape), `replicate` (prediction create + poll), and `fal` (the `fal.run` queue). Provider-specific extras beyond `prompt`/size/count (e.g. seed, scheduler) are out of scope.
 - **Cost awareness is structural.** The plugin counts calls and bytes but does not know engine pricing — pair with `dsh-budget` for cost governance.
-- **Quota durability on rc.6/rc.7 and 0.1.2-alpha.5.** On hosts whose session log cannot carry `draw/generated` (static event whitelist, no `ignorable` envelope; `0.1.2-alpha.5` removed the envelope and fails closed on unknown event types at read), quota stays exact for the live session from the in-memory fallback ledger but resets on restart; durable accounting resumes on hosts with a plugin event surface.
+- **Quota durability on rc.6/rc.7 and 0.1.2-rc.1.** On hosts whose session log cannot carry `draw/generated` (static event whitelist, no `ignorable` envelope; `0.1.2-rc.1` cannot stamp the marker and fails closed on unknown event types at read), quota stays exact for the live session from the in-memory fallback ledger but resets on restart; durable accounting resumes on hosts with a plugin event surface.
 
 ## Development
 
 ```sh
 pnpm install        # node ^22.19 || >=24
 pnpm run typecheck  # tsc: src + tests against the local harness checkout
-pnpm run typecheck:ci  # tsc against the published 0.1.2-alpha.5 faces (no paths)
+pnpm run typecheck:ci  # tsc against the published 0.1.2-rc.1 faces (no paths)
 pnpm test           # vitest: 107 tests, 16 test files (scripted transport, real Context/Session/ToolRuntime)
 pnpm run build      # tsc declarations + tsdown bundles (lib/)
 pnpm run verify:self-contained  # dependency specs resolve from the registry
