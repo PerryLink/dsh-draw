@@ -5,7 +5,11 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.2.6] - 2026-09-04
+## [0.2.7] - 2026-09-04
+
+### Fixed
+
+- Carry the release version through `src/version.ts` and the status test: the 0.2.6 stamp only bumped `package.json`, so CI's version tripwire (`PLUGIN_VERSION === pkg.version`) failed and 0.2.6 was never published; 0.2.7 repackages the same changes with every carrier aligned.
 
 ### Changed
 
