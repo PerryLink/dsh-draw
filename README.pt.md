@@ -31,7 +31,7 @@
 | Superfícies | Ferramenta host `image_generate` + cartão de resultado web + aba de ajustes de Plugins |
 
 A metade de navegador usa o `Context` do cordis e os pacotes de cliente publicados (`dsh-client-ui-slots`, `dsh-client-ui-settings`, `dsh-client-ui-tool`, `dsh-client-locale`, `dsh-client-connection`); ela não depende mais do pacote removido `dsh-client-runtime` (o bloco de chamada de ferramenta é lido por um contrato estrutural local), então a superfície de cliente também se alinha com hosts `0.1.2-rc.1`.
-0.1.2-rc.1 (adaptado em 2026-09-02): o envelope de sessão mantém seu campo ignorable apenas para compatibilidade de leitura de logs armazenados - o Session.append ainda não consegue estampá-lo, então o comportamento da porta não muda.
+0.1.2-rc.1 (adaptado em 2026-09-02): o envelope de sessão mantém seu campo ignorable apenas para compatibilidade de leitura de logs armazenados - o Session.append ainda não consegue estampá-lo, então o comportamento da porta não muda. Verificado em 2026-09-06 contra o checkout master dsh-v0.1.3-alpha.1 (cadeia completa de portas + smoke de instalação de perfil).
 
 ## O que você ganha
 

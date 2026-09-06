@@ -32,7 +32,7 @@
 | Surfaces | Host `image_generate` tool + web result card + Plugins settings tab |
 
 The browser half rides the cordis `Context` and the published client packages (`dsh-client-ui-slots`, `dsh-client-ui-settings`, `dsh-client-ui-tool`, `dsh-client-locale`, `dsh-client-connection`); it no longer depends on the removed `dsh-client-runtime` package (the tool-call block is read through a local structural contract), so the client surface also lines up with `0.1.2-rc.1` hosts.
-0.1.2-rc.1 (adapted 2026-09-02): the session envelope keeps its ignorable field for stored-log read compatibility only - Session.append still cannot stamp it, so audit-gate behavior is unchanged.
+0.1.2-rc.1 (adapted 2026-09-02): the session envelope keeps its ignorable field for stored-log read compatibility only - Session.append still cannot stamp it, so audit-gate behavior is unchanged. Verified 2026-09-06 against the dsh-v0.1.3-alpha.1 master checkout (full gate chain + profile install smoke).
 
 ## What you get
 
