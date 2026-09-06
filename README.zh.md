@@ -25,7 +25,7 @@
 
 | 方面 | 状态 |
 |---|---|
-| Harness | DeepSeek Harness `0.1.2-rc.1`（声明兼容 `0.1.2-rc.1`） |
+| Harness | DeepSeek Harness `dsh-v0.1.3-alpha.1`（声明兼容 `0.1.2-rc.1`） |
 | Node | `^22.19.0 \|\| >=24.0.0` |
 | 引擎 | 任意 OpenAI 兼容图像端点；内置 OpenAI Images（`gpt-image-1`）与智谱 CogView（`cogview-3-flash`）预设 |
 | 界面 | Host `image_generate` 工具 + Web 结果卡片 + Plugins 设置页签 |

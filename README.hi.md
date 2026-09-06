@@ -25,7 +25,7 @@
 
 | सतह | स्थिति |
 |---|---|
-| Harness | DeepSeek Harness `0.1.2-rc.1` (`0.1.2-rc.1` के लिए घोषित संगतता) |
+| Harness | DeepSeek Harness `dsh-v0.1.3-alpha.1` (`0.1.2-rc.1` के लिए घोषित संगतता) |
 | Node | `^22.19.0 \|\| >=24.0.0` |
 | इंजन | कोई भी OpenAI-संगत images एंडपॉइंट; OpenAI Images (`gpt-image-1`) और Zhipu CogView (`cogview-3-flash`) प्रीसेट |
 | सतहें | Host `image_generate` टूल + वेब परिणाम कार्ड + Plugins सेटिंग टैब |

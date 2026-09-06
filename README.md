@@ -26,7 +26,7 @@
 
 | Surface | Status |
 |---|---|
-| Harness | DeepSeek Harness `0.1.2-rc.1` (compat declared for `0.1.2-rc.1`) |
+| Harness | DeepSeek Harness `dsh-v0.1.3-alpha.1` (compat declared for `0.1.2-rc.1`) |
 | Node | `^22.19.0 \|\| >=24.0.0` |
 | Engines | Any OpenAI-compatible images endpoint; presets for OpenAI Images (`gpt-image-1`) and Zhipu CogView (`cogview-3-flash`) |
 | Surfaces | Host `image_generate` tool + web result card + Plugins settings tab |
