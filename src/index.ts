@@ -33,6 +33,9 @@ export const name = 'dsh-draw'
 /** Hard services: the tool registry every contribution lands in. */
 export const inject = ['tools']
 
+// Service Definition — public contracts re-exported by the plugin: config,
+// router/engine status types, the image_generate tool schema (`tool.ts`), the
+// `draw` Remote service surface, and the wire vocabulary.
 export { Config, resolveConfig, type Config as DrawConfig, type ResolvedConfig, DEFAULT_ENGINES, engineById } from './config.ts'
 export { EngineRouter, type AttemptView, type EngineStatus, type ProbeOutcome } from './router.ts'
 export { Drawer, type DrawImage, type DrawFailureReason, type DrawOutcome, type DrawOptions, type DrawSuccess } from './drawer.ts'
@@ -73,6 +76,8 @@ export async function apply(ctx: Context, config: Config): Promise<void> {
     cooldownMs: resolved.cooldownMs,
   })
 
+  // Consumer — resolves the optional credentials service per call, and the
+  // drawer reads the attachments/sessions services through ctx.get at use time.
   const credentials = () => ctx.get('credentials') as CredentialProvider | undefined
 
   // The draw/generated event type is declared only by this package: append it
@@ -92,6 +97,8 @@ export async function apply(ctx: Context, config: Config): Promise<void> {
     sessions: () => ctx.get('sessions') as SessionStore | undefined,
   }, { gate: makeHostEventGate(), warn: (message) => logger.warn(message) })
 
+  // Service Provider — ctx.tools.register mounts the image_generate tool and
+  // the `draw` Remote service; every registration is an effect on this fiber.
   ctx.effect(() => ctx.tools.register(imageGenerateTool(drawer, resolved)), 'dsh-draw: image_generate tool')
 
   await ctx.plugin(DrawService, { config: resolved, router, drawer, credentials: credentials() })
