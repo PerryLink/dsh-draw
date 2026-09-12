@@ -9,6 +9,7 @@
 import { describe, expect, it } from 'vitest'
 import { quotaState } from '../src/quota.ts'
 import type { DrawService } from '../src/service.ts'
+import { PLUGIN_VERSION } from '../src/version.ts'
 import { CallId } from './call-id.ts'
 import { mountHarness } from './harness.ts'
 
@@ -23,7 +24,7 @@ describe('dsh-draw assembly', () => {
     expect(harness.ctx.tools.get('image_generate')).toBeDefined()
     const service = harness.ctx.get('draw') as DrawService
     const status = await service.status()
-    expect(status.pluginVersion).toBe('0.2.12')
+    expect(status.pluginVersion).toBe(PLUGIN_VERSION)
     expect(status.engines.map(engine => engine.id)).toEqual(['openai', 'cogview'])
     expect(status.engines[0]).toMatchObject({ preferred: true, credential: { configured: false } })
   })
