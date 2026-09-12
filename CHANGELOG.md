@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## [0.2.14] - 2026-09-12
+
+### Fixed
+
+- Read the plugin version from `src/version.ts` in the assembly spec instead of hardcoding it, so a release commit no longer turns CI red. Re-releases 0.2.13, whose tag CI failed on the stale literal.
+
 ## [0.2.13] - 2026-09-12
 
 ### Changed
