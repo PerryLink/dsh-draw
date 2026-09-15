@@ -11,6 +11,17 @@
 
 import { z } from 'zod'
 import type { InvocationDescriptor } from '@deepseek-ai/dsh-typert-protocol'
+
+/**
+ * Strict wire codec carrying BOTH published and checkout faces: the
+ * `schema` field feeds the npm-published 0.1.5-rc.2 line, `create` feeds the
+ * checkout 0.1.6-alpha.1+ line (schemas materialize lazily on first use).
+ * Built through a variable, so neither typecheck ruler flags the other
+ * face's field as excess.
+ */
+function strictWire<T>(typeSymbol: string, schema: T) {
+  return Object.freeze({ ...{ mode: 'strict' as const, typeSymbol, schema }, create: () => schema })
+}
 import type { AttemptView, EngineStatus, ProbeOutcome } from './router.ts'
 import type { QuotaLimits, QuotaState } from './quota.ts'
 import type { DrawImage } from './drawer.ts'
@@ -282,11 +293,7 @@ export const DRAW_STATUS_DESCRIPTOR = Object.freeze({
   method: 'status',
   invocation: Object.freeze({ kind: 'direct' }),
   parameters: Object.freeze([]),
-  result: Object.freeze({
-    mode: 'strict',
-    typeSymbol: 'dsh-draw/types#DrawStatusSnapshot',
-    schema: DRAW_STATUS_SCHEMA,
-  }),
+  result: strictWire('dsh-draw/types#DrawStatusSnapshot', DRAW_STATUS_SCHEMA),
   sourceLocation: Object.freeze({ file: 'src/wire.ts', line: 1, column: 1 }),
 } as const) satisfies InvocationDescriptor
 
@@ -303,17 +310,9 @@ export const DRAW_PROBE_DESCRIPTOR = Object.freeze({
     name: 'engineId',
     wire: 'engineId',
     source: 'json',
-    codec: Object.freeze({
-      mode: 'strict',
-      typeSymbol: 'dsh-draw/types#EngineId',
-      schema: ENGINE_ID_CODEC,
-    }),
+    codec: strictWire('dsh-draw/types#EngineId', ENGINE_ID_CODEC),
   } satisfies InvocationDescriptor['parameters'][number])]),
-  result: Object.freeze({
-    mode: 'strict',
-    typeSymbol: 'dsh-draw/types#DrawProbeResult',
-    schema: DRAW_PROBE_SCHEMA,
-  }),
+  result: strictWire('dsh-draw/types#DrawProbeResult', DRAW_PROBE_SCHEMA),
   sourceLocation: Object.freeze({ file: 'src/wire.ts', line: 1, column: 1 }),
 } as const) satisfies InvocationDescriptor
 
@@ -333,20 +332,16 @@ export const DRAW_SET_CREDENTIAL_DESCRIPTOR = Object.freeze({
       name: 'engineId',
       wire: 'engineId',
       source: 'json',
-      codec: Object.freeze({ mode: 'strict', typeSymbol: 'dsh-draw/types#EngineId', schema: ENGINE_ID_CODEC }),
+      codec: strictWire('dsh-draw/types#EngineId', ENGINE_ID_CODEC),
     } satisfies InvocationDescriptor['parameters'][number]),
     Object.freeze({
       name: 'value',
       wire: 'value',
       source: 'json',
-      codec: Object.freeze({ mode: 'strict', typeSymbol: 'dsh-draw/types#CredentialValue', schema: CREDENTIAL_VALUE_CODEC }),
+      codec: strictWire('dsh-draw/types#CredentialValue', CREDENTIAL_VALUE_CODEC),
     } satisfies InvocationDescriptor['parameters'][number]),
   ]),
-  result: Object.freeze({
-    mode: 'strict',
-    typeSymbol: 'dsh-draw/types#CredentialActionResult',
-    schema: CREDENTIAL_ACTION_SCHEMA,
-  }),
+  result: strictWire('dsh-draw/types#CredentialActionResult', CREDENTIAL_ACTION_SCHEMA),
   sourceLocation: Object.freeze({ file: 'src/wire.ts', line: 1, column: 1 }),
 } as const) satisfies InvocationDescriptor
 
@@ -363,13 +358,9 @@ export const DRAW_UNSET_CREDENTIAL_DESCRIPTOR = Object.freeze({
     name: 'engineId',
     wire: 'engineId',
     source: 'json',
-    codec: Object.freeze({ mode: 'strict', typeSymbol: 'dsh-draw/types#EngineId', schema: ENGINE_ID_CODEC }),
+    codec: strictWire('dsh-draw/types#EngineId', ENGINE_ID_CODEC),
   } satisfies InvocationDescriptor['parameters'][number])]),
-  result: Object.freeze({
-    mode: 'strict',
-    typeSymbol: 'dsh-draw/types#CredentialActionResult',
-    schema: CREDENTIAL_ACTION_SCHEMA,
-  }),
+  result: strictWire('dsh-draw/types#CredentialActionResult', CREDENTIAL_ACTION_SCHEMA),
   sourceLocation: Object.freeze({ file: 'src/wire.ts', line: 1, column: 1 }),
 } as const) satisfies InvocationDescriptor
 
@@ -390,20 +381,16 @@ export const DRAW_REGENERATE_DESCRIPTOR = Object.freeze({
       name: 'sessionId',
       wire: 'sessionId',
       source: 'json',
-      codec: Object.freeze({ mode: 'strict', typeSymbol: 'dsh-draw/types#SessionId', schema: SESSION_ID_CODEC }),
+      codec: strictWire('dsh-draw/types#SessionId', SESSION_ID_CODEC),
     } satisfies InvocationDescriptor['parameters'][number]),
     Object.freeze({
       name: 'args',
       wire: 'args',
       source: 'json',
-      codec: Object.freeze({ mode: 'strict', typeSymbol: 'dsh-draw/types#RegenerateArgs', schema: REGENERATE_ARGS_CODEC }),
+      codec: strictWire('dsh-draw/types#RegenerateArgs', REGENERATE_ARGS_CODEC),
     } satisfies InvocationDescriptor['parameters'][number]),
   ]),
-  result: Object.freeze({
-    mode: 'strict',
-    typeSymbol: 'dsh-draw/types#DrawRegenerateResult',
-    schema: DRAW_REGENERATE_SCHEMA,
-  }),
+  result: strictWire('dsh-draw/types#DrawRegenerateResult', DRAW_REGENERATE_SCHEMA),
   sourceLocation: Object.freeze({ file: 'src/wire.ts', line: 1, column: 1 }),
 } as const) satisfies InvocationDescriptor
 
