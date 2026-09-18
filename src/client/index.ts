@@ -121,17 +121,32 @@ export async function apply(ctx: ClientContext): Promise<void> {
 }
 
 /**
- * Read the current session id from the sessions store face (structural:
- * the store shape differs across harness lines, so only the leaf is read).
+ * Read the current session id from the sessions store face (structural: the
+ * store shape differs across harness lines, so only the leaves are read).
+ *
+ * On the 0.1.6 line `SessionListState.current` no longer exists, so the card's
+ * regenerate belongs to the session the main view retains: pick the listed
+ * session whose `retainedBy.mainView` is set — the same rule the upstream
+ * session store applies when it resolves its main binding. Without a retained
+ * session the guard returns undefined and the caller reports it instead of
+ * regenerating against an unknown session.
  */
-function currentSessionId(sessions: unknown): string | undefined {
+export function currentSessionId(sessions: unknown): string | undefined {
   try {
     const list = (sessions as { list?: unknown } | null)?.list
     if (typeof list !== 'object' || list === null) return undefined
     const getSnapshot = (list as { getSnapshot?: unknown }).getSnapshot
     if (typeof getSnapshot !== 'function') return undefined
-    const current = (getSnapshot as () => { current?: unknown })().current
-    return typeof current === 'string' ? current : undefined
+    const byId = (getSnapshot as () => { byId?: unknown })().byId
+    if (typeof byId !== 'object' || byId === null) return undefined
+    for (const candidate of Object.values(byId as Record<string, unknown>)) {
+      if (typeof candidate !== 'object' || candidate === null) continue
+      const retained = (candidate as { retainedBy?: { mainView?: unknown } }).retainedBy
+      const mainView = typeof retained?.mainView === 'number' ? retained.mainView : 0
+      const id = (candidate as { id?: unknown }).id
+      if (mainView > 0 && typeof id === 'string') return id
+    }
+    return undefined
   } catch {
     return undefined
   }
