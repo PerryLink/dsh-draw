@@ -34,6 +34,7 @@
 
 La mitad de navegador se apoya en el `Context` de cordis y en los paquetes de cliente publicados (`dsh-client-ui-slots`, `dsh-client-ui-settings`, `dsh-client-ui-tool`, `dsh-client-locale`, `dsh-client-connection`); ya no depende del paquete eliminado `dsh-client-runtime` (el bloque de llamada de herramienta se lee mediante un contrato estructural local), por lo que la superficie de cliente también encaja con hosts `0.1.2-rc.1`.
 0.1.2-rc.1 (adaptado el 2026-09-02): el sobre de sesión conserva su campo ignorable solo para compatibilidad de lectura de logs almacenados - Session.append aún no puede estamparlo, por lo que el comportamiento de la puerta no cambia. Verificado el 2026-09-06 contra el master checkout dsh-v0.1.3-alpha.1 (cadena completa de puertas + smoke de instalación de perfil).
+0.1.6-alpha.2 (adaptado el 2026-09-18): el tercer parámetro de `Session.append` existe solo para tipos de superficie y es un `SurfaceIntent`, nunca un sobre `ignorable`, así que el tipo no-superficie `draw/generated` tampoco se escribe en esta línea — la cuota se cuenta en memoria por sesión y se reinicia al reiniciar la sesión (véase la nota de durabilidad de cuota). Verificado el 2026-09-18 (doble typecheck + suite completa + puertas self-contained/artifacts/readme).
 
 ## Qué obtienes
 
@@ -137,7 +138,7 @@ Ejemplo de sobrescritura en el parche de tu perfil:
 - **Solo modelos de imagen.** Sin endpoints de vídeo, audio o edición; sin comprensión visual.
 - **Compatibilidad de motores.** Los motores deben hablar la forma `POST /images/generations` de OpenAI (entrega base64 o URL); los extras específicos de cada proveedor quedan fuera.
 - **La conciencia de coste es estructural.** El plugin cuenta llamadas y bytes pero no conoce el precio de los motores — combínalo con `dsh-budget` para la gobernanza de coste.
-- **Durabilidad de cuota en rc.6/rc.7 y 0.1.2-rc.1.** En hosts cuyo registro de sesión no puede llevar `draw/generated` (lista blanca estática de eventos, sin sobre `ignorable`; `0.1.2-rc.1` no puede estampar el marcador y falla cerrado en tipos de evento desconocidos al leer), la cuota sigue exacta en la sesión viva desde el libro auxiliar en memoria pero se reinicia al reiniciar; la contabilidad duradera vuelve en hosts con una superficie de eventos para plugins.
+- **Durabilidad de cuota en rc.6/rc.7, 0.1.2-rc.1 y 0.1.6-alpha.2.** En hosts cuyo registro de sesión no puede llevar `draw/generated` (lista blanca estática de eventos, sin sobre `ignorable`; `0.1.2-rc.1` no puede estampar el marcador y falla cerrado en tipos de evento desconocidos al leer; en `0.1.6-alpha.2` el tercer parámetro de append existe solo para tipos de superficie, así que un evento no-superficie no puede marcarse), la cuota sigue exacta en la sesión viva desde el libro auxiliar en memoria pero se reinicia al reiniciar; la contabilidad duradera vuelve en hosts con una superficie de eventos para plugins. El primer commit rechazado avisa una vez, así que la degradación deja de ser silenciosa.
 
 ## Desarrollo
 

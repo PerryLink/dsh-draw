@@ -34,6 +34,7 @@
 
 A metade de navegador usa o `Context` do cordis e os pacotes de cliente publicados (`dsh-client-ui-slots`, `dsh-client-ui-settings`, `dsh-client-ui-tool`, `dsh-client-locale`, `dsh-client-connection`); ela não depende mais do pacote removido `dsh-client-runtime` (o bloco de chamada de ferramenta é lido por um contrato estrutural local), então a superfície de cliente também se alinha com hosts `0.1.2-rc.1`.
 0.1.2-rc.1 (adaptado em 2026-09-02): o envelope de sessão mantém seu campo ignorable apenas para compatibilidade de leitura de logs armazenados - o Session.append ainda não consegue estampá-lo, então o comportamento da porta não muda. Verificado em 2026-09-06 contra o checkout master dsh-v0.1.3-alpha.1 (cadeia completa de portas + smoke de instalação de perfil).
+0.1.6-alpha.2 (adaptado em 2026-09-18): o terceiro parâmetro de `Session.append` existe apenas para tipos de superfície e é um `SurfaceIntent`, nunca um envelope `ignorable`, então o tipo não-superfície `draw/generated` também não é gravado nesta linha — a cota é contada em memória por sessão e zera ao reiniciar a sessão (ver a nota de durabilidade de cota). Verificado em 2026-09-18 (typecheck duplo + suíte completa + portas self-contained/artifacts/readme).
 
 ## O que você ganha
 
@@ -137,7 +138,7 @@ Exemplo de sobrescrita no patch do seu perfil:
 - **Somente modelos de imagem.** Sem endpoints de vídeo, áudio ou edição; sem compreensão visual.
 - **Compatibilidade de motores.** Os motores devem falar a forma `POST /images/generations` da OpenAI (entrega base64 ou URL); extras específicos de cada provedor ficam de fora.
 - **Consciência de custo é estrutural.** O plugin conta chamadas e bytes, mas não conhece o preço dos motores — combine com `dsh-budget` para a governança de custo.
-- **Durabilidade de cota em rc.6/rc.7 e 0.1.2-rc.1.** Em hosts cujo registro de sessão não pode carregar `draw/generated` (lista estática de eventos, sem envelope `ignorable`; `0.1.2-rc.1` removeu o envelope e falha fechado em tipos de evento desconhecidos na leitura), a cota continua exata na sessão viva a partir do livro auxiliar em memória, mas zera ao reiniciar; a contabilidade durável retorna em hosts com uma superfície de eventos para plugins.
+- **Durabilidade de cota em rc.6/rc.7, 0.1.2-rc.1 e 0.1.6-alpha.2.** Em hosts cujo registro de sessão não pode carregar `draw/generated` (lista estática de eventos, sem envelope `ignorable`; `0.1.2-rc.1` removeu o envelope e falha fechado em tipos de evento desconhecidos na leitura; em `0.1.6-alpha.2` o terceiro parâmetro do append existe apenas para tipos de superfície, então um evento não-superfície não pode ser marcado), a cota continua exata na sessão viva a partir do livro auxiliar em memória, mas zera ao reiniciar; a contabilidade durável retorna em hosts com uma superfície de eventos para plugins. O primeiro commit recusado avisa uma vez, então a degradação deixa de ser silenciosa.
 
 ## Desenvolvimento
 

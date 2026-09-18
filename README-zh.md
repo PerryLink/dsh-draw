@@ -34,6 +34,7 @@
 
 浏览器半边基于 cordis `Context` 与已发布的客户端包（`dsh-client-ui-slots`、`dsh-client-ui-settings`、`dsh-client-ui-tool`、`dsh-client-locale`、`dsh-client-connection`）；它不再依赖已移除的 `dsh-client-runtime` 包（工具调用块经本地结构契约读取），因此客户端接口面同样对齐 `0.1.2-rc.1` 宿主。
 0.1.2-rc.1（2026-09-02 已适配）：会话信封保留 ignorable 字段但仅用于存量日志读取兼容——Session.append 仍无法盖章，门控行为不变。已于 2026-09-06 对照 dsh-v0.1.3-alpha.1 master 检出核验（完整门禁链 + profile 安装冒烟）。
+0.1.6-alpha.2（2026-09-18 已适配）：`Session.append` 的第三参仅对表面事件类型存在且为 `SurfaceIntent`，绝非 `ignorable` 信封，因此非表面的 `draw/generated` 在该线上仍不落盘——配额按会话内存计数、会话重启归零（与下方「配额持久性」一致）。已于 2026-09-18 核验（双 typecheck 尺子 + 全量测试 + self-contained/artifacts/readme 门）。
 
 ## 你能得到什么
 
@@ -137,7 +138,7 @@ profile patch 中的覆盖示例：
 - **仅图像模型。** 无视频、音频或编辑端点；无视觉理解。
 - **引擎兼容性。** 引擎需支持 OpenAI `POST /images/generations` 形状（base64 或 URL 交付）；厂商专属扩展不在范围内。
 - **成本感知是结构性的。** 插件统计调用次数与字节，但不了解引擎定价 —— 与 `dsh-budget` 配合做成本治理。
-- **rc.6/rc.7 与 0.1.2-rc.1 上的配额持久性。** 会话日志无法安全携带 `draw/generated` 的宿主（静态事件白名单、无 `ignorable` 信封；`0.1.2-rc.1` 无法盖章并在读取时对未知事件类型失败关闭）上，配额经内存兜底账簿在活会话内保持精确，但重启后重置；宿主具备插件事件面后恢复持久记账。
+- **rc.6/rc.7、0.1.2-rc.1 与 0.1.6-alpha.2 上的配额持久性。** 会话日志无法安全携带 `draw/generated` 的宿主（静态事件白名单、无 `ignorable` 信封；`0.1.2-rc.1` 无法盖章并在读取时对未知事件类型失败关闭；`0.1.6-alpha.2` 上 append 第三参仅对表面类型存在，非表面事件无法盖章）上，配额经内存兜底账簿在活会话内保持精确，但重启后重置；宿主具备插件事件面后恢复持久记账。首次被拒的提交会告警一次，降级不再静默。
 
 ## 开发
 

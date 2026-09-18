@@ -8,9 +8,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- The result card's regenerate no longer reads the removed `SessionListState.current`: on the 0.1.6 line that field is gone, so the read returned `undefined` forever and regenerate failed (or silently lost the session scope). The card now takes the session the main view retains (`retainedBy.mainView > 0`), the same rule the upstream session store applies, and keeps the guard that reports "no active session" instead of acting on an unknown one. The old `current` field is never read again.
+- The scoped stylesheet is ownership-counted. It used to hand back a no-op disposer when the node already existed, so unmounting the mount that created it removed the sheet out from under any other live mount (styles-lost window); it also never removed an orphaned node. The sheet now stays while any mount is alive and the last unmount removes it.
+- `DrawService` mounts through an effect registered before the await, so a disposal while the Remote service is still mounting unwinds it instead of leaving a half-applied mount; the success log no longer claims a mount that was already torn down, and a real mount failure still propagates.
+- The session-event gate records the mount-time probe result and warns once on the first refused commit. The degradation (quota falls back to the in-memory ledger) used to be completely silent.
+
 ### Changed
 
 - Carry both Typert strict-codec faces on the wire descriptors: the published `schema` field (0.1.5-rc.2 line) and the `create` factory the 0.1.6-alpha.1 checkout materializes lazily on first use. Both typecheck rulers stay green.
+- Declare `dsh.manifestVersion: 1` and the canonical three-clause `engines.dsh` range. The compatibility notes now state the `0.1.6-alpha.2` behavior explicitly: `draw/generated` is not written on that line (the append's third parameter is a `SurfaceIntent` for surface types only), quota is counted in memory per session and resets on restart.
 
 ## [0.2.14] - 2026-09-12
 

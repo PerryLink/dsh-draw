@@ -34,6 +34,7 @@
 
 The browser half rides the cordis `Context` and the published client packages (`dsh-client-ui-slots`, `dsh-client-ui-settings`, `dsh-client-ui-tool`, `dsh-client-locale`, `dsh-client-connection`); it no longer depends on the removed `dsh-client-runtime` package (the tool-call block is read through a local structural contract), so the client surface also lines up with `0.1.2-rc.1` hosts.
 0.1.2-rc.1 (adapted 2026-09-02): the session envelope keeps its ignorable field for stored-log read compatibility only - Session.append still cannot stamp it, so audit-gate behavior is unchanged. Verified 2026-09-06 against the dsh-v0.1.5-rc.2 master checkout (full gate chain + profile install smoke).
+0.1.6-alpha.2 (adapted 2026-09-18): `Session.append`'s third parameter exists only for surface-eligible event types and is a `SurfaceIntent`, never an `ignorable` envelope, so `draw/generated` (a non-surface type) is still not written on this line — quota is counted in memory per session and resets when the session restarts, exactly as the "Quota durability" note below describes. Verified 2026-09-18 (dual typecheck rulers + the full suite + self-contained/artifacts/readme gates).
 
 ## What you get
 
@@ -137,7 +138,7 @@ Example override in your profile patch:
 - **Image models only.** No video, audio, or edit endpoints; no vision understanding.
 - **Engine compatibility.** Three vocabularies are supported through the provider seam: `openai` (the `POST /images/generations` shape), `replicate` (prediction create + poll), and `fal` (the `fal.run` queue). Provider-specific extras beyond `prompt`/size/count (e.g. seed, scheduler) are out of scope.
 - **Cost awareness is structural.** The plugin counts calls and bytes but does not know engine pricing — pair with `dsh-budget` for cost governance.
-- **Quota durability on rc.6/rc.7 and 0.1.2-rc.1.** On hosts whose session log cannot carry `draw/generated` (static event whitelist, no `ignorable` envelope; `0.1.2-rc.1` cannot stamp the marker and fails closed on unknown event types at read), quota stays exact for the live session from the in-memory fallback ledger but resets on restart; durable accounting resumes on hosts with a plugin event surface.
+- **Quota durability on rc.6/rc.7, 0.1.2-rc.1 and 0.1.6-alpha.2.** On hosts whose session log cannot carry `draw/generated` (static event whitelist, no `ignorable` envelope; `0.1.2-rc.1` cannot stamp the marker and fails closed on unknown event types at read; on `0.1.6-alpha.2` the append's third parameter is a `SurfaceIntent` for surface types only, so a non-surface event cannot be marked), quota stays exact for the live session from the in-memory fallback ledger but resets on restart; durable accounting resumes on hosts with a plugin event surface. The first refused commit warns once, so a degraded session is visible instead of silent.
 
 ## Development
 
