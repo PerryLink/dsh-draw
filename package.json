@@ -1,6 +1,6 @@
 {
   "name": "dsh-draw",
-  "version": "0.2.14",
+  "version": "0.2.15",
   "description": "Unified static-image generation router for DeepSeek Harness: one image_generate tool with standard parameters, config-driven OpenAI-compatible engine routing (OpenAI Images, Zhipu CogView, and any compatible endpoint) with health-aware fallback, durable workspace attachment results, per-session quota accounting, an in-conversation result card, and a Plugins settings panel that stores API keys as credential references.",
   "repository": {
     "type": "git",
@@ -50,6 +50,7 @@
     "LICENSE"
   ],
   "dsh": {
+    "manifestVersion": 1,
     "bundle": {
       "patch": "./cordis.patch.yml"
     },
@@ -116,24 +117,25 @@
     "text-to-image"
   ],
   "engines": {
-    "node": "^22.19.0 || >=24.0.0"
+    "node": "^22.19.0 || >=24.0.0",
+    "dsh": ">=0.1.2-rc.1 <0.2.0 || >=0.1.5-alpha.1 <0.2.0 || >=0.1.6-0 <0.2.0"
   },
   "packageManager": "pnpm@11.7.0",
   "peerDependencies": {
     "@deepseek-ai/cordis": "^4.0.2",
-    "@deepseek-ai/dsh-attachment": ">=0.1.2-rc.1 <0.2.0 || >=0.1.5-alpha.1 <0.2.0",
-    "@deepseek-ai/dsh-brand": ">=0.1.2-rc.1 <0.2.0 || >=0.1.5-alpha.1 <0.2.0",
-    "@deepseek-ai/dsh-credentials": ">=0.1.2-rc.1 <0.2.0 || >=0.1.5-alpha.1 <0.2.0",
-    "@deepseek-ai/dsh-llm": ">=0.1.2-rc.1 <0.2.0 || >=0.1.5-alpha.1 <0.2.0",
-    "@deepseek-ai/dsh-session": ">=0.1.2-rc.1 <0.2.0 || >=0.1.5-alpha.1 <0.2.0",
-    "@deepseek-ai/dsh-tools": ">=0.1.2-rc.1 <0.2.0 || >=0.1.5-alpha.1 <0.2.0",
-    "@deepseek-ai/dsh-typert-protocol": ">=0.1.2-rc.1 <0.2.0 || >=0.1.5-alpha.1 <0.2.0",
+    "@deepseek-ai/dsh-attachment": ">=0.1.2-rc.1 <0.2.0 || >=0.1.5-alpha.1 <0.2.0 || >=0.1.6-0 <0.2.0",
+    "@deepseek-ai/dsh-brand": ">=0.1.2-rc.1 <0.2.0 || >=0.1.5-alpha.1 <0.2.0 || >=0.1.6-0 <0.2.0",
+    "@deepseek-ai/dsh-credentials": ">=0.1.2-rc.1 <0.2.0 || >=0.1.5-alpha.1 <0.2.0 || >=0.1.6-0 <0.2.0",
+    "@deepseek-ai/dsh-llm": ">=0.1.2-rc.1 <0.2.0 || >=0.1.5-alpha.1 <0.2.0 || >=0.1.6-0 <0.2.0",
+    "@deepseek-ai/dsh-session": ">=0.1.2-rc.1 <0.2.0 || >=0.1.5-alpha.1 <0.2.0 || >=0.1.6-0 <0.2.0",
+    "@deepseek-ai/dsh-tools": ">=0.1.2-rc.1 <0.2.0 || >=0.1.5-alpha.1 <0.2.0 || >=0.1.6-0 <0.2.0",
+    "@deepseek-ai/dsh-typert-protocol": ">=0.1.2-rc.1 <0.2.0 || >=0.1.5-alpha.1 <0.2.0 || >=0.1.6-0 <0.2.0",
     "@deepseek-ai/schemastery": "^3.18.2",
-    "@deepseek-ai/dsh-client-connection": ">=0.1.2-rc.1 <0.2.0 || >=0.1.5-alpha.1 <0.2.0",
-    "@deepseek-ai/dsh-client-locale": ">=0.1.2-rc.1 <0.2.0 || >=0.1.5-alpha.1 <0.2.0",
-    "@deepseek-ai/dsh-client-ui-settings": ">=0.1.2-rc.1 <0.2.0 || >=0.1.5-alpha.1 <0.2.0",
-    "@deepseek-ai/dsh-client-ui-slots": ">=0.1.2-rc.1 <0.2.0 || >=0.1.5-alpha.1 <0.2.0",
-    "@deepseek-ai/dsh-client-ui-tool": ">=0.1.2-rc.1 <0.2.0 || >=0.1.5-alpha.1 <0.2.0"
+    "@deepseek-ai/dsh-client-connection": ">=0.1.2-rc.1 <0.2.0 || >=0.1.5-alpha.1 <0.2.0 || >=0.1.6-0 <0.2.0",
+    "@deepseek-ai/dsh-client-locale": ">=0.1.2-rc.1 <0.2.0 || >=0.1.5-alpha.1 <0.2.0 || >=0.1.6-0 <0.2.0",
+    "@deepseek-ai/dsh-client-ui-settings": ">=0.1.2-rc.1 <0.2.0 || >=0.1.5-alpha.1 <0.2.0 || >=0.1.6-0 <0.2.0",
+    "@deepseek-ai/dsh-client-ui-slots": ">=0.1.2-rc.1 <0.2.0 || >=0.1.5-alpha.1 <0.2.0 || >=0.1.6-0 <0.2.0",
+    "@deepseek-ai/dsh-client-ui-tool": ">=0.1.2-rc.1 <0.2.0 || >=0.1.5-alpha.1 <0.2.0 || >=0.1.6-0 <0.2.0"
   },
   "peerDependenciesMeta": {
     "@deepseek-ai/dsh-client-connection": {

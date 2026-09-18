@@ -95,12 +95,26 @@ export async function apply(ctx: Context, config: Config): Promise<void> {
     },
     attachments: () => ctx.get('attachments') as AttachmentStore | undefined,
     sessions: () => ctx.get('sessions') as SessionStore | undefined,
-  }, { gate: makeHostEventGate(), warn: (message) => logger.warn(message) })
+  }, { gate: makeHostEventGate((message) => logger.warn(message)), warn: (message) => logger.warn(message) })
 
   // Service Provider — ctx.tools.register mounts the image_generate tool and
   // the `draw` Remote service; every registration is an effect on this fiber.
   ctx.effect(() => ctx.tools.register(imageGenerateTool(drawer, resolved)), 'dsh-draw: image_generate tool')
 
-  await ctx.plugin(DrawService, { config: resolved, router, drawer, credentials: credentials() })
+  // A02: the mount is awaited, so hold it in an effect registered BEFORE the
+  // await. A disposal that lands while DrawService is still mounting then
+  // unwinds the child fiber through the effect instead of leaving a
+  // half-applied mount; the post-await fiber check keeps the success log from
+  // claiming a mount that was already torn down, and a real mount failure
+  // still propagates.
+  const serviceFiber = ctx.plugin(DrawService, { config: resolved, router, drawer, credentials: credentials() })
+  ctx.effect(() => () => { void serviceFiber.dispose() }, 'dsh-draw: draw service')
+  try {
+    await serviceFiber
+  } catch (error) {
+    if (ctx.fiber.uid === null) return // unwound by our own disposer, not a mount failure
+    throw error
+  }
+  if (ctx.fiber.uid === null) return
   logger.info(`image generation enabled: ${resolved.engines.map(engine => engine.id).join(', ')} (preferred ${resolved.defaultEngine})`)
 }

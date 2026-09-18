@@ -9,12 +9,22 @@
 
 const STYLE_ID = 'dsh-draw-client-styles'
 
+/**
+ * Live installs of this stylesheet. The sheet is shared by every mount of the
+ * browser half, so ownership is counted: the node stays as long as any mount
+ * is alive, and the LAST disposer removes the node this module inserted.
+ * Removing it on the first unmount (or never removing it) is what produced the
+ * styles-lost window and the leaked node respectively.
+ */
+let liveInstalls = 0
+
 /** Install the scoped stylesheet once; returns the removal disposer. */
 export function installDrawStyles(): () => void {
-  if (document.getElementById(STYLE_ID) !== null) return () => undefined
-  const style = document.createElement('style')
-  style.id = STYLE_ID
-  style.textContent = `
+  liveInstalls += 1
+  if (document.getElementById(STYLE_ID) === null) {
+    const style = document.createElement('style')
+    style.id = STYLE_ID
+    style.textContent = `
 .dshdraw-card { display: flex; flex-direction: column; gap: 8px; padding: 4px 0; }
 .dshdraw-grid { display: flex; flex-wrap: wrap; gap: 8px; }
 .dshdraw-figure { display: flex; flex-direction: column; gap: 4px; max-width: 320px; }
@@ -37,8 +47,16 @@ export function installDrawStyles(): () => void {
 .dshdraw-badge.warn { color: #9a6700; border-color: #9a6700; }
 .dshdraw-input { flex: 1; min-width: 180px; border: 1px solid var(--dsh-border, #d0d7de); border-radius: 6px; padding: 4px 8px; font-size: 12px; background: transparent; color: inherit; }
 `
-  document.head.append(style)
+    document.head.append(style)
+  }
+  let disposed = false
   return () => {
-    style.remove()
+    if (disposed) return
+    disposed = true
+    liveInstalls -= 1
+    if (liveInstalls <= 0) {
+      liveInstalls = 0
+      document.getElementById(STYLE_ID)?.remove()
+    }
   }
 }

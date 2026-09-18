@@ -129,8 +129,15 @@ export function fallbackDrawGeneratedEvents(session: Session): readonly DrawGene
  * @returns the accounting events.
  */
 export function drawGeneratedEvents(session: Session): readonly import('@deepseek-ai/dsh-session').SessionEvent<'draw/generated'>[] {
-  // alpha.5 renamed the Session.events getter to snapshotEvents(); the peer
-  // floor (>=0.1.0-rc.8) still exposes .events, so detect at runtime.
+  // `Session.snapshotEvents()` is deprecated on the 0.1.6 line ("new calls are
+  // prohibited"), and this is an existing call. The migration target is the
+  // optional `sessionQuery` service (`readSession(sessionId).events`, the
+  // complete raw log — `readSurface` would NOT do: draw/generated is a
+  // non-surface audit type). Migrating it is not a local edit: quota folding
+  // (`quotaState` / `checkQuotaGenerations` / `checkQuotaBytes`) is synchronous
+  // and consumed by the tool path, the Remote status snapshot and the card, so
+  // the move turns that whole API async. Tracked for a dedicated card; the
+  // `.events` fallback below stays for the pre-alpha.5 peer floor.
   const snapshot: readonly import('@deepseek-ai/dsh-session').SessionEvent[] = typeof session.snapshotEvents === 'function'
     ? session.snapshotEvents()
     : (session as unknown as { events: readonly import('@deepseek-ai/dsh-session').SessionEvent[] }).events
