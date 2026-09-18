@@ -63,6 +63,20 @@ describe('probeIgnorableAppend (pinned rc.6 peers)', () => {
     expect(gate('draw/generated')).toEqual({ append: false, ignorable: false })
     expect(gate('turn/start')).toEqual({ append: true, ignorable: false })
   })
+
+  it('records the probe result and warns exactly once on the first refusal', () => {
+    const warnings: string[] = []
+    const gate = makeHostEventGate((message) => warnings.push(message))
+    expect(gate.ignorableAppend).toBe(probeIgnorableAppend())
+    expect(gate.knownTypes).toBe(KNOWN_SESSION_EVENT_TYPES)
+    expect(gate('draw/generated')).toEqual({ append: false, ignorable: false })
+    expect(gate('draw/generated')).toEqual({ append: false, ignorable: false })
+    expect(warnings).toHaveLength(1)
+    expect(warnings[0]).toContain('fallback ledger')
+    // An admitted type never warns.
+    expect(gate('turn/start')).toEqual({ append: true, ignorable: false })
+    expect(warnings).toHaveLength(1)
+  })
 })
 
 describe('commitDrawGenerated', () => {

@@ -81,7 +81,49 @@ export function probeIgnorableAppend(): boolean {
   }
 }
 
-/** The gate over the host's known types plus the probed envelope support. */
-export function makeHostEventGate(): EventGate {
-  return makeEventGate(KNOWN_SESSION_EVENT_TYPES, probeIgnorableAppend())
+/**
+ * The host gate: the decision function plus the probe result it was built
+ * from. The result is recorded on the function instead of being thrown away,
+ * so status surfaces can report which regime the session is in.
+ */
+export interface HostEventGate extends EventGate {
+  /** Whether the mount-time probe found `ignorable` envelope support. */
+  readonly ignorableAppend: boolean
+  /** The host-known type set the gate was built over. */
+  readonly knownTypes: ReadonlySet<string>
+}
+
+/**
+ * The gate over the host's known types plus the probed envelope support.
+ *
+ * A refusal used to be completely silent: the accounting moved to the
+ * in-memory fallback ledger and nothing said so. The first refusal now warns
+ * once through `warn` (the mount-time probe result is also readable on the
+ * returned function), so a degraded session is visible without spamming the
+ * log on every commit.
+ *
+ * @param warn - sink for the one-time degradation warning.
+ * @returns the gate carrying its probe result.
+ */
+export function makeHostEventGate(warn: (message: string) => void = () => {}): HostEventGate {
+  const ignorableAppend = probeIgnorableAppend()
+  const gate = makeEventGate(KNOWN_SESSION_EVENT_TYPES, ignorableAppend)
+  let warned = false
+  const hostGate = ((type: string): EventGateDecision => {
+    const decision = gate(type)
+    if (!decision.append && !warned) {
+      warned = true
+      warn(
+        'dsh-draw: this host neither knows the draw/generated event type nor honors the ignorable envelope, '
+        + 'so the audit event is not written; the in-memory fallback ledger keeps quota exact for this session '
+        + 'and resets when the session restarts',
+      )
+    }
+    return decision
+  }) as HostEventGate
+  Object.defineProperties(hostGate, {
+    ignorableAppend: { value: ignorableAppend, enumerable: true },
+    knownTypes: { value: KNOWN_SESSION_EVENT_TYPES, enumerable: true },
+  })
+  return hostGate
 }
