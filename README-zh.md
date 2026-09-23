@@ -147,7 +147,7 @@ profile patch 中的覆盖示例：
 ```sh
 pnpm install        # node ^22.19 || >=24
 pnpm run typecheck  # tsc：src + tests，对照本地 harness checkout
-pnpm run typecheck:ci  # tsc：对照已发布的 0.1.5-rc.2 类型（无 paths）
+pnpm run typecheck:ci  # tsc：对照已发布的 0.1.7-alpha.2 类型（无 paths）
 pnpm test           # vitest：17 个 spec 文件（scripted 传输、真实 Context/Session/ToolRuntime）
 pnpm run build      # tsc 声明 + tsdown 打包（lib/）
 pnpm run verify:self-contained  # 依赖声明全部来自 registry

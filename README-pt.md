@@ -147,7 +147,7 @@ Exemplo de sobrescrita no patch do seu perfil:
 ```sh
 pnpm install        # node ^22.19 || >=24
 pnpm run typecheck  # tsc: src + tests contra o checkout local do harness
-pnpm run typecheck:ci  # tsc contra as faces publicadas 0.1.5-rc.2 (sem paths)
+pnpm run typecheck:ci  # tsc contra as faces publicadas 0.1.7-alpha.2 (sem paths)
 pnpm test           # vitest: 17 arquivos spec (transporte roteirizado, Context/Session/ToolRuntime reais)
 pnpm run build      # declarações tsc + bundles tsdown (lib/)
 pnpm run verify:self-contained  # as especificações de dependências resolvem pelo registry
