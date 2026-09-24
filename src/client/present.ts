@@ -51,6 +51,88 @@ export type ToolCallBlock = RunningToolCallBlock | SettledToolResultBlock
 /** Settled tool-result node only. */
 export type ToolResultNode = SettledToolResultBlock
 
+/**
+ * The Host's tool-call-view stage discriminant. The Host splits the owner
+ * currency into `preparing` / `start` / `result`, each carrying its own stage
+ * block, and dispatches the SAME keyed entry in every stage — so a keyed card
+ * receives a preparing owner whose block has no `kind` and no `argsRaw`.
+ *
+ * {@link TOOL_CALL_PHASES} is the single source of truth for this union: the
+ * literal type is derived from the array, so a value and its type can never
+ * drift apart, and `scripts/verify-host-contract.mjs` compares the array
+ * against the Host's own `ToolCallPhaseProps` declaration.
+ */
+export const TOOL_CALL_PHASES = ['preparing', 'start', 'result'] as const
+
+/** One stage of the Host's tool-call view. */
+export type ToolCallPhase = (typeof TOOL_CALL_PHASES)[number]
+
+/**
+ * Classify a frozen tool block into its Host stage, mirroring the Host's own
+ * `toolCallPhase`: a settled node wins on `kind`, and the running family splits
+ * on `phase`. `ToolCallBlock` is structurally narrower than the Host union
+ * (`RunningToolCallBlock` declares no `phase` field), so the running arm is
+ * read through a structural probe rather than a declared member.
+ *
+ * @param block - the frozen tool block the owner delivered.
+ * @returns the stage this block belongs to.
+ */
+export function toolCallPhase(block: ToolCallBlock): ToolCallPhase {
+  if ('kind' in block) return 'result'
+  return (block as { phase?: unknown }).phase === 'preparing' ? 'preparing' : 'start'
+}
+
+/** How a card presents one stage of its own keyed tool call. */
+export interface PresentedToolCallPhase {
+  /** The Host stage this presentation covers. */
+  phase: ToolCallPhase
+  /**
+   * Whether this stage carries a settled result to present, or whether the
+   * card must render its own in-flight row for a call still arriving.
+   */
+  state: 'result' | 'in-flight'
+}
+
+/**
+ * Project the card's one appearance per Host stage.
+ *
+ * Only the `result` stage carries the engine/quota facts and the regenerate
+ * action. The earlier stages have no arguments and no result, and the keyed
+ * slot is OCCUPIED for them — the Host's own generic row is unreachable
+ * (the renderer falls back only for an empty cell) — so the card owning an
+ * in-flight row is what keeps the row visible while the call streams.
+ *
+ * A stage outside the declared vocabulary is reported loudly instead of being
+ * silently swept into `preparing`; the `switch` is exhaustive over
+ * {@link ToolCallPhase}, so a new stage fails the build before it can reach
+ * this default.
+ *
+ * @param phase - the stage classified from the owner's block.
+ * @returns the presentation this card owes that stage.
+ */
+export function presentToolCallPhase(phase: ToolCallPhase): PresentedToolCallPhase {
+  switch (phase) {
+    case 'result':
+      return { phase, state: 'result' }
+    case 'preparing':
+    case 'start':
+      return { phase, state: 'in-flight' }
+    default:
+      return exhaustiveToolCallPhase(phase)
+  }
+}
+
+/**
+ * Compile-time completeness check for the stage vocabulary: a new Host stage
+ * added to {@link ToolCallPhase} without a branch above fails the build here.
+ *
+ * @param phase - the unhandled stage.
+ * @returns never; throws at runtime.
+ */
+function exhaustiveToolCallPhase(phase: never): never {
+  throw new Error(`unhandled tool-call phase: ${JSON.stringify(phase)}`)
+}
+
 /** One image of the presented result card. */
 export interface PresentedImage {
   attachmentId: string
@@ -78,11 +160,19 @@ export interface PresentedDrawResult {
 /**
  * Project one settled `image_generate` tool block onto the card model.
  *
+ * The stage guard is explicit, not incidental: only the Host's `result` stage
+ * carries `kind`, and the preparing stage's block is an ordinary object, so
+ * an `undefined` return is the presenter's answer for every non-result stage
+ * as well as for a foreign tool, an error result, or a window-truncated call
+ * head. The card pairs that answer with {@link toolCallPhase} to render its
+ * in-flight row instead of an empty node.
+ *
  * @param block - the frozen tool-call block (running or settled).
  * @returns the presented model, or `undefined` when the block is not a settled
  *   image_generate result.
  */
 export function presentDrawResult(block: ToolCallBlock): PresentedDrawResult | undefined {
+  if (toolCallPhase(block) !== 'result') return undefined
   if (!('kind' in block) || block.kind !== 'tool-result' || block.isError) return undefined
   if (block.call?.name !== 'image_generate') return undefined
   const value = (block.meta as { engine?: unknown; model?: unknown; fallbackUsed?: unknown; images?: unknown; quota?: unknown; limits?: unknown } | undefined) ?? {}

@@ -29,7 +29,7 @@
 
 | Superfície | Status |
 |---|---|
-| Harness | DeepSeek Harness `dsh-v0.1.7-alpha.2` (compatibilidade declarada para `0.1.5-rc.2`) |
+| Harness | DeepSeek Harness `dsh-v0.1.7-rc.1` (compatibilidade declarada para `0.1.5-rc.2`) |
 | Node | `^22.19.0 \|\| >=24.0.0` |
 | Motores | Qualquer endpoint de imagens compatível com OpenAI; presets para OpenAI Images (`gpt-image-1`) e Zhipu CogView (`cogview-3-flash`) |
 | Superfícies | Ferramenta host `image_generate` + cartão de resultado web + aba de ajustes de Plugins |
@@ -37,6 +37,7 @@
 A metade de navegador usa o `Context` do cordis e os pacotes de cliente publicados (`dsh-client-ui-slots`, `dsh-client-ui-settings`, `dsh-client-ui-tool`, `dsh-client-locale`, `dsh-client-connection`); ela não depende mais do pacote removido `dsh-client-runtime` (o bloco de chamada de ferramenta é lido por um contrato estrutural local), então a superfície de cliente também se alinha com hosts `0.1.2-rc.1`.
 0.1.2-rc.1 (adaptado em 2026-09-02): o envelope de sessão mantém seu campo ignorable apenas para compatibilidade de leitura de logs armazenados - o Session.append ainda não consegue estampá-lo, então o comportamento da porta não muda. Verificado em 2026-09-06 contra o checkout master dsh-v0.1.7-alpha.1 (cadeia completa de portas + smoke de instalação de perfil).
 0.1.6-alpha.2 (adaptado em 2026-09-18): o terceiro parâmetro de `Session.append` existe apenas para tipos de superfície e é um `SurfaceIntent`, nunca um envelope `ignorable`, então o tipo não-superfície `draw/generated` também não é gravado nesta linha — a cota é contada em memória por sessão e zera ao reiniciar a sessão (ver a nota de durabilidade de cota). Verificado em 2026-09-18 (typecheck duplo + suíte completa + portas self-contained/artifacts/readme).
+0.1.7-rc.1 (adaptado em 2026-09-23): o contrato de cliente `tool.call.toolview` dividiu seu owner em três estágios (`preparing` / `start` / `result`), e um cartão com chave agora é despachado enquanto os argumentos ainda chegam em streaming. Por isso o cartão de resultado também desenha sua linha em andamento para esses estágios anteriores: uma célula keyed ocupada nunca alcança a linha genérica do host, então responder a um estágio de preparação com nada deixava a linha em branco durante toda a janela de streaming. Nada mais muda: o cartão liquidado, a linha de contabilidade e o regenerar se comportam como antes. Verificado em 2026-09-23 (typecheck duplo + suíte completa + a nova porta host-contract).
 
 ## O que você ganha
 
@@ -119,7 +120,7 @@ Exemplo de sobrescrita no patch do seu perfil:
 | Superfície | Notas |
 |---|---|
 | `image_generate` | Parâmetros padrão; retorna JSON canônico (motor/modelo/tamanho, referências de imagem, cota, indicador de fallback, tentativas) mais blocos de imagem |
-| Cartão de resultado (`tool.call.toolview`, chave `image_generate`) | Imagens, linha de motor/cota, regenerar com um clique (caminho completo do drawer: cota + roteamento + auditoria) |
+| Cartão de resultado (`tool.call.toolview`, chave `image_generate`) | Em cada estágio da chamada: uma linha em andamento enquanto os argumentos chegam, e depois de liquidada as imagens, a linha de motor/cota e regenerar com um clique (caminho completo do drawer: cota + roteamento + auditoria) |
 | Aba de ajustes (Plugins → Image generation) | Cadeia de motores, estado de credenciais, definir/remover chaves de API (referências de credencial), sondas de conectividade, limites de cota |
 
 ## Permissões e dados
@@ -147,10 +148,11 @@ Exemplo de sobrescrita no patch do seu perfil:
 ```sh
 pnpm install        # node ^22.19 || >=24
 pnpm run typecheck  # tsc: src + tests contra o checkout local do harness
-pnpm run typecheck:ci  # tsc contra as faces publicadas 0.1.7-alpha.2 (sem paths)
-pnpm test           # vitest: 17 arquivos spec (transporte roteirizado, Context/Session/ToolRuntime reais)
+pnpm run typecheck:ci  # tsc contra as faces publicadas 0.1.7-rc.1 (sem paths)
+pnpm test           # vitest: 19 arquivos spec (transporte roteirizado, Context/Session/ToolRuntime reais)
 pnpm run build      # declarações tsc + bundles tsdown (lib/)
 pnpm run verify:self-contained  # as especificações de dependências resolvem pelo registry
+pnpm run verify:host-contract   # o contrato tool-view do host ainda coincide com o que este plugin declara
 pnpm run verify:artifacts       # face ESM host + manifesto typert + bundle de navegador + arquivos de configuração
 pnpm pack           # o tarball publicado
 ```

@@ -15,6 +15,9 @@ export type DrawLocaleKey =
   | 'result.regenerate'
   | 'result.regenerating'
   | 'result.failed'
+  | 'row.title'
+  | 'row.preparing'
+  | 'row.running'
   | 'tab'
   | 'tab.engines'
   | 'tab.preferred'
@@ -40,6 +43,9 @@ export const en: Record<DrawLocaleKey, string> = {
   'result.regenerate': 'Regenerate',
   'result.regenerating': 'Regenerating…',
   'result.failed': 'Regenerate failed',
+  'row.title': 'Tool call',
+  'row.preparing': 'Preparing tool call',
+  'row.running': 'Running',
   'tab': 'Image generation',
   'tab.engines': 'Engines',
   'tab.preferred': 'preferred',
@@ -66,6 +72,9 @@ export const zh: Record<DrawLocaleKey, string> = {
   'result.regenerate': '重新生成',
   'result.regenerating': '正在重新生成…',
   'result.failed': '重新生成失败',
+  'row.title': '工具调用',
+  'row.preparing': '正在准备调用',
+  'row.running': '运行中',
   'tab': '图像生成',
   'tab.engines': '引擎',
   'tab.preferred': '首选',

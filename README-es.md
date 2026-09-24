@@ -29,7 +29,7 @@
 
 | Superficie | Estado |
 |---|---|
-| Harness | DeepSeek Harness `dsh-v0.1.7-alpha.2` (compatibilidad declarada para `0.1.5-rc.2`) |
+| Harness | DeepSeek Harness `dsh-v0.1.7-rc.1` (compatibilidad declarada para `0.1.5-rc.2`) |
 | Node | `^22.19.0 \|\| >=24.0.0` |
 | Motores | Cualquier endpoint de imágenes compatible con OpenAI; presets para OpenAI Images (`gpt-image-1`) y Zhipu CogView (`cogview-3-flash`) |
 | Superficies | Herramienta host `image_generate` + tarjeta de resultado web + pestaña de ajustes de Plugins |
@@ -37,6 +37,7 @@
 La mitad de navegador se apoya en el `Context` de cordis y en los paquetes de cliente publicados (`dsh-client-ui-slots`, `dsh-client-ui-settings`, `dsh-client-ui-tool`, `dsh-client-locale`, `dsh-client-connection`); ya no depende del paquete eliminado `dsh-client-runtime` (el bloque de llamada de herramienta se lee mediante un contrato estructural local), por lo que la superficie de cliente también encaja con hosts `0.1.2-rc.1`.
 0.1.2-rc.1 (adaptado el 2026-09-02): el sobre de sesión conserva su campo ignorable solo para compatibilidad de lectura de logs almacenados - Session.append aún no puede estamparlo, por lo que el comportamiento de la puerta no cambia. Verificado el 2026-09-06 contra el master checkout dsh-v0.1.7-alpha.1 (cadena completa de puertas + smoke de instalación de perfil).
 0.1.6-alpha.2 (adaptado el 2026-09-18): el tercer parámetro de `Session.append` existe solo para tipos de superficie y es un `SurfaceIntent`, nunca un sobre `ignorable`, así que el tipo no-superficie `draw/generated` tampoco se escribe en esta línea — la cuota se cuenta en memoria por sesión y se reinicia al reiniciar la sesión (véase la nota de durabilidad de cuota). Verificado el 2026-09-18 (doble typecheck + suite completa + puertas self-contained/artifacts/readme).
+0.1.7-rc.1 (adaptado el 2026-09-23): el contrato de cliente `tool.call.toolview` dividió su owner en tres etapas (`preparing` / `start` / `result`), y una tarjeta con clave ahora se despacha mientras los argumentos aún llegan en streaming. Por eso la tarjeta de resultado también dibuja su fila en curso para esas etapas previas: una celda keyed ocupada nunca alcanza la fila genérica del host, así que responder a una etapa preparada con nada dejaba la línea en blanco durante toda la ventana de streaming. Nada más cambia: la tarjeta liquidada, la línea de contabilidad y regenerar se comportan igual que antes. Verificado el 2026-09-23 (doble typecheck + suite completa + la nueva puerta host-contract).
 
 ## Qué obtienes
 
@@ -119,7 +120,7 @@ Ejemplo de sobrescritura en el parche de tu perfil:
 | Superficie | Notas |
 |---|---|
 | `image_generate` | Parámetros estándar; devuelve JSON canónico (motor/modelo/tamaño, referencias de imagen, cuota, indicador de respaldo, intentos) más bloques de imagen |
-| Tarjeta de resultado (`tool.call.toolview`, clave `image_generate`) | Imágenes, línea de motor/cuota, regenerar con un clic (ruta completa del drawer: cuota + enrutamiento + auditoría) |
+| Tarjeta de resultado (`tool.call.toolview`, clave `image_generate`) | En cada etapa de la llamada: una fila en curso mientras llegan los argumentos, y tras asentarse las imágenes, la línea de motor/cuota y regenerar con un clic (ruta completa del drawer: cuota + enrutamiento + auditoría) |
 | Pestaña de ajustes (Plugins → Image generation) | Cadena de motores, estado de credenciales, establecer/eliminar claves API (referencias de credencial), sondas de conectividad, límites de cuota |
 
 ## Permisos y datos
@@ -147,10 +148,11 @@ Ejemplo de sobrescritura en el parche de tu perfil:
 ```sh
 pnpm install        # node ^22.19 || >=24
 pnpm run typecheck  # tsc: src + tests contra el checkout local del harness
-pnpm run typecheck:ci  # tsc contra las caras publicadas 0.1.7-alpha.2 (sin paths)
-pnpm test           # vitest: 17 archivos spec (transporte guionado, Context/Session/ToolRuntime reales)
+pnpm run typecheck:ci  # tsc contra las caras publicadas 0.1.7-rc.1 (sin paths)
+pnpm test           # vitest: 19 archivos spec (transporte guionado, Context/Session/ToolRuntime reales)
 pnpm run build      # declaraciones tsc + bundles tsdown (lib/)
 pnpm run verify:self-contained  # las especificaciones de dependencias resuelven desde el registry
+pnpm run verify:host-contract   # el contrato tool-view del host sigue coincidiendo con lo que declara este plugin
 pnpm run verify:artifacts       # cara ESM host + manifiesto typert + bundle de navegador + archivos de configuración
 pnpm pack           # el tarball publicado
 ```

@@ -29,7 +29,7 @@
 
 | सतह | स्थिति |
 |---|---|
-| Harness | DeepSeek Harness `dsh-v0.1.7-alpha.2` (`0.1.5-rc.2` के लिए घोषित संगतता) |
+| Harness | DeepSeek Harness `dsh-v0.1.7-rc.1` (`0.1.5-rc.2` के लिए घोषित संगतता) |
 | Node | `^22.19.0 \|\| >=24.0.0` |
 | इंजन | कोई भी OpenAI-संगत images एंडपॉइंट; OpenAI Images (`gpt-image-1`) और Zhipu CogView (`cogview-3-flash`) प्रीसेट |
 | सतहें | Host `image_generate` टूल + वेब परिणाम कार्ड + Plugins सेटिंग टैब |
@@ -37,6 +37,7 @@
 ब्राउज़र हिस्सा cordis `Context` और प्रकाशित क्लाइंट पैकेजों (`dsh-client-ui-slots`, `dsh-client-ui-settings`, `dsh-client-ui-tool`, `dsh-client-locale`, `dsh-client-connection`) पर चलता है; यह अब हटाए गए `dsh-client-runtime` पैकेज पर निर्भर नहीं करता (टूल-कॉल ब्लॉक स्थानीय संरचनात्मक अनुबंध से पढ़ा जाता है), इसलिए क्लाइंट सतह `0.1.2-rc.1` होस्ट के साथ भी मेल खाती है।
 0.1.2-rc.1 (2026-09-02 को अनुकूलित): सत्र लिफ़ाफ़ा अपना ignorable फ़ील्ड केवल संग्रहीत-लॉग पठन संगतता के लिए रखता है - Session.append अभी भी इसे स्टैम्प नहीं कर सकता, इसलिए गेट व्यवहार अपरिवर्तित है। 2026-09-06 को dsh-v0.1.7-alpha.1 master checkout के विरुद्ध सत्यापित (पूर्ण गेट श्रृंखला + प्रोफ़ाइल इंस्टॉल स्मोक)।
 0.1.6-alpha.2 (2026-09-18 को अनुकूलित): `Session.append` का तीसरा पैरामीटर केवल सरफ़ेस-योग्य प्रकारों के लिए होता है और वह `SurfaceIntent` है, कभी `ignorable` एनवेलप नहीं, इसलिए गैर-सरफ़ेस `draw/generated` इस लाइन पर अब भी नहीं लिखा जाता — कोटा प्रति-सत्र स्मृति में गिना जाता है और सत्र पुनः आरंभ पर रीसेट होता है। 2026-09-18 को सत्यापित (दोहरा typecheck + पूरी सूट + self-contained/artifacts/readme गेट)।
+0.1.7-rc.1 (2026-09-23 को अनुकूलित): क्लाइंट `tool.call.toolview` अनुबंध ने अपने owner को तीन चरणों (`preparing` / `start` / `result`) में बाँट दिया, और अब keyed कार्ड तब भी भेजा जाता है जब आर्ग्युमेंट अभी स्ट्रीम हो रहे हों। इसलिए परिणाम कार्ड उन पूर्व चरणों के लिए अपनी इन-फ़्लाइट पंक्ति भी दिखाता है: भरा हुआ keyed सेल कभी होस्ट की सामान्य पंक्ति तक नहीं पहुँचता, इसलिए तैयारी के चरण को खाली उत्तर देने से पूरी स्ट्रीमिंग अवधि में वह पंक्ति खाली रह जाती थी। और कुछ नहीं बदला: तय हो चुका कार्ड, लेखा पंक्ति और पुनः-उत्पादन पहले जैसे ही व्यवहार करते हैं। 2026-09-23 को सत्यापित (दोहरा typecheck + पूरी सूट + नया host-contract गेट)।
 
 ## आपको क्या मिलता है
 
@@ -119,7 +120,7 @@ dsh --profile web --dump-config | grep -A2 'id: dsh-draw'
 | सतह | टिप्पणियाँ |
 |---|---|
 | `image_generate` | मानक पैरामीटर; कैननिकल JSON (इंजन/मॉडल/आकार, छवि संदर्भ, कोटा, फ़ॉलबैक झंडा, प्रयास) + छवि ब्लॉक लौटाता है |
-| परिणाम कार्ड (`tool.call.toolview`, key `image_generate`) | छवियाँ, इंजन/कोटा पंक्ति, एक-क्लिक regenerate (पूरा drawer पथ: कोटा + रूटिंग + ऑडिट) |
+| परिणाम कार्ड (`tool.call.toolview`, key `image_generate`) | कॉल के हर चरण में: आर्ग्युमेंट स्ट्रीम होते समय इन-फ़्लाइट पंक्ति, और तय होने पर छवियाँ, इंजन/कोटा पंक्ति तथा एक-क्लिक regenerate (पूरा drawer पथ: कोटा + रूटिंग + ऑडिट) |
 | सेटिंग टैब (Plugins → Image generation) | इंजन श्रृंखला, क्रेडेंशियल स्थिति, API कुंजी सेट/हटाएँ (क्रेडेंशियल संदर्भ), कनेक्टिविटी जाँच, कोटा सीमाएँ |
 
 ## अनुमतियाँ और डेटा
@@ -147,10 +148,11 @@ dsh --profile web --dump-config | grep -A2 'id: dsh-draw'
 ```sh
 pnpm install        # node ^22.19 || >=24
 pnpm run typecheck  # tsc: src + tests स्थानीय हार्नेस चेकआउट के विरुद्ध
-pnpm run typecheck:ci  # tsc प्रकाशित 0.1.7-alpha.2 फ़ेस के विरुद्ध (बिना paths)
-pnpm test           # vitest: 17 spec फ़ाइलें (स्क्रिप्टेड ट्रांसपोर्ट, वास्तविक Context/Session/ToolRuntime)
+pnpm run typecheck:ci  # tsc प्रकाशित 0.1.7-rc.1 फ़ेस के विरुद्ध (बिना paths)
+pnpm test           # vitest: 19 spec फ़ाइलें (स्क्रिप्टेड ट्रांसपोर्ट, वास्तविक Context/Session/ToolRuntime)
 pnpm run build      # tsc घोषणाएँ + tsdown बंडल (lib/)
 pnpm run verify:self-contained  # निर्भरता स्पेक registry से हल होती हैं
+pnpm run verify:host-contract   # host का tool-view अनुबंध अब भी इस प्लगइन की घोषणा से मेल खाता है
 pnpm run verify:artifacts       # host ESM फ़ेस + typert मैनिफ़ेस्ट + ब्राउज़र बंडल + कॉन्फ़िग फ़ाइलें
 pnpm pack           # प्रकाशित tarball
 ```

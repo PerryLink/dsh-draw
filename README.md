@@ -30,7 +30,7 @@
 
 | Surface | Status |
 |---|---|
-| Harness | DeepSeek Harness `dsh-v0.1.7-alpha.2` (compat declared for `0.1.5-rc.2`) |
+| Harness | DeepSeek Harness `dsh-v0.1.7-rc.1` (compat declared for `0.1.5-rc.2`) |
 | Node | `^22.19.0 \|\| >=24.0.0` |
 | Engines | Any OpenAI-compatible images endpoint; presets for OpenAI Images (`gpt-image-1`) and Zhipu CogView (`cogview-3-flash`) |
 | Surfaces | Host `image_generate` tool + web result card + Plugins settings tab |
@@ -38,6 +38,7 @@
 The browser half rides the cordis `Context` and the published client packages (`dsh-client-ui-slots`, `dsh-client-ui-settings`, `dsh-client-ui-tool`, `dsh-client-locale`, `dsh-client-connection`); it no longer depends on the removed `dsh-client-runtime` package (the tool-call block is read through a local structural contract), so the client surface also lines up with `0.1.2-rc.1` hosts.
 0.1.2-rc.1 (adapted 2026-09-02): the session envelope keeps its ignorable field for stored-log read compatibility only - Session.append still cannot stamp it, so audit-gate behavior is unchanged. Verified 2026-09-06 against the dsh-v0.1.7-alpha.1 master checkout (full gate chain + profile install smoke).
 0.1.6-alpha.2 (adapted 2026-09-18): `Session.append`'s third parameter exists only for surface-eligible event types and is a `SurfaceIntent`, never an `ignorable` envelope, so `draw/generated` (a non-surface type) is still not written on this line — quota is counted in memory per session and resets when the session restarts, exactly as the "Quota durability" note below describes. Verified 2026-09-18 (dual typecheck rulers + the full suite + self-contained/artifacts/readme gates).
+0.1.7-rc.1 (adapted 2026-09-23): the client `tool.call.toolview` contract split its owner into three stages (`preparing` / `start` / `result`), and a keyed card is now dispatched while the arguments are still streaming. The result card therefore also renders the in-flight row for those earlier stages — an occupied keyed slot never reaches the host's own generic row, so answering a prepared stage with nothing blanked the line for the whole streaming window. Nothing else changed: the settled card, the accounting line, and regenerate behave exactly as before. Verified 2026-09-23 (dual typecheck rulers + the full suite + the new host-contract gate).
 
 ## What you get
 
@@ -120,7 +121,7 @@ Example override in your profile patch:
 | Surface | Notes |
 |---|---|
 | `image_generate` | Standard parameters; returns canonical JSON (engine/model/size, image references, quota, fallback flag, attempts) plus image content blocks |
-| Result card (`tool.call.toolview`, key `image_generate`) | Images, engine/quota line, one-click regenerate (full drawer path: quota + routing + audit) |
+| Result card (`tool.call.toolview`, key `image_generate`) | In every stage of the call: an in-flight row while the arguments stream, then images, engine/quota line, and one-click regenerate once it settles (full drawer path: quota + routing + audit) |
 | Settings tab (Plugins → Image generation) | Engine chain, credential status, set/remove API keys (credential references), connectivity probes, quota limits |
 
 ## Permissions & data
@@ -148,10 +149,11 @@ Example override in your profile patch:
 ```sh
 pnpm install        # node ^22.19 || >=24
 pnpm run typecheck  # tsc: src + tests against the local harness checkout
-pnpm run typecheck:ci  # tsc against the published 0.1.7-alpha.2 faces (no paths)
-pnpm test           # vitest: 17 spec files (scripted transport, real Context/Session/ToolRuntime)
+pnpm run typecheck:ci  # tsc against the published 0.1.7-rc.1 faces (no paths)
+pnpm test           # vitest: 19 spec files (scripted transport, real Context/Session/ToolRuntime)
 pnpm run build      # tsc declarations + tsdown bundles (lib/)
 pnpm run verify:self-contained  # dependency specs resolve from the registry
+pnpm run verify:host-contract   # the host tool-view contract still matches what this plugin declares
 pnpm run verify:artifacts       # host ESM face + typert manifest + browser bundle + config files
 pnpm pack           # the published tarball
 ```

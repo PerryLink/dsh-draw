@@ -29,7 +29,7 @@
 
 | 方面 | 状态 |
 |---|---|
-| Harness | DeepSeek Harness `dsh-v0.1.7-alpha.2`（声明兼容 `0.1.5-rc.2`） |
+| Harness | DeepSeek Harness `dsh-v0.1.7-rc.1`（声明兼容 `0.1.5-rc.2`） |
 | Node | `^22.19.0 \|\| >=24.0.0` |
 | 引擎 | 任意 OpenAI 兼容图像端点；内置 OpenAI Images（`gpt-image-1`）与智谱 CogView（`cogview-3-flash`）预设 |
 | 界面 | Host `image_generate` 工具 + Web 结果卡片 + Plugins 设置页签 |
@@ -37,6 +37,7 @@
 浏览器半边基于 cordis `Context` 与已发布的客户端包（`dsh-client-ui-slots`、`dsh-client-ui-settings`、`dsh-client-ui-tool`、`dsh-client-locale`、`dsh-client-connection`）；它不再依赖已移除的 `dsh-client-runtime` 包（工具调用块经本地结构契约读取），因此客户端接口面同样对齐 `0.1.2-rc.1` 宿主。
 0.1.2-rc.1（2026-09-02 已适配）：会话信封保留 ignorable 字段但仅用于存量日志读取兼容——Session.append 仍无法盖章，门控行为不变。已于 2026-09-06 对照 dsh-v0.1.7-alpha.1 master 检出核验（完整门禁链 + profile 安装冒烟）。
 0.1.6-alpha.2（2026-09-18 已适配）：`Session.append` 的第三参仅对表面事件类型存在且为 `SurfaceIntent`，绝非 `ignorable` 信封，因此非表面的 `draw/generated` 在该线上仍不落盘——配额按会话内存计数、会话重启归零（与下方「配额持久性」一致）。已于 2026-09-18 核验（双 typecheck 尺子 + 全量测试 + self-contained/artifacts/readme 门）。
+0.1.7-rc.1（2026-09-23 已适配）：客户端 `tool.call.toolview` 契约把 owner 拆成三个阶段（`preparing` / `start` / `result`），且参数仍在流式到达时就会派发带 key 的卡片。因此结果卡片现在也为这些更早的阶段渲染「进行中」行——已占用的 keyed 槽位永远不会落到宿主自带的通用行，所以对准备阶段不作回应会让整行在整个流式窗口内空白。其余行为不变：结算后的卡片、账目行与重新生成与之前完全一致。已于 2026-09-23 核验（双 typecheck 尺子 + 全量测试 + 新增 host-contract 门）。
 
 ## 你能得到什么
 
@@ -119,7 +120,7 @@ profile patch 中的覆盖示例：
 | 界面 | 说明 |
 |---|---|
 | `image_generate` | 标准参数；返回规范 JSON（引擎/模型/尺寸、图片引用、配额、回退标志、尝试记录）加图片内容块 |
-| 结果卡片（`tool.call.toolview`，key `image_generate`） | 图片、引擎/配额行、一键重新生成（完整 drawer 路径：配额 + 路由 + 审计） |
+| 结果卡片（`tool.call.toolview`，key `image_generate`） | 覆盖调用的每个阶段：参数流式到达时先显示进行中行，结算后显示图片、引擎/配额行与一键重新生成（完整 drawer 路径：配额 + 路由 + 审计） |
 | 设置页签（Plugins → 图像生成） | 引擎链、凭据状态、设置/移除 API 密钥（凭据引用）、连通性探测、配额上限 |
 
 ## 权限与数据
@@ -147,10 +148,11 @@ profile patch 中的覆盖示例：
 ```sh
 pnpm install        # node ^22.19 || >=24
 pnpm run typecheck  # tsc：src + tests，对照本地 harness checkout
-pnpm run typecheck:ci  # tsc：对照已发布的 0.1.7-alpha.2 类型（无 paths）
-pnpm test           # vitest：17 个 spec 文件（scripted 传输、真实 Context/Session/ToolRuntime）
+pnpm run typecheck:ci  # tsc：对照已发布的 0.1.7-rc.1 类型（无 paths）
+pnpm test           # vitest：19 个 spec 文件（scripted 传输、真实 Context/Session/ToolRuntime）
 pnpm run build      # tsc 声明 + tsdown 打包（lib/）
 pnpm run verify:self-contained  # 依赖声明全部来自 registry
+pnpm run verify:host-contract   # 宿主 tool-view 契约仍与本插件声明一致
 pnpm run verify:artifacts       # host ESM 面 + typert manifest + 浏览器包 + 配置文件
 pnpm pack           # 发布用 tarball
 ```

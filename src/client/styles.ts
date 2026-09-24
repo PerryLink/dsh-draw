@@ -31,6 +31,11 @@ export function installDrawStyles(): () => void {
 .dshdraw-figure img { max-width: 100%; border-radius: 6px; border: 1px solid var(--dsh-border, #d0d7de); }
 .dshdraw-figure figcaption { font-size: 11px; opacity: 0.75; overflow-wrap: anywhere; }
 .dshdraw-meta { font-size: 12px; opacity: 0.85; display: flex; flex-wrap: wrap; gap: 12px; }
+.dshdraw-inflight { display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; font-size: 13px; min-height: 20px; }
+.dshdraw-inflight .dshdraw-sep { opacity: 0.45; }
+.dshdraw-inflight-title { font-weight: 500; }
+.dshdraw-inflight-summary { opacity: 0.85; overflow-wrap: anywhere; }
+.dshdraw-inflight-state { font-size: 12px; opacity: 0.7; }
 .dshdraw-actions { display: flex; gap: 8px; }
 .dshdraw-button {
   border: 1px solid var(--dsh-border, #d0d7de); border-radius: 6px; background: transparent;

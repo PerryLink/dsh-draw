@@ -11,7 +11,10 @@
 
 import { describe, expect, it } from 'vitest'
 import type { DrawStatusSnapshot } from '../src/wire.ts'
-import { presentDrawPanel, presentDrawResult, type ToolCallBlock, type ToolResultNode } from '../src/client/present.ts'
+import {
+  presentDrawPanel, presentDrawResult, presentToolCallPhase, toolCallPhase, TOOL_CALL_PHASES,
+  type RunningToolCallBlock, type ToolCallBlock, type ToolResultNode,
+} from '../src/client/present.ts'
 
 /** A settled `image_generate` tool-result block with the fields the card reads. */
 function resultBlock(over: Partial<ToolResultNode> = {}): ToolCallBlock {
@@ -39,6 +42,23 @@ function resultBlock(over: Partial<ToolResultNode> = {}): ToolCallBlock {
   } as unknown as ToolCallBlock
 }
 
+/**
+ * A running call block. `phase` is the Host's stage discriminant on the
+ * running family: `preparing` while the arguments stream, absent once the call
+ * has been dispatched (`start`).
+ */
+function runningBlock(phase?: 'preparing' | 'start'): RunningToolCallBlock {
+  return {
+    callId: 'call-1',
+    name: 'image_generate',
+    argsRaw: '{"prompt":"a ca',
+    turn: 0,
+    step: 0,
+    time: 0,
+    ...(phase === undefined ? {} : { phase }),
+  } as unknown as RunningToolCallBlock
+}
+
 /** A full `draw/status` snapshot for the panel presenter. */
 function snapshot(over: Partial<DrawStatusSnapshot> = {}): DrawStatusSnapshot {
   return {
@@ -61,6 +81,34 @@ function snapshot(over: Partial<DrawStatusSnapshot> = {}): DrawStatusSnapshot {
     ...over,
   }
 }
+
+describe('toolCallPhase / presentToolCallPhase', () => {
+  it('declares the three Host stages, with no duplicate', () => {
+    expect(TOOL_CALL_PHASES).toEqual(['preparing', 'start', 'result'])
+    expect(new Set(TOOL_CALL_PHASES).size).toBe(TOOL_CALL_PHASES.length)
+  })
+
+  it('classifies each stage block onto the matching phase', () => {
+    expect(toolCallPhase(runningBlock('preparing'))).toBe('preparing')
+    expect(toolCallPhase(runningBlock())).toBe('start')
+    expect(toolCallPhase(resultBlock())).toBe('result')
+  })
+
+  it('owes the resolved card to `result` and an in-flight row to every earlier stage', () => {
+    // The card is dispatched by tool name in EVERY stage, so an unhandled
+    // earlier stage is not "no card" — it is a blank row the Host cannot fill
+    // in (an occupied keyed cell never reaches the Host's generic fallback).
+    expect(presentToolCallPhase('result')).toEqual({ phase: 'result', state: 'result' })
+    expect(presentToolCallPhase('preparing')).toEqual({ phase: 'preparing', state: 'in-flight' })
+    expect(presentToolCallPhase('start')).toEqual({ phase: 'start', state: 'in-flight' })
+  })
+
+  it('rejects a stage outside the declared vocabulary instead of sweeping it in', () => {
+    // A Host that grows a fourth stage must fail loudly here rather than be
+    // silently rendered as `preparing`.
+    expect(() => presentToolCallPhase('streaming' as never)).toThrow(/unhandled tool-call phase/u)
+  })
+})
 
 describe('presentDrawResult', () => {
   it('projects a settled image_generate result onto the card model', () => {
@@ -88,6 +136,18 @@ describe('presentDrawResult', () => {
 
   it('returns undefined for a running (non-tool-result) block', () => {
     expect(presentDrawResult({ kind: 'tool-call', callId: 'call-1', name: 'image_generate', argsRaw: '{}' } as unknown as ToolCallBlock)).toBeUndefined()
+  })
+
+  it('returns undefined in BOTH in-flight stages, including a preparing owner', () => {
+    // The rc.1 regression: the Host now dispatches this card while the
+    // arguments still stream, with a preparing block that is an object (not
+    // null/undefined) and carries no `kind`. The presenter answered
+    // `undefined` — correctly — and the card rendered an empty div, blanking
+    // the row for the whole streaming window because the keyed cell is
+    // occupied. This pins the presenter's half of that contract: no result
+    // model exists before the result stage.
+    expect(presentDrawResult(runningBlock('preparing'))).toBeUndefined()
+    expect(presentDrawResult(runningBlock())).toBeUndefined()
   })
 
   it('falls back to defaults when the meta is absent', () => {

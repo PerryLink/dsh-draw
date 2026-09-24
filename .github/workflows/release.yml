@@ -37,6 +37,7 @@ jobs:
           pnpm test
           pnpm run build
           pnpm run verify:self-contained
+          pnpm run verify:host-contract
           pnpm run verify:artifacts
 
       - name: Verify the changelog names this version
