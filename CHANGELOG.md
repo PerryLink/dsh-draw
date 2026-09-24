@@ -6,6 +6,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## [0.2.17] - 2026-09-23
+
+### Fixed
+
+- The result card is visible again while the call is still arriving. Harness `0.1.7-rc.1` split the client `tool.call.toolview` owner into three stages — `preparing`, `start`, `result` — and dispatches the **same keyed entry in all three**, so an `image_generate` card now receives a *preparing* owner whose block is an ordinary object with no `kind` and no `argsRaw`. The card's only guard was `'kind' in block`, so `presentDrawResult` returned `undefined` and the card rendered an empty `div`. Nothing threw, which is why it read as a cosmetic oddity rather than a crash: **the row was blank for the entire argument-streaming window.** The card now renders its own in-flight row for the stages before `result` — tool name plus a localized preparing/running label — because returning nothing cannot delegate to the host: a keyed cell that is *occupied* never reaches the owner fallback (the renderer falls back only for an empty cell), so an empty answer blanks the line instead of restoring the host's own generic row. The settled card, its accounting line, and regenerate are unchanged.
+
+### Added
+
+- `scripts/verify-host-contract.mjs` (`pnpm run verify:host-contract`), a third ruler beside the two typechecks, wired into CI and the release gate. Both typechecks were green through this whole regression: this repository declares the tool-view contract **locally** (the harness ui-tool package index does not re-export it — re-verified against the installed `0.1.7-rc.1`) and `SlotMap` is an interface, so the two declarations merge and the local, narrower one becomes the program's authority; the host's real union was never the thing being checked. The new gate reads the host's own `ToolCallPhaseProps` declaration and the renderer's keyed dispatch and fails loudly when they no longer match what this plugin declares and relies on. It also pins the assumption the fix rests on ("the fallback is reachable only for an empty cell"), so a future host that changes that naming fails here instead of silently re-blanking the row. The checkout is a local development artifact, so when it is absent (CI, tarball installs) the gate verifies what it can without it; whenever it *is* present, every check runs.
+
+### Changed
+
+- Move the `@deepseek-ai/dsh-*` dev/test pins to `0.1.7-rc.1`, record `0.1.7-rc.1` in `dshWorkshop.compatibility.dshVersions`, and point the CI step label and the weekly Compat workflow at the same line. The declared `engines.dsh` / `peerDependencies` bands are unchanged — the `|| >=0.1.7-0 <0.2.0` arm added in 0.2.16 already admits this prerelease, so no supported host line is dropped and no range is narrowed.
+- The browser-half component specs are the first `.tsx` specs in this repo, so `vitest.config.ts` now includes `tests/**/*.spec.{ts,tsx}`. The previous pattern silently skipped them; a spec file that never runs is worse than no spec file. `@types/react-dom` joins `devDependencies` for the `react-dom/server` render face (no runtime dependency is added — `react-dom` was already a devDependency).
+- The local `ToolCallOwnerProps` in `src/client/DrawResultCard.tsx` is the host's phase discriminant union again (`common & ToolCallPhaseProps`), split into an exported `ToolCallPhaseProps` and `ToolCallCommonProps` exactly as the harness declares them, and a spec assertion now rejects an owner with no `phase`.
+
 ## [0.2.16] - 2026-09-23
 
 ### Fixed
