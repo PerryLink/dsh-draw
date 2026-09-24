@@ -90,7 +90,7 @@ function render(vars: ToolCallPhaseProps): string {
 /**
  * Compile-time lock on the owner contract. The published
  * `@deepseek-ai/dsh-client-ui-tool` index does not re-export the tool-view
- * contract declaration (verified against the installed `0.1.7-rc.1`), which is
+ * contract declaration (verified against the installed `0.1.7-rc.2`), which is
  * why this repository declares it locally — and that local copy is the ONLY
  * thing the two typecheck rulers see, so it can hide the Host's real currency
  * by being narrower than it. These two assertions are what a narrowing change
