@@ -36,6 +36,14 @@
 *English:* part of a 40+ plugin family for DeepSeek Harness. If it is useful, **a star helps the next person find it** — nothing is gated behind it.
 
 
+## What is dsh-draw?
+
+Unified static-image generation routing for DeepSeek Harness.
+
+One tool, many engines — health-aware fallback, durable results, counted usage.
+
+![Terminal demo of dsh-draw: dsh-draw — install, then ask the agent to draw](https://raw.githubusercontent.com/PerryLink/dsh-draw/main/docs/assets/dsh-draw-demo.png)
+
 ## Maintenance status: 🧊 FROZEN
 
 > **Frozen on 2026-10-05. No new features.** This package still works, and it is not retired — but it no longer receives feature work. Only a genuine breakage will be fixed.
@@ -55,6 +63,12 @@ Maintainers treat this capability as one where **better-adopted alternatives now
 👉 **For new work, prefer dsh-image-gen.** Existing installs keep working unchanged; nothing is being removed.
 
 *Full evidence, including the host-version compatibility matrix: `dsh-plugin-supersession-review-20261005.md`.*
+
+## Comparison
+
+![Measured comparison chart for dsh-draw](https://raw.githubusercontent.com/PerryLink/dsh-draw/main/docs/assets/dsh-draw-evidence.png)
+
+measured 2026-10-05 · from the README's FROZEN maintenance table (npm weekly downloads)
 
 ## Compatibility
 
@@ -91,8 +105,12 @@ model                           harness
 ## Quick start
 
 ```sh
+dsh plugin --profile web add github:PerryLink/dsh-draw
+```
+
+```sh
 # 1. install the bundle into your profile
-dsh plugin --profile web add "github:PerryLink/dsh-draw#main"
+dsh plugin --profile web add github:PerryLink/dsh-draw
 
 # or from npm (published releases)
 dsh plugin --profile web add dsh-draw
@@ -112,7 +130,7 @@ Then ask the agent to draw:
 
 ## Install & uninstall
 
-- **git channel** (latest `main`): `dsh plugin --profile web add "github:PerryLink/dsh-draw#main"` — the `prepare` script builds with production dependencies only.
+- **git channel** (latest `main`): `dsh plugin --profile web add github:PerryLink/dsh-draw` — the `prepare` script builds with production dependencies only.
 - **npm channel** (published releases): `dsh plugin --profile web add dsh-draw`.
 - **tarball channel**: `pnpm pack` in this repo, then `dsh plugin --profile web add ./dsh-draw-<version>.tgz`.
 - **uninstall**: `dsh plugin --profile web remove dsh-draw` (or remove the row from the profile patch).

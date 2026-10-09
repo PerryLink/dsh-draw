@@ -29,6 +29,14 @@
 **📖 इकोसिस्टम नॉलेज बेस** — मापे गए आँकड़े, मार्केटिंग नहीं: [डेवलपमेंट गाइड · चयन डेटा · रखरखाव मानदंड](https://perrylink.github.io/dsh-plugin-guide/)।
 
 <!-- star-cta -->
+## What is dsh-draw?
+
+DeepSeek Harness के लिए एकीकृत स्थिर-छवि निर्माण रूटिंग।
+
+एक टूल, कई इंजन — स्वास्थ्य-सजग फ़ॉलबैक, टिकाऊ परिणाम, गिना हुआ उपयोग।
+
+![dsh-draw का टर्मिनल डेमो: dsh-draw — install, then ask the agent to draw](https://raw.githubusercontent.com/PerryLink/dsh-draw/main/docs/assets/dsh-draw-demo.png)
+
 ## रखरखाव स्थिति: 🧊 फ़्रीज़
 
 > **2026-10-05 से फ़्रीज़। कोई नई सुविधा नहीं।** यह पैकेज अभी भी काम करता है और **सेवानिवृत्त नहीं है**, पर अब इसमें नई सुविधाओं का काम नहीं होगा; केवल वास्तविक खराबी ठीक की जाएगी।
@@ -50,6 +58,12 @@
 यह प्लगइन [DSH प्लगइन परिवार](https://github.com/PerryLink) का हिस्सा है (40+ प्लगइन, सभी Apache-2.0)। अगर यह उपयोगी लगे, तो **एक स्टार दें** — इससे कोई सुविधा अनलॉक नहीं होती, पर अगला व्यक्ति इसे खोज में आसानी से पा लेता है।
 
 *English:* part of a 40+ plugin family for DeepSeek Harness. If it is useful, **a star helps the next person find it** — nothing is gated behind it.
+## Comparison
+
+![dsh-draw का मापा गया तुलना चार्ट](https://raw.githubusercontent.com/PerryLink/dsh-draw/main/docs/assets/dsh-draw-evidence.png)
+
+measured 2026-10-05 · from the README's FROZEN maintenance table (npm weekly downloads)
+
 ## संगतता
 
 | सतह | स्थिति |
@@ -85,8 +99,12 @@
 ## त्वरित शुरुआत
 
 ```sh
+dsh plugin --profile web add github:PerryLink/dsh-draw
+```
+
+```sh
 # 1. बंडल को अपने प्रोफ़ाइल में इंस्टॉल करें
-dsh plugin --profile web add "github:PerryLink/dsh-draw#main"
+dsh plugin --profile web add github:PerryLink/dsh-draw
 
 # या npm से (प्रकाशित रिलीज़)
 dsh plugin --profile web add dsh-draw
@@ -106,7 +124,7 @@ dsh --profile web --dump-config | grep -A2 'id: dsh-draw'
 
 ## इंस्टॉल और अनइंस्टॉल
 
-- **git चैनल** (नवीनतम `main`): `dsh plugin --profile web add "github:PerryLink/dsh-draw#main"` — `prepare` स्क्रिप्ट केवल प्रोडक्शन निर्भरताओं से बिल्ड करती है।
+- **git चैनल** (नवीनतम `main`): `dsh plugin --profile web add github:PerryLink/dsh-draw` — `prepare` स्क्रिप्ट केवल प्रोडक्शन निर्भरताओं से बिल्ड करती है।
 - **npm चैनल** (प्रकाशित रिलीज़): `dsh plugin --profile web add dsh-draw`।
 - **tarball चैनल**: इस रेपो में `pnpm pack`, फिर `dsh plugin --profile web add ./dsh-draw-<version>.tgz`।
 - **अनइंस्टॉल**: `dsh plugin --profile web remove dsh-draw` (या प्रोफ़ाइल पैच से पंक्ति हटाएँ)।

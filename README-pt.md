@@ -29,6 +29,14 @@
 **📖 Base de conhecimento do ecossistema** — dados medidos, não marketing: [guia de desenvolvimento · dados de seleção · critérios de manutenção](https://perrylink.github.io/dsh-plugin-guide/).
 
 <!-- star-cta -->
+## What is dsh-draw?
+
+Roteamento unificado de geração de imagens estáticas para o DeepSeek Harness.
+
+Uma ferramenta, muitos motores — fallback ciente da saúde, resultados duráveis, uso contabilizado.
+
+![Demonstração de terminal do dsh-draw: dsh-draw — install, then ask the agent to draw](https://raw.githubusercontent.com/PerryLink/dsh-draw/main/docs/assets/dsh-draw-demo.png)
+
 ## Status de manutenção: 🧊 CONGELADO
 
 > **Congelado em 2026-10-05. Sem novos recursos.** Este pacote continua funcionando e **não foi aposentado**, mas não recebe mais trabalho de recursos; apenas uma falha real será corrigida.
@@ -50,6 +58,12 @@ Os mantenedores consideram que nesta capacidade **já existem alternativas com m
 Este plugin faz parte da [família de plugins DSH](https://github.com/PerryLink) (mais de 40, todos Apache-2.0). Se for útil, **deixe uma estrela**: não desbloqueia nada, mas ajuda a próxima pessoa a encontrá-lo.
 
 *English:* part of a 40+ plugin family for DeepSeek Harness. If it is useful, **a star helps the next person find it** — nothing is gated behind it.
+## Comparison
+
+![Gráfico comparativo medido do dsh-draw](https://raw.githubusercontent.com/PerryLink/dsh-draw/main/docs/assets/dsh-draw-evidence.png)
+
+measured 2026-10-05 · from the README's FROZEN maintenance table (npm weekly downloads)
+
 ## Compatibilidade
 
 | Superfície | Status |
@@ -85,8 +99,12 @@ modelo                          harness
 ## Início rápido
 
 ```sh
+dsh plugin --profile web add github:PerryLink/dsh-draw
+```
+
+```sh
 # 1. instale o bundle no seu perfil
-dsh plugin --profile web add "github:PerryLink/dsh-draw#main"
+dsh plugin --profile web add github:PerryLink/dsh-draw
 
 # ou pelo npm (versões publicadas)
 dsh plugin --profile web add dsh-draw
@@ -106,7 +124,7 @@ Depois peça ao agente para desenhar:
 
 ## Instalação e desinstalação
 
-- **Canal git** (último `main`): `dsh plugin --profile web add "github:PerryLink/dsh-draw#main"` — o script `prepare` compila apenas com dependências de produção.
+- **Canal git** (último `main`): `dsh plugin --profile web add github:PerryLink/dsh-draw` — o script `prepare` compila apenas com dependências de produção.
 - **Canal npm** (versões publicadas): `dsh plugin --profile web add dsh-draw`.
 - **Canal tarball**: `pnpm pack` neste repositório e então `dsh plugin --profile web add ./dsh-draw-<version>.tgz`.
 - **Desinstalar**: `dsh plugin --profile web remove dsh-draw` (ou remova a linha do patch do perfil).
