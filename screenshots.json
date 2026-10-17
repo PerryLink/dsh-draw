@@ -1,6 +1,14 @@
-{
-  "screenshots": [
-    "docs/assets/dsh-draw-demo.png",
-    "docs/assets/dsh-draw-evidence.png"
-  ]
-}
+[
+  {
+    "path": "docs/assets/dsh-draw-hero.png",
+    "kind": "hero",
+    "alt": "dsh-draw terminal output",
+    "caption": "Real dsh-draw test run; 129 tests passed."
+  },
+  {
+    "path": "docs/assets/dsh-draw-demo.gif",
+    "kind": "demo",
+    "alt": "Animated dsh-draw terminal session",
+    "caption": "The same run, assembled line by line."
+  }
+]

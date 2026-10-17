@@ -36,7 +36,7 @@ DeepSeek Harness 的统一静态图像生成路由。
 
 一个工具、多个引擎 —— 健康感知回退、结果持久、用量记账。
 
-![dsh-draw 终端演示：dsh-draw — install, then ask the agent to draw](https://raw.githubusercontent.com/PerryLink/dsh-draw/main/docs/assets/dsh-draw-demo.png)
+![dsh-draw 终端演示：dsh-draw — install, then ask the agent to draw](https://raw.githubusercontent.com/PerryLink/dsh-draw/main/docs/assets/dsh-draw-hero.png)
 
 ![Animated terminal demo of dsh-draw](https://raw.githubusercontent.com/PerryLink/dsh-draw/main/docs/assets/dsh-draw-demo.gif)
 

@@ -36,7 +36,7 @@ Enrutamiento unificado de generación de imágenes estáticas para DeepSeek Harn
 
 Una herramienta, muchos motores — respaldo consciente de salud, resultados duraderos, uso contabilizado.
 
-![Demostración de terminal de dsh-draw: dsh-draw — install, then ask the agent to draw](https://raw.githubusercontent.com/PerryLink/dsh-draw/main/docs/assets/dsh-draw-demo.png)
+![Demostración de terminal de dsh-draw: dsh-draw — install, then ask the agent to draw](https://raw.githubusercontent.com/PerryLink/dsh-draw/main/docs/assets/dsh-draw-hero.png)
 
 ![Animated terminal demo of dsh-draw](https://raw.githubusercontent.com/PerryLink/dsh-draw/main/docs/assets/dsh-draw-demo.gif)
 

@@ -42,7 +42,7 @@ Unified static-image generation routing for DeepSeek Harness.
 
 One tool, many engines — health-aware fallback, durable results, counted usage.
 
-![Terminal demo of dsh-draw: dsh-draw — install, then ask the agent to draw](https://raw.githubusercontent.com/PerryLink/dsh-draw/main/docs/assets/dsh-draw-demo.png)
+![Terminal demo of dsh-draw: dsh-draw — install, then ask the agent to draw](https://raw.githubusercontent.com/PerryLink/dsh-draw/main/docs/assets/dsh-draw-hero.png)
 
 ![Animated terminal demo of dsh-draw](https://raw.githubusercontent.com/PerryLink/dsh-draw/main/docs/assets/dsh-draw-demo.gif)
 

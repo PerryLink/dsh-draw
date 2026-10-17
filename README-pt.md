@@ -36,7 +36,7 @@ Roteamento unificado de geração de imagens estáticas para o DeepSeek Harness.
 
 Uma ferramenta, muitos motores — fallback ciente da saúde, resultados duráveis, uso contabilizado.
 
-![Demonstração de terminal do dsh-draw: dsh-draw — install, then ask the agent to draw](https://raw.githubusercontent.com/PerryLink/dsh-draw/main/docs/assets/dsh-draw-demo.png)
+![Demonstração de terminal do dsh-draw: dsh-draw — install, then ask the agent to draw](https://raw.githubusercontent.com/PerryLink/dsh-draw/main/docs/assets/dsh-draw-hero.png)
 
 ![Animated terminal demo of dsh-draw](https://raw.githubusercontent.com/PerryLink/dsh-draw/main/docs/assets/dsh-draw-demo.gif)
 
