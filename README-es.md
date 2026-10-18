@@ -1,6 +1,8 @@
 <div align="center">
 
 # 🎨 dsh-draw
+
+> 🧊 **CONGELADO desde 2026-10-05** — solo se corrigen fallos reales. Prefiere la alternativa con más adopción indicada abajo.
 - **Canal 1024 store**: `npm i -g dsh1024` una vez, luego `dsh1024 plugin --profile web add dsh-draw` (cuenta para el ranking de instalaciones de [deepseek1024.com](https://deepseek1024.com)).
 
 **Enrutamiento unificado de generación de imágenes estáticas para DeepSeek Harness.**
@@ -76,7 +78,7 @@ Los mantenedores consideran que en esta capacidad **ya existen alternativas con 
 
 Este plugin forma parte de la [familia de plugins DSH](https://github.com/PerryLink) (más de 40, todos Apache-2.0). Si te resulta útil, **dale una estrella**: no desbloquea nada, pero ayuda a que la siguiente persona lo encuentre antes.
 
-*English:* part of a 40+ plugin family for DeepSeek Harness. If it is useful, **a star helps the next person find it** — nothing is gated behind it.
+*English:* part of a 95 plugin family for DeepSeek Harness. If it is useful, **a star helps the next person find it** — nothing is gated behind it.
 
 ## Comparison
 

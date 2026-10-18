@@ -1,6 +1,8 @@
 <div align="center">
 
 # 🎨 dsh-draw
+
+> 🧊 **2026-10-05 से फ़्रोज़न** — केवल वास्तविक खराबी ठीक होती है। नीचे दर्ज अधिक-अपनाए गए विकल्प को प्राथमिकता दें।
 - **1024 स्टोर चैनल**: एक बार `npm i -g dsh1024`, फिर `dsh1024 plugin --profile web add dsh-draw` ([deepseek1024.com](https://deepseek1024.com) इंस्टॉल रैंकिंग में गिना जाता है)।
 
 **DeepSeek Harness के लिए एकीकृत स्थिर-छवि निर्माण रूटिंग।**
@@ -74,9 +76,9 @@ DeepSeek Harness के लिए एकीकृत स्थिर-छवि �
 
 ## ⭐ 如果它帮到了你
 
-यह प्लगइन [DSH प्लगइन परिवार](https://github.com/PerryLink) का हिस्सा है (40+ प्लगइन, सभी Apache-2.0)। अगर यह उपयोगी लगे, तो **एक स्टार दें** — इससे कोई सुविधा अनलॉक नहीं होती, पर अगला व्यक्ति इसे खोज में आसानी से पा लेता है।
+यह प्लगइन [DSH प्लगइन परिवार](https://github.com/PerryLink) का हिस्सा है (95 प्लगइन, सभी Apache-2.0)। अगर यह उपयोगी लगे, तो **एक स्टार दें** — इससे कोई सुविधा अनलॉक नहीं होती, पर अगला व्यक्ति इसे खोज में आसानी से पा लेता है।
 
-*English:* part of a 40+ plugin family for DeepSeek Harness. If it is useful, **a star helps the next person find it** — nothing is gated behind it.
+*English:* part of a 95 plugin family for DeepSeek Harness. If it is useful, **a star helps the next person find it** — nothing is gated behind it.
 
 ## Comparison
 

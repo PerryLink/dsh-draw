@@ -1,6 +1,8 @@
 <div align="center">
 
 # 🎨 dsh-draw
+
+> 🧊 **2026-10-05 起冻结** —— 只修真实故障；优先使用下方记录的、采用率更高的替代品。
 - **1024 商店渠道**：先 `npm i -g dsh1024`，再 `dsh1024 plugin --profile web add dsh-draw`（计入 [deepseek1024.com](https://deepseek1024.com) 安装排行）。
 
 **DeepSeek Harness 的统一静态图像生成路由。**
@@ -67,9 +69,9 @@ DeepSeek Harness 的统一静态图像生成路由。
 
 ## ⭐ 如果它帮到了你
 
-这个插件是 [DSH 插件家族](https://github.com/PerryLink)的一员（40+ 个，全部 Apache-2.0）。如果你在用，**给个 star** —— 它不会解锁任何功能，但会让下一个人在搜索里更容易找到它。
+这个插件是 [DSH 插件家族](https://github.com/PerryLink)的一员（95 个，全部 Apache-2.0）。如果你在用，**给个 star** —— 它不会解锁任何功能，但会让下一个人在搜索里更容易找到它。
 
-*English:* part of a 40+ plugin family for DeepSeek Harness. If it is useful, **a star helps the next person find it** — nothing is gated behind it.
+*English:* part of a 95 plugin family for DeepSeek Harness. If it is useful, **a star helps the next person find it** — nothing is gated behind it.
 
 ## Comparison
 
