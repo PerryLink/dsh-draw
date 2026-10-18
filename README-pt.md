@@ -21,6 +21,11 @@
 
 [English](README.md) · [简体中文](README-zh.md) · [Español](README-es.md) · [Português](README-pt.md) · [हिन्दी](README-hi.md)
 
+```sh
+dsh plugin --profile <name> add dsh-draw
+```
+
+
 </div>
 
 ---
@@ -29,6 +34,15 @@
 **📖 Base de conhecimento do ecossistema** — dados medidos, não marketing: [guia de desenvolvimento · dados de seleção · critérios de manutenção](https://perrylink.github.io/dsh-plugin-guide/).
 
 <!-- star-cta -->
+
+## Instalação e desinstalação
+
+- **Canal git** (último `main`): `dsh plugin --profile web add github:PerryLink/dsh-draw` — o script `prepare` compila apenas com dependências de produção.
+- **Canal npm** (versões publicadas): `dsh plugin --profile web add dsh-draw`.
+- **Canal tarball**: `pnpm pack` neste repositório e então `dsh plugin --profile web add ./dsh-draw-<version>.tgz`.
+- **Desinstalar**: `dsh plugin --profile web remove dsh-draw` (ou remova a linha do patch do perfil).
+
+> Se o pnpm reportar `ERR_PNPM_IGNORED_BUILDS` para este pacote (a validação inofensiva do binário de plataforma do esbuild), adicione `allowBuilds: { esbuild: true }` ao seu `pnpm-workspace.yaml` — o CLI `dsh` imprime o trecho exato.
 
 ## What is dsh-draw?
 
@@ -127,15 +141,6 @@ Depois peça ao agente para desenhar:
 ```
 > Desenhe uma paisagem 1536x1024 de um farol ao entardecer, estilo vívido.
 ```
-
-## Instalação e desinstalação
-
-- **Canal git** (último `main`): `dsh plugin --profile web add github:PerryLink/dsh-draw` — o script `prepare` compila apenas com dependências de produção.
-- **Canal npm** (versões publicadas): `dsh plugin --profile web add dsh-draw`.
-- **Canal tarball**: `pnpm pack` neste repositório e então `dsh plugin --profile web add ./dsh-draw-<version>.tgz`.
-- **Desinstalar**: `dsh plugin --profile web remove dsh-draw` (ou remova a linha do patch do perfil).
-
-> Se o pnpm reportar `ERR_PNPM_IGNORED_BUILDS` para este pacote (a validação inofensiva do binário de plataforma do esbuild), adicione `allowBuilds: { esbuild: true }` ao seu `pnpm-workspace.yaml` — o CLI `dsh` imprime o trecho exato.
 
 ## Configuração
 

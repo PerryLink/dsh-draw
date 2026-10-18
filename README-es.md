@@ -21,6 +21,11 @@
 
 [English](README.md) · [简体中文](README-zh.md) · [Español](README-es.md) · [Português](README-pt.md) · [हिन्दी](README-hi.md)
 
+```sh
+dsh plugin --profile <name> add dsh-draw
+```
+
+
 </div>
 
 ---
@@ -29,6 +34,15 @@
 **📖 Base de conocimiento del ecosistema** — datos medidos, no marketing: [guía de desarrollo · datos de selección · criterios de mantenimiento](https://perrylink.github.io/dsh-plugin-guide/).
 
 <!-- star-cta -->
+
+## Instalación y desinstalación
+
+- **Canal git** (último `main`): `dsh plugin --profile web add github:PerryLink/dsh-draw` — el script `prepare` compila solo con dependencias de producción.
+- **Canal npm** (versiones publicadas): `dsh plugin --profile web add dsh-draw`.
+- **Canal tarball**: `pnpm pack` en este repositorio y luego `dsh plugin --profile web add ./dsh-draw-<version>.tgz`.
+- **Desinstalar**: `dsh plugin --profile web remove dsh-draw` (o elimina la fila del parche del perfil).
+
+> Si pnpm informa `ERR_PNPM_IGNORED_BUILDS` para este paquete (la validación inofensiva del binario de esbuild), añade `allowBuilds: { esbuild: true }` a tu `pnpm-workspace.yaml` — el CLI `dsh` imprime el fragmento exacto.
 
 ## What is dsh-draw?
 
@@ -127,15 +141,6 @@ Luego pídele al agente que dibuje:
 ```
 > Dibuja un paisaje de 1536x1024 de un faro al atardecer, estilo vívido.
 ```
-
-## Instalación y desinstalación
-
-- **Canal git** (último `main`): `dsh plugin --profile web add github:PerryLink/dsh-draw` — el script `prepare` compila solo con dependencias de producción.
-- **Canal npm** (versiones publicadas): `dsh plugin --profile web add dsh-draw`.
-- **Canal tarball**: `pnpm pack` en este repositorio y luego `dsh plugin --profile web add ./dsh-draw-<version>.tgz`.
-- **Desinstalar**: `dsh plugin --profile web remove dsh-draw` (o elimina la fila del parche del perfil).
-
-> Si pnpm informa `ERR_PNPM_IGNORED_BUILDS` para este paquete (la validación inofensiva del binario de esbuild), añade `allowBuilds: { esbuild: true }` a tu `pnpm-workspace.yaml` — el CLI `dsh` imprime el fragmento exacto.
 
 ## Configuración
 
