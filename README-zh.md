@@ -153,7 +153,33 @@ dsh --profile web --dump-config | grep -A2 'id: dsh-draw'
 
 #### 详细示例
 
-- `image_generate`
+**命令**
+
+~~~sh
+image_generate
+~~~
+
+**输入**
+
+~~~json
+{
+  "prompt": "a cat"
+}
+~~~
+
+**输出**
+
+~~~text
+{
+  "ok": true,
+  "engine": "openai",
+  "images": [
+    { "attachmentId": "att-1" }
+  ]
+}
+~~~
+
+*来源 `plugins/dsh-draw/tests/index.spec.ts:50-66; same fields asserted at plugins/dsh-draw/tests/drawer.spec.ts:59-69`*
 
 #### 简短示例
 

@@ -151,7 +151,33 @@ dsh --profile web --dump-config | grep -A2 'id: dsh-draw'
 
 #### विस्तृत उदाहरण
 
-- `image_generate`
+**कमांड**
+
+~~~sh
+image_generate
+~~~
+
+**इनपुट**
+
+~~~json
+{
+  "prompt": "a cat"
+}
+~~~
+
+**आउटपुट**
+
+~~~text
+{
+  "ok": true,
+  "engine": "openai",
+  "images": [
+    { "attachmentId": "att-1" }
+  ]
+}
+~~~
+
+*स्रोत `plugins/dsh-draw/tests/index.spec.ts:50-66; same fields asserted at plugins/dsh-draw/tests/drawer.spec.ts:59-69`*
 
 #### संक्षिप्त उदाहरण
 

@@ -151,7 +151,33 @@ São os pontos de entrada reais; instale e chame um.
 
 #### Exemplo detalhado
 
-- `image_generate`
+**Comando**
+
+~~~sh
+image_generate
+~~~
+
+**Entrada**
+
+~~~json
+{
+  "prompt": "a cat"
+}
+~~~
+
+**Saída**
+
+~~~text
+{
+  "ok": true,
+  "engine": "openai",
+  "images": [
+    { "attachmentId": "att-1" }
+  ]
+}
+~~~
+
+*Observado em `plugins/dsh-draw/tests/index.spec.ts:50-66; same fields asserted at plugins/dsh-draw/tests/drawer.spec.ts:59-69`*
 
 #### Exemplos breves
 

@@ -154,7 +154,33 @@ These are the plugin's real entry points; install once, then call one.
 
 #### Detailed example
 
-- `image_generate`
+**Command**
+
+~~~sh
+image_generate
+~~~
+
+**Input**
+
+~~~json
+{
+  "prompt": "a cat"
+}
+~~~
+
+**Output**
+
+~~~text
+{
+  "ok": true,
+  "engine": "openai",
+  "images": [
+    { "attachmentId": "att-1" }
+  ]
+}
+~~~
+
+*Observed from `plugins/dsh-draw/tests/index.spec.ts:50-66; same fields asserted at plugins/dsh-draw/tests/drawer.spec.ts:59-69`*
 
 #### Brief examples
 
