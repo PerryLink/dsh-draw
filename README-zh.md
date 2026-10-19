@@ -181,6 +181,22 @@ image_generate
 
 *来源 `plugins/dsh-draw/tests/index.spec.ts:50-66; same fields asserted at plugins/dsh-draw/tests/drawer.spec.ts:59-69`*
 
+#### 失败分支
+
+**输入**
+
+~~~text
+{"prompt":"   "}
+~~~
+
+**输出**
+
+~~~text
+Error: image_generate: prompt must be a non-empty string
+~~~
+
+*来源 `plugins/dsh-draw/src/drawer.ts:141-147; plugins/dsh-draw/src/tool.ts:137-140; plugins/dsh-draw/tests/drawer.spec.ts:77-82`*
+
 #### 简短示例
 
 

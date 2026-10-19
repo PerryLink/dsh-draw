@@ -179,6 +179,22 @@ image_generate
 
 *Observado en `plugins/dsh-draw/tests/index.spec.ts:50-66; same fields asserted at plugins/dsh-draw/tests/drawer.spec.ts:59-69`*
 
+#### Rama de fallo
+
+**Entrada**
+
+~~~text
+{"prompt":"   "}
+~~~
+
+**Salida**
+
+~~~text
+Error: image_generate: prompt must be a non-empty string
+~~~
+
+*Observado en `plugins/dsh-draw/src/drawer.ts:141-147; plugins/dsh-draw/src/tool.ts:137-140; plugins/dsh-draw/tests/drawer.spec.ts:77-82`*
+
 #### Ejemplos breves
 
 
