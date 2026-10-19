@@ -43,9 +43,10 @@ DeepSeek Harness 的统一静态图像生成路由。
 
 一个工具、多个引擎 —— 健康感知回退、结果持久、用量记账。
 
-![dsh-draw 终端演示：dsh-draw — install, then ask the agent to draw](https://raw.githubusercontent.com/PerryLink/dsh-draw/main/docs/assets/dsh-draw-hero.png)
+![dsh-draw 工作流图：调用 → 插件 → 结果。](docs/assets/dsh-draw-flow.svg)
 
-![Animated terminal demo of dsh-draw](https://raw.githubusercontent.com/PerryLink/dsh-draw/main/docs/assets/dsh-draw-demo.gif)
+*工作流概览：调用 → 插件 → 结果。下面的示例使用实际命令面。*
+
 
 *同一次运行，动图版。*
 
@@ -145,6 +146,18 @@ dsh --profile web --dump-config | grep -A2 'id: dsh-draw'
 - **卸载**：`dsh plugin --profile web remove dsh-draw`（或从 profile patch 中删除该行）。
 
 > 如果 pnpm 对本包报 `ERR_PNPM_IGNORED_BUILDS`（esbuild 的平台二进制无害校验），在你的 `pnpm-workspace.yaml` 中加入 `allowBuilds: { esbuild: true }` —— `dsh` CLI 会打印确切片段。
+
+### 示例
+
+以下为插件真实入口；安装后调用一个即可。
+
+#### 详细示例
+
+- `image_generate`
+
+#### 简短示例
+
+
 
 ## 配置
 

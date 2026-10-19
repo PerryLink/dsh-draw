@@ -58,11 +58,11 @@ Unified static-image generation routing for DeepSeek Harness.
 
 One tool, many engines — health-aware fallback, durable results, counted usage.
 
-![Terminal demo of dsh-draw: dsh-draw — install, then ask the agent to draw](https://raw.githubusercontent.com/PerryLink/dsh-draw/main/docs/assets/dsh-draw-hero.png)
+![Workflow diagram for dsh-draw: call → plugin → result.](docs/assets/dsh-draw-flow.svg)
 
-![Animated terminal demo of dsh-draw](https://raw.githubusercontent.com/PerryLink/dsh-draw/main/docs/assets/dsh-draw-demo.gif)
+*Workflow overview: call → plugin → result. The examples below use the real command surface.*
 
-*The same run, animated.*
+
 
 ## Maintenance status: 🧊 FROZEN
 
@@ -147,6 +147,18 @@ Then ask the agent to draw:
 ```
 > Draw a 1536x1024 landscape of a lighthouse at dusk, vivid style.
 ```
+
+### Examples
+
+These are the plugin's real entry points; install once, then call one.
+
+#### Detailed example
+
+- `image_generate`
+
+#### Brief examples
+
+
 
 ## Configuration
 

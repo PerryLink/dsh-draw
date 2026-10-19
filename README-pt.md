@@ -52,9 +52,10 @@ Roteamento unificado de geração de imagens estáticas para o DeepSeek Harness.
 
 Uma ferramenta, muitos motores — fallback ciente da saúde, resultados duráveis, uso contabilizado.
 
-![Demonstração de terminal do dsh-draw: dsh-draw — install, then ask the agent to draw](https://raw.githubusercontent.com/PerryLink/dsh-draw/main/docs/assets/dsh-draw-hero.png)
+![Diagrama de fluxo de dsh-draw: chamada → plugin → resultado.](docs/assets/dsh-draw-flow.svg)
 
-![Animated terminal demo of dsh-draw](https://raw.githubusercontent.com/PerryLink/dsh-draw/main/docs/assets/dsh-draw-demo.gif)
+*Visão geral do fluxo: chamada → plugin → resultado. Os exemplos abaixo usam a superfície real de comandos.*
+
 
 *A mesma execução, animada.*
 
@@ -143,6 +144,18 @@ Depois peça ao agente para desenhar:
 ```
 > Desenhe uma paisagem 1536x1024 de um farol ao entardecer, estilo vívido.
 ```
+
+### Exemplos
+
+São os pontos de entrada reais; instale e chame um.
+
+#### Exemplo detalhado
+
+- `image_generate`
+
+#### Exemplos breves
+
+
 
 ## Configuração
 

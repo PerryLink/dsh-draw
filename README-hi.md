@@ -52,9 +52,10 @@ DeepSeek Harness के लिए एकीकृत स्थिर-छवि �
 
 एक टूल, कई इंजन — स्वास्थ्य-सजग फ़ॉलबैक, टिकाऊ परिणाम, गिना हुआ उपयोग।
 
-![dsh-draw का टर्मिनल डेमो: dsh-draw — install, then ask the agent to draw](https://raw.githubusercontent.com/PerryLink/dsh-draw/main/docs/assets/dsh-draw-hero.png)
+![dsh-draw कार्यप्रवाह आरेख: कॉल → प्लगइन → परिणाम।](docs/assets/dsh-draw-flow.svg)
 
-![Animated terminal demo of dsh-draw](https://raw.githubusercontent.com/PerryLink/dsh-draw/main/docs/assets/dsh-draw-demo.gif)
+*कार्यप्रवाह: कॉल → प्लगइन → परिणाम। नीचे के उदाहरण वास्तविक कमांड सतह का उपयोग करते हैं।*
+
 
 *वही रन, एनिमेटेड।*
 
@@ -143,6 +144,18 @@ dsh --profile web --dump-config | grep -A2 'id: dsh-draw'
 ```
 > सूर्यास्त में एक लाइटहाउस का 1536x1024 परिदृश्य बनाएँ, vivid शैली।
 ```
+
+### उदाहरण
+
+ये वास्तविक प्रवेश बिंदु हैं; इंस्टॉल के बाद एक चलाएँ।
+
+#### विस्तृत उदाहरण
+
+- `image_generate`
+
+#### संक्षिप्त उदाहरण
+
+
 
 ## कॉन्फ़िगरेशन
 

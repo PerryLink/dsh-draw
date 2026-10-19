@@ -52,9 +52,10 @@ Enrutamiento unificado de generación de imágenes estáticas para DeepSeek Harn
 
 Una herramienta, muchos motores — respaldo consciente de salud, resultados duraderos, uso contabilizado.
 
-![Demostración de terminal de dsh-draw: dsh-draw — install, then ask the agent to draw](https://raw.githubusercontent.com/PerryLink/dsh-draw/main/docs/assets/dsh-draw-hero.png)
+![Diagrama de flujo de dsh-draw: llamada → plugin → resultado.](docs/assets/dsh-draw-flow.svg)
 
-![Animated terminal demo of dsh-draw](https://raw.githubusercontent.com/PerryLink/dsh-draw/main/docs/assets/dsh-draw-demo.gif)
+*Resumen del flujo: llamada → plugin → resultado. Los ejemplos siguientes usan la superficie de comandos real.*
+
 
 *La misma ejecución, animada.*
 
@@ -143,6 +144,18 @@ Luego pídele al agente que dibuje:
 ```
 > Dibuja un paisaje de 1536x1024 de un faro al atardecer, estilo vívido.
 ```
+
+### Ejemplos
+
+Son los puntos de entrada reales; instala y llama a uno.
+
+#### Ejemplo detallado
+
+- `image_generate`
+
+#### Ejemplos breves
+
+
 
 ## Configuración
 
