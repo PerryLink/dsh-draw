@@ -222,7 +222,7 @@ pnpm pack           # प्रकाशित tarball
 - [@PerryLink](https://github.com/PerryLink) — निर्माता और मेंटेनर: इंजन रूटर, drawer, कोटा लेखा, Typert wire शब्दावली, ब्राउज़र आधा और पाँच-भाषा दस्तावेज़।
 - [@Mohei-Muun](https://github.com/Mohei-Muun) — rc.7 होस्ट पर `draw/generated` सत्र-लॉग लोड विफलता की सूचना दी ([#2](https://github.com/PerryLink/dsh-draw/issues/2)), जिससे अनुकूली इवेंट गेट बना।
 
-## PerryLink DSH प्लगइन परिवार
+## PerryLink DSH Plugin Family
 
 यह प्रोजेक्ट [PerryLink](https://github.com/PerryLink) के DeepSeek Harness प्लगइन परिवार का हिस्सा है। पूरी सूची नीचे संक्षिप्त रखी गई है ताकि हर README की पहली स्क्रीन छोटी रहे; हर पंक्ति और उसकी स्थिति देखने के लिए इसे खोलें।
 

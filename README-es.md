@@ -222,7 +222,7 @@ pnpm pack           # el tarball publicado
 - [@PerryLink](https://github.com/PerryLink) — creador y mantenedor: enrutador de motores, drawer, contabilidad de cuota, vocabulario wire de Typert, mitad de navegador y la documentación en cinco idiomas.
 - [@Mohei-Muun](https://github.com/Mohei-Muun) — informó del fallo de carga del registro de sesión `draw/generated` en hosts rc.7 ([#2](https://github.com/PerryLink/dsh-draw/issues/2)), que condujo a la puerta de eventos adaptativa.
 
-## Familia de plugins DSH de PerryLink
+## PerryLink DSH Plugin Family
 
 Este proyecto forma parte de la familia de plugins de DeepSeek Harness de [PerryLink](https://github.com/PerryLink). El registro permanece plegado abajo para que cada README conserve una primera pantalla corta; expándelo para ver cada fila y su estado.
 
