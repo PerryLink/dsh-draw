@@ -2,7 +2,7 @@
 
 # 🎨 dsh-draw
 
-> 🧊 **2026-10-05 起冻结** —— 只修真实故障；优先使用下方记录的、采用率更高的替代品。
+> 🧊 **2026-10-05 起冻结** —— 只修真实故障；下方记录了生态已收敛到的更广泛采用的实现。
 - **1024 商店渠道**：先 `npm i -g dsh1024`，再 `dsh1024 plugin --profile web add dsh-draw`（计入 [deepseek1024.com](https://deepseek1024.com) 安装排行）。
 
 **DeepSeek Harness 的统一静态图像生成路由。**
@@ -54,17 +54,17 @@ DeepSeek Harness 的统一静态图像生成路由。
 
 > **2026-10-05 起冻结，不再新增功能。** 本包仍可正常使用，**没有退役**——但不再投入功能开发，只有真实故障才会修复。
 
-维护者判定该能力面**已出现采用度更高、更值得推荐的替代方案**，因此把精力移到了别处。
+维护者判定该能力面**生态已收敛到更广泛采用的实现**，因此把精力移到了别处。
 
 | | 包 | 周下载量 |
 |---|---|---|
 | **本包** | `dsh-draw` | 973 |
-| 更值得推荐的替代品 | [`dsh-image-gen`](https://github.com/shanliuling/dsh-image-gen) | **7,216** |
+| 更广泛采用的实现 | [`dsh-image-gen`](https://github.com/shanliuling/dsh-image-gen) | **7,216** |
 | 另一个替代品 | `@goodandready/dsh-image-gen` | 4,822 |
 
-**为什么替代品更强。** `dsh-image-gen` 在一个插件里同时支持 Gemini、OpenAI、Seedream、DashScope，以及本地 ComfyUI。
+**为什么它是主流选择。** `dsh-image-gen` 在一个插件里同时支持 Gemini、OpenAI、Seedream、DashScope，以及本地 ComfyUI。
 
-👉 **新工作请优先使用 dsh-image-gen。** 已安装的照常可用，没有任何东西被移除。
+👉 **新工作以 dsh-image-gen 为主流选择。** 已安装的照常可用，没有任何东西被移除。
 
 *完整证据（含宿主版本兼容矩阵）见 `dsh-plugin-supersession-review-20261005.md`；英文版见 [README.md](README.md) 的 **Maintenance status: 🧊 FROZEN** 一节。*
 

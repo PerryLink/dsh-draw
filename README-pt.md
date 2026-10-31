@@ -2,7 +2,7 @@
 
 # 🎨 dsh-draw
 
-> 🧊 **CONGELADO desde 2026-10-05** — apenas falhas reais são corrigidas. Prefira a alternativa com mais adoção indicada abaixo.
+> 🧊 **CONGELADO desde 2026-10-05** — apenas falhas reais são corrigidas. A comunidade convergiu em uma implementação mais amplamente adotada, indicada abaixo.
 - **Canal 1024 store**: `npm i -g dsh1024` uma vez, depois `dsh1024 plugin --profile web add dsh-draw` (conta para o ranking de instalações do [deepseek1024.com](https://deepseek1024.com)).
 
 **Roteamento unificado de geração de imagens estáticas para o DeepSeek Harness.**
@@ -63,15 +63,15 @@ Uma ferramenta, muitos motores — fallback ciente da saúde, resultados duráve
 
 > **Congelado em 2026-10-05. Sem novos recursos.** Este pacote continua funcionando e **não foi aposentado**, mas não recebe mais trabalho de recursos; apenas uma falha real será corrigida.
 
-Os mantenedores consideram que nesta capacidade **já existem alternativas com melhor adoção**, então o esforço foi redirecionado. Comparação medida em 2026-10-05:
+Os mantenedores consideram que nesta capacidade **a comunidade convergiu em uma implementação mais amplamente adotada**, então o esforço foi redirecionado. Comparação medida em 2026-10-05:
 
 | | pacote | downloads semanais |
 |---|---|---|
 | **este pacote** | `dsh-draw` | 973 |
-| alternativa mais adotada | [`dsh-image-gen`](https://github.com/shanliuling/dsh-image-gen) | **7,216** |
+| implementação mais amplamente adotada | [`dsh-image-gen`](https://github.com/shanliuling/dsh-image-gen) | **7,216** |
 | outra alternativa | `@goodandready/dsh-image-gen` | 4,822 |
 
-👉 **Para trabalho novo, prefira dsh-image-gen.** As instalações existentes continuam funcionando sem alterações.
+👉 **Para trabalho novo, dsh-image-gen é a escolha principal.** As instalações existentes continuam funcionando sem alterações.
 
 *Evidência completa: `dsh-plugin-supersession-review-20261005.md`. Texto completo na seção **Maintenance status: 🧊 FROZEN** de [README.md](README.md).*
 

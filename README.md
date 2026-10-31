@@ -2,7 +2,7 @@
 
 # 🎨 dsh-draw
 
-> 🧊 **FROZEN since 2026-10-05** — only real breakages are fixed. Prefer the better-adopted alternative recorded below.
+> 🧊 **FROZEN since 2026-10-05** — only real breakages are fixed. The ecosystem has converged on a more widely adopted implementation, recorded below.
 - **1024 store channel**: `npm i -g dsh1024` once, then `dsh1024 plugin --profile web add dsh-draw` (counts toward the [deepseek1024.com](https://deepseek1024.com) install ranking).
 [![Gitee](https://img.shields.io/badge/Gitee-mirror-c71d23?logo=gitee)](https://gitee.com/perrylink/dsh-draw)
 [![dshfind](https://dshfind.com/api/badge/PerryLink/dsh-draw?metric=downloads)](https://dshfind.com/plugins/PerryLink/dsh-draw?ref=badge)
@@ -68,19 +68,19 @@ One tool, many engines — health-aware fallback, durable results, counted usage
 
 > **Frozen on 2026-10-05. No new features.** This package still works, and it is not retired — but it no longer receives feature work. Only a genuine breakage will be fixed.
 
-Maintainers treat this capability as one where **better-adopted alternatives now exist**, so effort has moved elsewhere. The comparison below was measured on 2026-10-05 and is recorded so nobody has to redo it.
+Maintainers treat this capability as one where **the ecosystem has converged on a more widely adopted implementation**, so effort has moved elsewhere. The comparison below was measured on 2026-10-05 and is recorded so nobody has to redo it.
 
 | | package | weekly downloads |
 |---|---|---|
 | **this package** | `dsh-draw` | 973 |
-| better-adopted alternative | [`dsh-image-gen`](https://github.com/shanliuling/dsh-image-gen) | **7,216** |
+| more widely adopted implementation | [`dsh-image-gen`](https://github.com/shanliuling/dsh-image-gen) | **7,216** |
 | another alternative | `@goodandready/dsh-image-gen` | 4,822 |
 
-**Why the alternative leads.** `dsh-image-gen` provides Gemini, OpenAI, Seedream, DashScope and a local ComfyUI in one plugin.
+**Why it is the mainstream choice.** `dsh-image-gen` provides Gemini, OpenAI, Seedream, DashScope and a local ComfyUI in one plugin.
 
 **Compatibility.** declares no dsh peers, so the compatibility guard never blocks it.
 
-👉 **For new work, prefer dsh-image-gen.** Existing installs keep working unchanged; nothing is being removed.
+👉 **For new work, dsh-image-gen is the mainstream choice.** Existing installs keep working unchanged; nothing is being removed.
 
 *Full evidence, including the host-version compatibility matrix: `dsh-plugin-supersession-review-20261005.md`.*
 

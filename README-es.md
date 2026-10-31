@@ -2,7 +2,7 @@
 
 # 🎨 dsh-draw
 
-> 🧊 **CONGELADO desde 2026-10-05** — solo se corrigen fallos reales. Prefiere la alternativa con más adopción indicada abajo.
+> 🧊 **CONGELADO desde 2026-10-05** — solo se corrigen fallos reales. La comunidad ha convergido en una implementación más ampliamente adoptada, indicada abajo.
 - **Canal 1024 store**: `npm i -g dsh1024` una vez, luego `dsh1024 plugin --profile web add dsh-draw` (cuenta para el ranking de instalaciones de [deepseek1024.com](https://deepseek1024.com)).
 
 **Enrutamiento unificado de generación de imágenes estáticas para DeepSeek Harness.**
@@ -63,15 +63,15 @@ Una herramienta, muchos motores — respaldo consciente de salud, resultados dur
 
 > **Congelado el 2026-10-05. Sin nuevas funciones.** Este paquete sigue funcionando y **no está retirado**, pero ya no recibe trabajo de funciones; solo se corregirá una avería real.
 
-Los mantenedores consideran que en esta capacidad **ya existen alternativas con mejor adopción**, así que el esfuerzo se ha trasladado. Comparativa medida el 2026-10-05:
+Los mantenedores consideran que en esta capacidad **la comunidad ha convergido en una implementación más ampliamente adoptada**, así que el esfuerzo se ha trasladado. Comparativa medida el 2026-10-05:
 
 | | paquete | descargas semanales |
 |---|---|---|
 | **este paquete** | `dsh-draw` | 973 |
-| alternativa mejor adoptada | [`dsh-image-gen`](https://github.com/shanliuling/dsh-image-gen) | **7,216** |
+| implementación más ampliamente adoptada | [`dsh-image-gen`](https://github.com/shanliuling/dsh-image-gen) | **7,216** |
 | otra alternativa | `@goodandready/dsh-image-gen` | 4,822 |
 
-👉 **Para trabajo nuevo, prefiera dsh-image-gen.** Las instalaciones existentes siguen funcionando sin cambios.
+👉 **Para trabajo nuevo, dsh-image-gen es la opción principal.** Las instalaciones existentes siguen funcionando sin cambios.
 
 *Evidencia completa: `dsh-plugin-supersession-review-20261005.md`. Texto completo en la sección **Maintenance status: 🧊 FROZEN** de [README.md](README.md).*
 
