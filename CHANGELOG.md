@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.2.25] - 2026-10-31
+
+### Changed
+
+- Reframe the frozen-status copy in all five READMEs as ecosystem convergence on a more widely adopted implementation; no code change.
+
 ## [0.2.24] - 2026-10-18
 
 ### Changed
