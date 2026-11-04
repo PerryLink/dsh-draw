@@ -51,13 +51,17 @@ describe('dsh-draw assembly', () => {
     const harness = await mountHarness({ attachments: true, credentials: true })
     harness.credentials!.values.set('OPENAI_API_KEY', 'sk-test')
     harness.transport.next = okImages(1)
-    const result = await harness.ctx.tools.execute({
-      callId: CallId('assembly-spec-1'),
-      name: 'image_generate',
-      arguments: { prompt: 'a cat' },
+    const batch = await harness.ctx.tools.execute({
+      calls: [{
+        type: 'tool-call',
+        id: CallId('assembly-spec-1'),
+        name: 'image_generate',
+        arguments: JSON.stringify({ prompt: 'a cat' }),
+      }],
       agent: harness.agent,
       signal: new AbortController().signal,
     })
+    const result = batch.results[0]!.result
     expect(result.isError).toBe(false)
     if (result.isError) return
     const value = result.value as { engine: string; images: Array<{ attachmentId: string }> }

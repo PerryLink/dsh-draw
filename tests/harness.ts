@@ -15,6 +15,7 @@ import { AttachmentId, AttachmentStore, type ImageAttachmentRef, type SaveImageA
 import type { CredentialRef } from '@deepseek-ai/dsh-credentials'
 import { credentialRef } from '@deepseek-ai/dsh-credentials'
 import SessionStore, { SessionId, type Session } from '@deepseek-ai/dsh-session'
+import * as NativeToolExecutor from '@deepseek-ai/dsh-tool-executor-native'
 import ToolRuntime from '@deepseek-ai/dsh-tools'
 import { HttpError, type HttpRequest, type HttpResponse, type HttpTransport } from '../src/http.ts'
 import type { DrawerEventSink } from '../src/drawer.ts'
@@ -158,6 +159,8 @@ export async function mountHarness(options: HarnessOptions = {}): Promise<Harnes
   session.append('turn/start', { turn: 1 })
   ctx.provide('systemPrompt', { tools: () => () => undefined, section: () => () => undefined } as never)
   await ctx.plugin(ToolRuntime)
+  // 0.2.2: raw batch execution lives behind a pluggable executor.
+  await ctx.plugin(NativeToolExecutor)
 
   const transport = new ScriptedTransport()
   ctx.provide('dsh-draw/transport', transport)

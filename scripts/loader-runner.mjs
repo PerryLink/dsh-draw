@@ -79,6 +79,11 @@ try {
     config: { path: pathToFileURL(configPath).href },
   })
   await ctx.loader.await()
+  // cordis 4.1.0 no longer rejects loader.await() when a row fails to apply: the
+  // error settles on that row's fiber. Await every row fiber so an invalid config
+  // or a missing inject still fails loud here instead of surfacing as a missing
+  // registry entry. (0.2.2 upgrade fix; verified against loader 1.1.0.)
+  for (const entry of ctx.loader.entries()) await entry.fiber
   rethrowFirstFailedRow()
 
   const tool = registered.find(definition => definition.name === 'image_generate')

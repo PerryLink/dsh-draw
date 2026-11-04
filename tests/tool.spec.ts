@@ -25,13 +25,17 @@ let callCounter = 0
 
 async function callTool(harness: Harness, name: string, args: unknown): Promise<ToolExecutionResult> {
   callCounter += 1
-  return harness.ctx.tools.execute({
-    callId: CallId(`tool-spec-${callCounter}`),
-    name,
-    arguments: args,
+  const batch = await harness.ctx.tools.execute({
+    calls: [{
+      type: 'tool-call',
+      id: CallId(`tool-spec-${callCounter}`),
+      name,
+      arguments: JSON.stringify(args),
+    }],
     agent: harness.agent,
     signal: new AbortController().signal,
   })
+  return batch.results[0]!.result
 }
 
 describe('image_generate through the real registry', () => {
