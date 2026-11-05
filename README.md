@@ -1,41 +1,36 @@
 <div align="center">
 
-# 🎨 dsh-draw
-
-> 🧊 **FROZEN since 2026-10-05** — only real breakages are fixed. The ecosystem has converged on a more widely adopted implementation, recorded below.
-- **1024 store channel**: `npm i -g dsh1024` once, then `dsh1024 plugin --profile web add dsh-draw` (counts toward the [deepseek1024.com](https://deepseek1024.com) install ranking).
-[![Gitee](https://img.shields.io/badge/Gitee-mirror-c71d23?logo=gitee)](https://gitee.com/perrylink/dsh-draw)
-[![dshfind](https://dshfind.com/api/badge/PerryLink/dsh-draw?metric=downloads)](https://dshfind.com/plugins/PerryLink/dsh-draw?ref=badge)
-[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/PerryLink/dsh-draw/badge)](https://api.securityscorecards.dev/projects/github.com/PerryLink/dsh-draw)
+# dsh-draw
 
 **Unified static-image generation routing for DeepSeek Harness.**
 
-*One tool, many engines — health-aware fallback, durable results, counted usage.*
+One tool, many engines — health-aware fallback, durable results, counted usage.
 
-[![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
-[![DSH plugin](https://img.shields.io/badge/dsh--plugin-✅-green)](https://github.com/topics/dsh-plugin)
-[![dsh-doctor](https://raw.githubusercontent.com/PerryLink/dsh-plugin-doctor/main/badges/PerryLink__dsh-draw.svg)](https://github.com/PerryLink/dsh-plugin-doctor#verified-徽章)
-[![DSH Market](https://raw.githubusercontent.com/2BingLing/dsh-market/master/assets/readme/badge-listed-en.svg)](https://dsh.market/)
-[![Node](https://img.shields.io/badge/node-%5E22.19%20%7C%7C%20%3E%3D24-brightgreen.svg)](#)
-[![CI](https://img.shields.io/github/actions/workflow/status/PerryLink/dsh-draw/ci.yml?branch=main&label=CI)](https://github.com/PerryLink/dsh-draw/actions)
-[![Version](https://img.shields.io/github/v/tag/PerryLink/dsh-draw?label=version)](https://github.com/PerryLink/dsh-draw/releases)
-[![npm version](https://img.shields.io/npm/v/dsh-draw)](https://www.npmjs.com/package/dsh-draw)
-[![npm downloads](https://img.shields.io/npm/dm/dsh-draw)](https://www.npmjs.com/package/dsh-draw)
+[简体中文](README-zh.md) · [Español](README-es.md) · [Português](README-pt.md) · [हिन्दी](README-hi.md)
 
-[English](README.md) · [简体中文](README-zh.md) · [Español](README-es.md) · [Português](README-pt.md) · [हिन्दी](README-hi.md)
+> 🧊 **FROZEN since 2026-10-05** — only real breakages are fixed. The ecosystem has converged on a more widely adopted implementation, recorded below.
+
+[![License](https://img.shields.io/badge/license-Apache--2.0-3366CC?style=flat-square&labelColor=2B3245)](LICENSE)
+[![DSH](https://img.shields.io/badge/DSH-%E2%89%A50.2.1%20%3C0.3.0-4B67B4?style=flat-square&labelColor=2B3245)](#compatibility)
+[![npm](https://img.shields.io/npm/v/dsh-draw?style=flat-square&labelColor=2B3245&color=CB3837)](https://www.npmjs.com/package/dsh-draw)
+[![CI](https://img.shields.io/github/actions/workflow/status/PerryLink/dsh-draw/ci.yml?branch=main&label=CI&style=flat-square&labelColor=2B3245)](https://github.com/PerryLink/dsh-draw/actions/workflows/ci.yml)
+[![Node](https://img.shields.io/badge/node-%5E22.19%20%7C%7C%20%3E=24-339933?style=flat-square&labelColor=2B3245)](#compatibility)
+
+[![Stars](https://img.shields.io/github/stars/PerryLink/dsh-draw?style=flat-square&labelColor=2B3245)](https://github.com/PerryLink/dsh-draw/stargazers)
+[![npm downloads](https://img.shields.io/npm/dm/dsh-draw?style=flat-square&labelColor=2B3245&color=CB3837)](https://www.npmjs.com/package/dsh-draw)
+[![dshfind](https://dshfind.com/api/badge/PerryLink/dsh-draw?metric=downloads)](https://dshfind.com/plugins/PerryLink/dsh-draw?ref=badge)
+[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/PerryLink/dsh-draw/badge)](https://securityscorecards.dev/viewer/?uri=github.com/PerryLink/dsh-draw)
+[![DSH Market](https://img.shields.io/badge/DSH_Market-listed-4B67B4?style=flat-square&labelColor=2B3245)](https://dsh.market/)
+[![Gitee](https://img.shields.io/badge/Gitee-mirror-C71D23?style=flat-square&labelColor=2B3245&logo=gitee)](https://gitee.com/perrylink/dsh-draw)
 
 ```sh
 dsh plugin --profile <name> add dsh-draw
 ```
 
-
 </div>
 
----
+<sub>Community plugin, not affiliated with DeepSeek. Canonical repository: <https://github.com/PerryLink/dsh-draw> (Gitee is a mirror).</sub>
 
-**📖 Ecosystem knowledge base** — measured data, not marketing: [plugin development guide · plugin-selection data · maintenance criteria](https://perrylink.github.io/dsh-plugin-guide/).
-
-<!-- star-cta -->
 ## Install & uninstall
 
 - **git channel** (latest `main`): `dsh plugin --profile web add github:PerryLink/dsh-draw` — the `prepare` script builds with production dependencies only.
