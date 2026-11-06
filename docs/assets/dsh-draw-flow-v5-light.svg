@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="660" viewBox="0 0 1100 660" role="img" aria-label="dsh-draw structure: image_generate and draw/regenerate merge into one drawer; normalize/validate, then the generation quota gate, then the engine chain as a scoreboard with cooldown health, then the byte quota gate before the attachment store; the commit forks into durable attachment refs and a gated draw/generated session event, and the returns feed the model value, the result card and the Settings tab, with regenerate re-entering the same drawer on the dashed return rail">
+<title>dsh-draw: two mouths, one drawer, two quota gates and a health-aware engine chain</title>
+<defs>
+<marker id="a" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 1 L9 5 L0 9 z" fill="#4B67B4"/></marker>
+<marker id="dn" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 1 L9 5 L0 9 z" fill="#c02b2b"/></marker>
+<marker id="wn" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 1 L9 5 L0 9 z" fill="#bc4c00"/></marker>
+<marker id="fa" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 1 L9 5 L0 9 z" fill="#8f94a4"/></marker>
+<linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f9f6fd"/><stop offset="1" stop-color="#e4eaf8"/></linearGradient>
+<pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="#ded7ee" opacity=".6"/></pattern>
+</defs>
+<rect x="0" y="0" width="1100" height="660" fill="url(#bg)"/>
+<rect x="0" y="0" width="1100" height="660" fill="url(#dots)"/>
+<text x="40" y="46" fill="#141419" font-family="ui-monospace, SFMono-Regular, 'Cascadia Mono', Consolas, 'Microsoft YaHei', monospace" font-size="26" font-weight="700" text-anchor="start">dsh-draw</text>
+<text x="40" y="70" fill="#4d5261" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', sans-serif" font-size="12.5" font-weight="400" text-anchor="start">one drawer · two quota gates · a health-aware engine chain</text>
+<text x="1060" y="46" fill="#8f94a4" font-family="ui-monospace, SFMono-Regular, 'Cascadia Mono', Consolas, 'Microsoft YaHei', monospace" font-size="11" font-weight="400" text-anchor="end">image_generate · draw/regenerate · draw/status</text>
+<text x="40" y="106" fill="#4B67B4" font-family="ui-monospace, SFMono-Regular, 'Cascadia Mono', Consolas, 'Microsoft YaHei', monospace" font-size="11" font-weight="700" text-anchor="start" letter-spacing="1.15">① INTAKE · TWO MOUTHS, ONE DRAWER</text>
+<text x="512" y="106" fill="#4B67B4" font-family="ui-monospace, SFMono-Regular, 'Cascadia Mono', Consolas, 'Microsoft YaHei', monospace" font-size="11" font-weight="700" text-anchor="start" letter-spacing="1.15">② DRAWER · VALIDATE → GATE ①</text>
+<rect x="40" y="116" width="430" height="66" rx="14" fill="#ffffff" stroke="#e2dff0" stroke-width="1.2"/>
+<text x="60" y="150" fill="#141419" font-family="ui-monospace, SFMono-Regular, 'Cascadia Mono', Consolas, 'Microsoft YaHei', monospace" font-size="14.5" font-weight="700" text-anchor="start">image_generate</text>
+<text x="60" y="169" fill="#4d5261" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', sans-serif" font-size="11.5" font-weight="400" text-anchor="start">model tool · prompt / size / count / quality / style / engine</text>
+<text x="450" y="150" fill="#8f94a4" font-family="ui-monospace, SFMono-Regular, 'Cascadia Mono', Consolas, 'Microsoft YaHei', monospace" font-size="11" font-weight="400" text-anchor="end">tool.ts</text>
+<rect x="40" y="194" width="430" height="66" rx="14" fill="#ffffff" stroke="#e2dff0" stroke-width="1.2"/>
+<text x="60" y="228" fill="#141419" font-family="ui-monospace, SFMono-Regular, 'Cascadia Mono', Consolas, 'Microsoft YaHei', monospace" font-size="14.5" font-weight="700" text-anchor="start">draw/regenerate</text>
+<text x="60" y="247" fill="#4d5261" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', sans-serif" font-size="11.5" font-weight="400" text-anchor="start">result-card button · the same drawer path</text>
+<text x="450" y="228" fill="#8f94a4" font-family="ui-monospace, SFMono-Regular, 'Cascadia Mono', Consolas, 'Microsoft YaHei', monospace" font-size="11" font-weight="400" text-anchor="end">service.ts</text>
+<path d="M470 149 H486 M470 227 H486 M486 227 V149" stroke="#4B67B4" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+<circle cx="486" cy="149" r="3.4" fill="#4B67B4"/>
+<line x1="490" y1="149" x2="506" y2="149" stroke="#4B67B4" stroke-width="2.2" stroke-linecap="round" marker-end="url(#a)"/>
+<rect x="510" y="116" width="550" height="66" rx="14" fill="#ffffff" stroke="#e2dff0" stroke-width="1.2"/>
+<text x="530" y="150" fill="#141419" font-family="ui-monospace, SFMono-Regular, 'Cascadia Mono', Consolas, 'Microsoft YaHei', monospace" font-size="14" font-weight="700" text-anchor="start">normalizeRequest() → validate</text>
+<rect x="918.4" y="136" width="121.6" height="19" rx="9.5" fill="#ece7f9"/>
+<text x="979.1999999999999" y="150" fill="#c02b2b" font-family="ui-monospace, SFMono-Regular, 'Cascadia Mono', Consolas, 'Microsoft YaHei', monospace" font-size="11" font-weight="700" text-anchor="middle">✕ invalid-prompt</text>
+<text x="530" y="169" fill="#4d5261" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', sans-serif" font-size="11.5" font-weight="400" text-anchor="start">prompt 1..4000 · count ≤ maxImagesPerCall · defaults square/auto</text>
+<text x="1040" y="169" fill="#8f94a4" font-family="ui-monospace, SFMono-Regular, 'Cascadia Mono', Consolas, 'Microsoft YaHei', monospace" font-size="11" font-weight="400" text-anchor="end">translate.ts</text>
+<rect x="510" y="194" width="550" height="66" rx="14" fill="#ffffff" stroke="#e2dff0" stroke-width="1.2"/>
+<text x="530" y="228" fill="#141419" font-family="ui-monospace, SFMono-Regular, 'Cascadia Mono', Consolas, 'Microsoft YaHei', monospace" font-size="14" font-weight="700" text-anchor="start">checkQuotaGenerations()</text>
+<rect x="898.6" y="214" width="141.4" height="19" rx="9.5" fill="#ece7f9"/>
+<text x="969.3" y="228" fill="#c02b2b" font-family="ui-monospace, SFMono-Regular, 'Cascadia Mono', Consolas, 'Microsoft YaHei', monospace" font-size="11" font-weight="700" text-anchor="middle">✕ quota-generations</text>
+<text x="530" y="247" fill="#4d5261" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', sans-serif" font-size="11.5" font-weight="400" text-anchor="start">before any engine is contacted · 200 calls / session</text>
+<text x="1040" y="247" fill="#8f94a4" font-family="ui-monospace, SFMono-Regular, 'Cascadia Mono', Consolas, 'Microsoft YaHei', monospace" font-size="11" font-weight="400" text-anchor="end">quota.ts</text>
+<line x1="785" y1="184" x2="785" y2="199" stroke="#4B67B4" stroke-width="2.2" stroke-linecap="round" marker-end="url(#a)"/>
+<text x="40" y="290" fill="#4B67B4" font-family="ui-monospace, SFMono-Regular, 'Cascadia Mono', Consolas, 'Microsoft YaHei', monospace" font-size="11" font-weight="700" text-anchor="start" letter-spacing="1.15">③ ENGINE CHAIN · chainOrder() · top-down, each engine at most once</text>
+<rect x="40" y="300" width="1020" height="168" rx="16" fill="#ffffff" stroke="#e2dff0" stroke-width="1.2"/>
+<text x="96" y="322" fill="#8f94a4" font-family="ui-monospace, SFMono-Regular, 'Cascadia Mono', Consolas, 'Microsoft YaHei', monospace" font-size="11" font-weight="700" text-anchor="start" letter-spacing="0.9">ENGINE</text>
+<text x="200" y="322" fill="#8f94a4" font-family="ui-monospace, SFMono-Regular, 'Cascadia Mono', Consolas, 'Microsoft YaHei', monospace" font-size="11" font-weight="700" text-anchor="start" letter-spacing="0.9">MODEL · REQUEST</text>
+<text x="690" y="322" fill="#8f94a4" font-family="ui-monospace, SFMono-Regular, 'Cascadia Mono', Consolas, 'Microsoft YaHei', monospace" font-size="11" font-weight="700" text-anchor="start" letter-spacing="0.9">HEALTH</text>
+<text x="1040" y="322" fill="#8f94a4" font-family="ui-monospace, SFMono-Regular, 'Cascadia Mono', Consolas, 'Microsoft YaHei', monospace" font-size="11" font-weight="700" text-anchor="end" letter-spacing="0.9">ATTEMPT</text>
+<line x1="60" y1="368" x2="1040" y2="368" stroke="#e6e1f2" stroke-width="1"/>
+<line x1="60" y1="410" x2="1040" y2="410" stroke="#e6e1f2" stroke-width="1"/>
+<text x="60" y="352" fill="#8f94a4" font-family="ui-monospace, SFMono-Regular, 'Cascadia Mono', Consolas, 'Microsoft YaHei', monospace" font-size="11" font-weight="400" text-anchor="start">#1</text>
+<text x="96" y="352" fill="#141419" font-family="ui-monospace, SFMono-Regular, 'Cascadia Mono', Consolas, 'Microsoft YaHei', monospace" font-size="13" font-weight="700" text-anchor="start">openai</text>
+<text x="200" y="352" fill="#4d5261" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', sans-serif" font-size="11" font-weight="400" text-anchor="start">gpt-image-1 · POST {baseUrl}/images/generations · b64_json</text>
+<rect x="680" y="334" width="196" height="28" rx="9" fill="none" stroke="#bc4c00" stroke-width="1.2" stroke-dasharray="4 3" opacity=".85"/>
+<text x="690" y="352" fill="#bc4c00" font-family="ui-monospace, SFMono-Regular, 'Cascadia Mono', Consolas, 'Microsoft YaHei', monospace" font-size="11" font-weight="400" text-anchor="start">2 fails → cooldown</text>
+<rect x="958.0" y="338" width="82.0" height="19" rx="9.5" fill="#ece7f9"/>
+<text x="999.0" y="352" fill="#c02b2b" font-family="ui-monospace, SFMono-Regular, 'Cascadia Mono', Consolas, 'Microsoft YaHei', monospace" font-size="11" font-weight="700" text-anchor="middle">✕ http 429</text>
+<text x="60" y="394" fill="#8f94a4" font-family="ui-monospace, SFMono-Regular, 'Cascadia Mono', Consolas, 'Microsoft YaHei', monospace" font-size="11" font-weight="400" text-anchor="start">#2</text>
+<text x="96" y="394" fill="#141419" font-family="ui-monospace, SFMono-Regular, 'Cascadia Mono', Consolas, 'Microsoft YaHei', monospace" font-size="13" font-weight="700" text-anchor="start">cogview</text>
+<text x="200" y="394" fill="#4d5261" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', sans-serif" font-size="11" font-weight="400" text-anchor="start">cogview-3-flash · response_format url → download</text>
+<text x="690" y="394" fill="#4d5261" font-family="ui-monospace, SFMono-Regular, 'Cascadia Mono', Consolas, 'Microsoft YaHei', monospace" font-size="11" font-weight="400" text-anchor="start">0 fails</text>
+<rect x="898.6" y="380" width="141.4" height="19" rx="9.5" fill="#ece7f9"/>
+<text x="969.3" y="394" fill="#16a34a" font-family="ui-monospace, SFMono-Regular, 'Cascadia Mono', Consolas, 'Microsoft YaHei', monospace" font-size="11" font-weight="700" text-anchor="middle">✓ served · 4 images</text>
+<text x="60" y="436" fill="#8f94a4" font-family="ui-monospace, SFMono-Regular, 'Cascadia Mono', Consolas, 'Microsoft YaHei', monospace" font-size="11" font-weight="400" text-anchor="start">#3</text>
+<text x="96" y="436" fill="#141419" font-family="ui-monospace, SFMono-Regular, 'Cascadia Mono', Consolas, 'Microsoft YaHei', monospace" font-size="13" font-weight="700" text-anchor="start">+ any</text>
+<text x="200" y="436" fill="#4d5261" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', sans-serif" font-size="11" font-weight="400" text-anchor="start">OpenAI-compatible · provider openai | replicate | fal</text>
+<text x="690" y="436" fill="#8f94a4" font-family="ui-monospace, SFMono-Regular, 'Cascadia Mono', Consolas, 'Microsoft YaHei', monospace" font-size="11" font-weight="400" text-anchor="start">—</text>
+<rect x="951.4" y="422" width="88.6" height="19" rx="9.5" fill="#ece7f9"/>
+<text x="995.6999999999999" y="436" fill="#8f94a4" font-family="ui-monospace, SFMono-Regular, 'Cascadia Mono', Consolas, 'Microsoft YaHei', monospace" font-size="11" font-weight="700" text-anchor="middle">not reached</text>
+<text x="60" y="458" fill="#8f94a4" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', sans-serif" font-size="11" font-weight="400" text-anchor="start">failureThreshold 2 → cooldownMs 60000 · cooling or disabled engines are skipped</text>
+<text x="1040" y="458" fill="#8f94a4" font-family="ui-monospace, SFMono-Regular, 'Cascadia Mono', Consolas, 'Microsoft YaHei', monospace" font-size="10.5" font-weight="400" text-anchor="end">apiKeyRef → env var · resolved per call, never stored</text>
+<text x="40" y="490" fill="#4B67B4" font-family="ui-monospace, SFMono-Regular, 'Cascadia Mono', Consolas, 'Microsoft YaHei', monospace" font-size="11" font-weight="700" text-anchor="start" letter-spacing="1.15">④ BYTE GATE · COMMIT · RETURNS</text>
+<line x1="330" y1="468" x2="330" y2="498" stroke="#4B67B4" stroke-width="2.2" stroke-linecap="round" marker-end="url(#a)"/>
+<rect x="40" y="500" width="340" height="110" rx="14" fill="#ffffff" stroke="#e2dff0" stroke-width="1.2"/>
+<text x="60" y="530" fill="#141419" font-family="ui-monospace, SFMono-Regular, 'Cascadia Mono', Consolas, 'Microsoft YaHei', monospace" font-size="13.5" font-weight="700" text-anchor="start">checkQuotaBytes()</text>
+<rect x="258.2" y="516" width="101.8" height="19" rx="9.5" fill="#ece7f9"/>
+<text x="309.09999999999997" y="530" fill="#c02b2b" font-family="ui-monospace, SFMono-Regular, 'Cascadia Mono', Consolas, 'Microsoft YaHei', monospace" font-size="11" font-weight="700" text-anchor="middle">✕ quota-bytes</text>
+<text x="60" y="550" fill="#4d5261" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', sans-serif" font-size="11.5" font-weight="400" text-anchor="start">before anything reaches the attachment store</text>
+<rect x="60" y="562" width="200" height="6" rx="3" fill="#ece8f6"/>
+<line x1="200" y1="558" x2="200" y2="572" stroke="#c02b2b" stroke-width="2"/>
+<text x="268" y="569" fill="#8f94a4" font-family="ui-monospace, SFMono-Regular, 'Cascadia Mono', Consolas, 'Microsoft YaHei', monospace" font-size="11" font-weight="400" text-anchor="start">cap 200 MiB</text>
+<text x="60" y="594" fill="#8f94a4" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', sans-serif" font-size="11" font-weight="400" text-anchor="start">folds draw/generated · log + ledger</text>
+<rect x="410" y="500" width="350" height="110" rx="14" fill="#ffffff" stroke="#e2dff0" stroke-width="1.2"/>
+<text x="430" y="524" fill="#4B67B4" font-family="ui-monospace, SFMono-Regular, 'Cascadia Mono', Consolas, 'Microsoft YaHei', monospace" font-size="11" font-weight="700" text-anchor="start" letter-spacing="1">COMMIT · TWO CHANNELS</text>
+<text x="430" y="550" fill="#141419" font-family="ui-monospace, SFMono-Regular, 'Cascadia Mono', Consolas, 'Microsoft YaHei', monospace" font-size="12.5" font-weight="700" text-anchor="start">attachments.saveImage</text>
+<text x="600" y="550" fill="#4d5261" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', sans-serif" font-size="11" font-weight="400" text-anchor="start">durable refs · att-…</text>
+<text x="430" y="574" fill="#141419" font-family="ui-monospace, SFMono-Regular, 'Cascadia Mono', Consolas, 'Microsoft YaHei', monospace" font-size="12.5" font-weight="700" text-anchor="start">draw/generated</text>
+<text x="600" y="574" fill="#4d5261" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', sans-serif" font-size="11" font-weight="400" text-anchor="start">eventGate → log | ledger</text>
+<text x="430" y="596" fill="#8f94a4" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', sans-serif" font-size="10.5" font-weight="400" text-anchor="start">log is durable · ledger is live-session only</text>
+<rect x="790" y="500" width="270" height="110" rx="14" fill="#ffffff" stroke="#e2dff0" stroke-width="1.2"/>
+<text x="810" y="524" fill="#4B67B4" font-family="ui-monospace, SFMono-Regular, 'Cascadia Mono', Consolas, 'Microsoft YaHei', monospace" font-size="11" font-weight="700" text-anchor="start" letter-spacing="1">RETURNS</text>
+<text x="810" y="550" fill="#4d5261" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', sans-serif" font-size="11" font-weight="400" text-anchor="start">canonical JSON + image blocks</text>
+<text x="810" y="572" fill="#4d5261" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', sans-serif" font-size="11" font-weight="400" text-anchor="start">result card · preparing / start / result</text>
+<text x="810" y="594" fill="#4d5261" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', sans-serif" font-size="11" font-weight="400" text-anchor="start">Settings tab · status · probe · keys</text>
+<line x1="382" y1="552" x2="406" y2="552" stroke="#4B67B4" stroke-width="2.2" stroke-linecap="round" marker-end="url(#a)"/>
+<line x1="762" y1="552" x2="786" y2="552" stroke="#4B67B4" stroke-width="2.2" stroke-linecap="round" marker-end="url(#a)"/>
+<path d="M925 610 V622 H24 V227 H38" fill="none" stroke="#4B67B4" stroke-width="2" stroke-dasharray="7 5" opacity=".62" stroke-linecap="round" marker-end="url(#a)"/>
+<text x="15" y="430" fill="#8f94a4" font-family="ui-monospace, SFMono-Regular, 'Cascadia Mono', Consolas, 'Microsoft YaHei', monospace" font-size="10.5" text-anchor="middle" transform="rotate(-90 15 430)">regenerate</text>
+<line x1="40" y1="636" x2="1060" y2="636" stroke="#e6e1f2"/>
+<text x="40" y="652" fill="#8f94a4" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', sans-serif" font-size="11" font-weight="400" text-anchor="start">dashed return: the result card regenerates through the same drawer — quota, routing, storage and audit again</text>
+<text x="1060" y="652" fill="#8f94a4" font-family="ui-monospace, SFMono-Regular, 'Cascadia Mono', Consolas, 'Microsoft YaHei', monospace" font-size="10.5" font-weight="400" text-anchor="end">src/drawer.ts · router.ts · quota.ts · event-gate.ts</text>
+</svg>

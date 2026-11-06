@@ -1,5 +1,10 @@
 <div align="center">
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-draw-hero-en-dark.webp">
+  <img src="docs/assets/dsh-draw-hero-en-light.webp" width="100%" alt="dsh-draw: one image_generate tool over a health-aware engine chain (openai failed with HTTP 429, cogview served), four generated images saved as durable attachments, and the session quota meter">
+</picture>
+
 # dsh-draw
 
 **Unified static-image generation routing for DeepSeek Harness.**
@@ -53,9 +58,12 @@ Unified static-image generation routing for DeepSeek Harness.
 
 One tool, many engines — health-aware fallback, durable results, counted usage.
 
-![Workflow diagram for dsh-draw: call → plugin → result.](docs/assets/dsh-draw-flow.svg)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-draw-flow-v5-dark.svg">
+  <img src="docs/assets/dsh-draw-flow-v5-light.svg" width="100%" alt="dsh-draw structure: image_generate and draw/regenerate merge into one drawer; normalize and validate, then the generation quota gate before any engine is contacted, then the engine chain as a scoreboard with cooldown health, then the byte quota gate before the attachment store; the commit forks into durable attachment refs and a gated draw/generated session event, and the returns feed the model value, the result card and the Settings tab, with regenerate re-entering the same drawer on the dashed return rail">
+</picture>
 
-*Workflow overview: call → plugin → result. The examples below use the real command surface.*
+*Structure: the tool and the card's regenerate converge on one drawer — validate → `checkQuotaGenerations` (before engine spend) → the engine chain with cooldown health → `checkQuotaBytes` (before storage) → durable attachment refs plus a gated `draw/generated` event. The dashed return is regenerate re-entering the same path, so it cannot skip quota, routing, storage or audit. The examples below use the real command surface.*
 
 
 
