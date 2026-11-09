@@ -393,3 +393,5 @@ This project is part of the DeepSeek Harness plugin family from [PerryLink](http
 ## License
 
 [Apache License 2.0](LICENSE) © 2026 dsh-draw contributors
+
+<p align="center"><sub>工具链：<a href="https://github.com/PerryLink/dsh-plugin-guide">dsh-plugin-guide</a> · <a href="https://github.com/PerryLink/dsh-standards">dsh-standards</a> · <a href="https://github.com/PerryLink/dsh-plugin-start">dsh-plugin-start</a></sub></p>
