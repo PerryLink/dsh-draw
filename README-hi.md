@@ -91,7 +91,7 @@ measured 2026-10-05 · from the README's FROZEN maintenance table (npm weekly do
 
 | सतह | स्थिति |
 |---|---|
-| Harness | DeepSeek Harness `dsh-v0.2.1-alpha.1` (`0.1.5-rc.2` के लिए घोषित संगतता) |
+| Harness | DeepSeek Harness `dsh-v0.2.2-rc.4` (`0.1.5-rc.2` के लिए घोषित संगतता) |
 | Node | `^22.19.0 \|\| >=24.0.0` |
 | इंजन | कोई भी OpenAI-संगत images एंडपॉइंट; OpenAI Images (`gpt-image-1`) और Zhipu CogView (`cogview-3-flash`) प्रीसेट |
 | सतहें | Host `image_generate` टूल + वेब परिणाम कार्ड + Plugins सेटिंग टैब |

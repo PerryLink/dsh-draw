@@ -1,7 +1,7 @@
 /**
  * `dsh-draw`, browser half: mounts the `draw` Remote contribution, registers
  * the keyed `image_generate` result card (`tool.call.toolview`, key
- * `image_generate`), and registers the Plugins settings tab (`settings.plugins.tab`,
+ * `image_generate`), and registers the Plugins settings tab (`plugins.tab`,
  * id `draw`). All data arrives through the `remote.draw` namespace; the card
  * and the tab hold no state beyond their local forms.
  *
@@ -12,9 +12,10 @@ import type { Context as ClientContext } from '@deepseek-ai/cordis'
 // Type-only: activates the ctx.remote Context merge (TypertClientRemote).
 import type {} from '@deepseek-ai/dsh-api-remotes/client'
 import type {} from '@deepseek-ai/dsh-client-locale/client'
-// Type-only: pulls the 'settings.plugins.tab' SlotMap declaration into this
+// Type-only: pulls the 'plugins.tab' SlotMap declaration into this
 // program so the tab registration typechecks against the real declaration.
 import type {} from '@deepseek-ai/dsh-client-ui-settings/client'
+import type {} from '@deepseek-ai/dsh-client-ui-plugin-manager/client'
 import type {} from '@deepseek-ai/dsh-client-ui-tool'
 import type { RemoteResult } from '@deepseek-ai/dsh-typert-protocol'
 import { DrawResultCard, type DrawResultCardInjected } from './DrawResultCard.tsx'
@@ -95,8 +96,8 @@ export async function apply(ctx: ClientContext): Promise<void> {
       }),
     }, DrawResultCard))
 
-    slots.inject('settings.plugins.tab', () => slots.register({
-      name: 'settings.plugins.tab',
+    slots.inject('plugins.tab', () => slots.register({
+      name: 'plugins.tab',
       id: 'draw',
       order: 40,
       label: () => t('tab'),

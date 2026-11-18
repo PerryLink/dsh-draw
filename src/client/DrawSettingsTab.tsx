@@ -25,7 +25,7 @@ export interface DrawSettingsTabInjected {
 
 /** Full component props assembled by the Settings slot renderer. */
 export type DrawSettingsTabProps =
-  PropsRuntime<'settings.plugins.tab'>
+  PropsRuntime<'plugins.tab'>
   & PropsLocale<'draw'>
   & InjectFace<DrawSettingsTabInjected>
 
