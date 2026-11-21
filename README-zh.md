@@ -1,5 +1,10 @@
 <div align="center">
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-draw-hero-zh-dark.webp">
+  <img src="docs/assets/dsh-draw-hero-zh-light.webp" width="100%" alt="dsh-draw：一个 image_generate 工具走健康感知的引擎链（openai 以 HTTP 429 失败，由 cogview 接续），四张生成的图片保存为持久附件，另有会话配额计量">
+</picture>
+
 # 🎨 dsh-draw
 
 > 🧊 **2026-10-05 起冻结** —— 只修真实故障；下方记录了生态已收敛到的更广泛采用的实现。

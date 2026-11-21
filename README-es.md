@@ -1,5 +1,10 @@
 <div align="center">
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-draw-hero-en-dark.webp">
+  <img src="docs/assets/dsh-draw-hero-en-light.webp" width="100%" alt="dsh-draw: una herramienta image_generate sobre una cadena de motores con reconocimiento de estado (openai falló con HTTP 429, cogview sirvió), cuatro imágenes generadas guardadas como adjuntos duraderos y el medidor de cuota de la sesión">
+</picture>
+
 # 🎨 dsh-draw
 
 > 🧊 **CONGELADO desde 2026-10-05** — solo se corrigen fallos reales. La comunidad ha convergido en una implementación más ampliamente adoptada, indicada abajo.

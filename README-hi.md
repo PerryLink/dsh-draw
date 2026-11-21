@@ -1,5 +1,10 @@
 <div align="center">
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-draw-hero-en-dark.webp">
+  <img src="docs/assets/dsh-draw-hero-en-light.webp" width="100%" alt="dsh-draw: स्वास्थ्य-जागरूक इंजन श्रृंखला पर एक image_generate टूल (openai HTTP 429 के साथ विफल, cogview ने सेवा दी), चार उत्पन्न छवियाँ टिकाऊ अनुलग्नकों के रूप में सहेजी गईं, और सत्र कोटा मीटर">
+</picture>
+
 # 🎨 dsh-draw
 
 > 🧊 **2026-10-05 से फ़्रोज़न** — केवल वास्तविक खराबी ठीक होती है। समुदाय एक अधिक व्यापक रूप से अपनाए गए कार्यान्वयन पर एकत्रित हो गया है, जो नीचे दर्ज है।
