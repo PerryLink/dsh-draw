@@ -127,6 +127,10 @@ model                           harness
 
 ## Quick start
 
+![dsh-draw: real terminal run](docs/assets/dsh-draw-demo.gif)
+
+*Animated replay of a real run recorded in this repository.*
+
 ```sh
 dsh plugin --profile web add github:PerryLink/dsh-draw
 ```

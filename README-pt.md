@@ -39,6 +39,10 @@ dsh plugin --profile <name> add dsh-draw
 
 ## Instalação e desinstalação
 
+![dsh-draw: execução real de terminal](docs/assets/dsh-draw-demo.gif)
+
+*Repetição animada de uma execução real registrada neste repositório.*
+
 - **Canal git** (último `main`): `dsh plugin --profile web add github:PerryLink/dsh-draw` — o script `prepare` compila apenas com dependências de produção.
 - **Canal npm** (versões publicadas): `dsh plugin --profile web add dsh-draw`.
 - **Canal tarball**: `pnpm pack` neste repositório e então `dsh plugin --profile web add ./dsh-draw-<version>.tgz`.
