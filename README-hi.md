@@ -14,6 +14,8 @@
 
 *एक टूल, कई इंजन — स्वास्थ्य-सजग फ़ॉलबैक, टिकाऊ परिणाम, गिना हुआ उपयोग।*
 
+अंतिम सत्यापन: DeepSeek Harness `dsh-v0.2.3-alpha.1` (2026-11-22).
+
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
 [![Gitee](https://img.shields.io/badge/Gitee-mirror-c71d23?logo=gitee)](https://gitee.com/perrylink/dsh-draw)
 [![DSH plugin](https://img.shields.io/badge/dsh--plugin-✅-green)](https://github.com/topics/dsh-plugin)
@@ -32,11 +34,9 @@
 dsh plugin --profile <name> add dsh-draw
 ```
 
-
 </div>
 
 ---
-
 
 **📖 इकोसिस्टम नॉलेज बेस** — मापे गए आँकड़े, मार्केटिंग नहीं: [डेवलपमेंट गाइड · चयन डेटा · रखरखाव मानदंड](https://perrylink.github.io/dsh-plugin-guide/)।
 
@@ -64,7 +64,6 @@ DeepSeek Harness के लिए एकीकृत स्थिर-छवि �
 ![dsh-draw कार्यप्रवाह आरेख: कॉल → प्लगइन → परिणाम।](docs/assets/dsh-draw-flow.svg)
 
 *कार्यप्रवाह: कॉल → प्लगइन → परिणाम। नीचे के उदाहरण वास्तविक कमांड सतह का उपयोग करते हैं।*
-
 
 *वही रन, एनिमेटेड।*
 
@@ -205,8 +204,6 @@ Error: image_generate: prompt must be a non-empty string
 *स्रोत `plugins/dsh-draw/src/drawer.ts:141-147; plugins/dsh-draw/src/tool.ts:137-140; plugins/dsh-draw/tests/drawer.spec.ts:77-82`*
 
 #### संक्षिप्त उदाहरण
-
-
 
 ## कॉन्फ़िगरेशन
 

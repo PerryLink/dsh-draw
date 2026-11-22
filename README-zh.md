@@ -14,6 +14,8 @@
 
 *一个工具、多个引擎 —— 健康感知回退、结果持久、用量记账。*
 
+最近一次核验：DeepSeek Harness `dsh-v0.2.3-alpha.1`（2026-11-22）。
+
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
 [![Gitee](https://img.shields.io/badge/Gitee-mirror-c71d23?logo=gitee)](https://gitee.com/perrylink/dsh-draw)
 [![DSH plugin](https://img.shields.io/badge/dsh--plugin-✅-green)](https://github.com/topics/dsh-plugin)
@@ -32,11 +34,9 @@
 dsh plugin --profile <name> add dsh-draw
 ```
 
-
 </div>
 
 ---
-
 
 **📖 生态实测知识库**（实测数据，不是营销）：[插件开发指南 · 选型实测数据 · 维护取舍判据](https://perrylink.github.io/dsh-plugin-guide/)。
 
@@ -51,7 +51,6 @@ DeepSeek Harness 的统一静态图像生成路由。
 ![dsh-draw 工作流图：调用 → 插件 → 结果。](docs/assets/dsh-draw-flow.svg)
 
 *工作流概览：调用 → 插件 → 结果。下面的示例使用实际命令面。*
-
 
 *同一次运行，动图版。*
 
@@ -207,8 +206,6 @@ Error: image_generate: prompt must be a non-empty string
 *来源 `plugins/dsh-draw/src/drawer.ts:141-147; plugins/dsh-draw/src/tool.ts:137-140; plugins/dsh-draw/tests/drawer.spec.ts:77-82`*
 
 #### 简短示例
-
-
 
 ## 配置
 

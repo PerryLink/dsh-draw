@@ -14,6 +14,8 @@
 
 *Una herramienta, muchos motores — respaldo consciente de salud, resultados duraderos, uso contabilizado.*
 
+Última verificación: DeepSeek Harness `dsh-v0.2.3-alpha.1` (2026-11-22).
+
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
 [![Gitee](https://img.shields.io/badge/Gitee-mirror-c71d23?logo=gitee)](https://gitee.com/perrylink/dsh-draw)
 [![DSH plugin](https://img.shields.io/badge/dsh--plugin-✅-green)](https://github.com/topics/dsh-plugin)
@@ -32,11 +34,9 @@
 dsh plugin --profile <name> add dsh-draw
 ```
 
-
 </div>
 
 ---
-
 
 **📖 Base de conocimiento del ecosistema** — datos medidos, no marketing: [guía de desarrollo · datos de selección · criterios de mantenimiento](https://perrylink.github.io/dsh-plugin-guide/).
 
@@ -64,7 +64,6 @@ Una herramienta, muchos motores — respaldo consciente de salud, resultados dur
 ![Diagrama de flujo de dsh-draw: llamada → plugin → resultado.](docs/assets/dsh-draw-flow.svg)
 
 *Resumen del flujo: llamada → plugin → resultado. Los ejemplos siguientes usan la superficie de comandos real.*
-
 
 *La misma ejecución, animada.*
 
@@ -205,8 +204,6 @@ Error: image_generate: prompt must be a non-empty string
 *Observado en `plugins/dsh-draw/src/drawer.ts:141-147; plugins/dsh-draw/src/tool.ts:137-140; plugins/dsh-draw/tests/drawer.spec.ts:77-82`*
 
 #### Ejemplos breves
-
-
 
 ## Configuración
 

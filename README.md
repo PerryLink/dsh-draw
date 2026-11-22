@@ -11,6 +11,8 @@
 
 One tool, many engines — health-aware fallback, durable results, counted usage.
 
+最近一次核验：DeepSeek Harness `dsh-v0.2.3-alpha.1`（2026-11-22）。
+
 [简体中文](README-zh.md) · [Español](README-es.md) · [Português](README-pt.md) · [हिन्दी](README-hi.md)
 
 > 🧊 **FROZEN since 2026-10-05** — only real breakages are fixed. The ecosystem has converged on a more widely adopted implementation, recorded below.
@@ -51,7 +53,6 @@ dsh plugin --profile <name> add dsh-draw
 
 *English:* part of a 99 plugin family for DeepSeek Harness. If it is useful, **a star helps the next person find it** — nothing is gated behind it.
 
-
 ## What is dsh-draw?
 
 Unified static-image generation routing for DeepSeek Harness.
@@ -64,8 +65,6 @@ One tool, many engines — health-aware fallback, durable results, counted usage
 </picture>
 
 *Structure: the tool and the card's regenerate converge on one drawer — validate → `checkQuotaGenerations` (before engine spend) → the engine chain with cooldown health → `checkQuotaBytes` (before storage) → durable attachment refs plus a gated `draw/generated` event. The dashed return is regenerate re-entering the same path, so it cannot skip quota, routing, storage or audit. The examples below use the real command surface.*
-
-
 
 ## Maintenance status: 🧊 FROZEN
 
@@ -206,8 +205,6 @@ Error: image_generate: prompt must be a non-empty string
 *Observed from `plugins/dsh-draw/src/drawer.ts:141-147; plugins/dsh-draw/src/tool.ts:137-140; plugins/dsh-draw/tests/drawer.spec.ts:77-82`*
 
 #### Brief examples
-
-
 
 ## Configuration
 
