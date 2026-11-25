@@ -51,6 +51,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.29] - 2026-11-24
+
+### Changed
+
+- **`engines.dsh` is a single `>=0.2.0-0 <0.4.0-0` range.** The append-only union of the 0.1.x/0.2.0/0.2.1/0.2.2/0.2.3 clauses is replaced by one range that admits every 0.2.x-0.3.x host line, so the community plugin index's `0.2.0-0` admission line accepts the published package. Peer dependency ranges and devDependency pins are unchanged; no source or behaviour change.
+- Sync `src/version.ts` with the package version so the version tripwire test passes again.
+
 ## [0.2.28] - 2026-11-22
 
 - Compatibility: declare DeepSeek Harness 0.2.3-alpha.1 support (>=0.2.3-0 <0.3.0-0 in engines.dsh and every @deepseek-ai/dsh-* peer range) and refresh README verification stamps.
